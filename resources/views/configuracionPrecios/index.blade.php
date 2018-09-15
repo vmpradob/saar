@@ -209,13 +209,13 @@ $(document).ready(function(){
 		var eq_nI =$('body #aterrizajeGeneralNacional-tab .eq_nocturInt').val();
 
 		var val_dN= eq_dN*ut;
-		$('body #aterrizajeGeneralNacional-tab #precio_diurnoNac').val(val_dN.toFixed(2));
+		$('body #aterrizajeGeneralNacional-tab #precio_diurnoNac').val(val_dN);
 		var val_dI= eq_dI*ut;
-		$('body #aterrizajeGeneralNacional-tab #precio_diurnoInt').val(val_dI.toFixed(2));
+		$('body #aterrizajeGeneralNacional-tab #precio_diurnoInt').val(val_dI));
 		var val_nN= eq_nN*ut;
-		$('body #aterrizajeGeneralNacional-tab #precio_nocturNac').val(val_nN.toFixed(2));
+		$('body #aterrizajeGeneralNacional-tab #precio_nocturNac').val(val_nN);
 		var val_nI= eq_nI*ut;
-		$('body #aterrizajeGeneralNacional-tab #precio_nocturInt').val(val_nI.toFixed(2));
+		$('body #aterrizajeGeneralNacional-tab #precio_nocturInt').val(val_nI);
 	});
 
 	$( "body #aterrizajeGeneralNacional-tab input" ).keyup(function( event ) {	
@@ -226,13 +226,13 @@ $(document).ready(function(){
 		var eq_nI =$('body #aterrizajeGeneralNacional-tab .eq_nocturInt').val();
 
 		var val_dN= eq_dN*ut;
-		$('body #aterrizajeGeneralNacional-tab .precio_diurnoNac').val(val_dN.toFixed(2));
+		$('body #aterrizajeGeneralNacional-tab .precio_diurnoNac').val(val_dN.toFixed(5));
 		var val_dI= eq_dI*ut;
-		$('body #aterrizajeGeneralNacional-tab .precio_diurnoInt').val(val_dI.toFixed(2));
+		$('body #aterrizajeGeneralNacional-tab .precio_diurnoInt').val(val_dI.toFixed(5));
 		var val_nN= eq_nN*ut;
-		$('body #aterrizajeGeneralNacional-tab .precio_nocturNac').val(val_nN.toFixed(2));
+		$('body #aterrizajeGeneralNacional-tab .precio_nocturNac').val(val_nN.toFixed(5));
 		var val_nI= eq_nI*ut;
-		$('body #aterrizajeGeneralNacional-tab .precio_nocturInt').val(val_nI.toFixed(2));
+		$('body #aterrizajeGeneralNacional-tab .precio_nocturInt').val(val_nI.toFixed(5));
 	});
 
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
@@ -241,9 +241,9 @@ $(document).ready(function(){
 		var eq_bN =$('body #estacionamientoGeneralNacional-tab .eq_bloqueNac').val();
 
 		var val_precioInt= eq_bI*ut;
-		$('body #estacionamientoGeneralNacional-tab .precio_estInt').val(val_precioInt.toFixed(2));
+		$('body #estacionamientoGeneralNacional-tab .precio_estInt').val(val_precioInt.toFixed(5));
 		var val_precioNac= eq_bN*ut;
-		$('body #estacionamientoGeneralNacional-tab .precio_estNac').val(val_precioNac.toFixed(2));
+		$('body #estacionamientoGeneralNacional-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
 	$( "body #estacionamientoGeneralNacional-tab input" ).keyup(function( event ) {	
@@ -252,9 +252,9 @@ $(document).ready(function(){
 		var eq_bN =$('body #estacionamientoGeneralNacional-tab .eq_bloqueNac').val();
 
 		var val_precioInt= eq_bI*ut;
-		$('body #estacionamientoGeneralNacional-tab .precio_estInt').val(val_precioInt.toFixed(2));
+		$('body #estacionamientoGeneralNacional-tab .precio_estInt').val(val_precioInt.toFixed(5));
 		var val_precioNac= eq_bN*ut;
-		$('body #estacionamientoGeneralNacional-tab .precio_estNac').val(val_precioNac.toFixed(2));
+		$('body #estacionamientoGeneralNacional-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 	
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
@@ -265,13 +265,13 @@ $(document).ready(function(){
 		var eq_nI =$('body #aterrizajeComercialNacional-tab .eq_nocturInt').val();
 
 		var val_dN= eq_dN*ut;
-		$('body #aterrizajeComercialNacional-tab #precio_diurnoNac').val(val_dN.toFixed(2));
+		$('body #aterrizajeComercialNacional-tab #precio_diurnoNac').val(val_dN.toFixed(5));
 		var val_dI= eq_dI*ut;
-		$('body #aterrizajeComercialNacional-tab #precio_diurnoInt').val(val_dI.toFixed(2));
+		$('body #aterrizajeComercialNacional-tab #precio_diurnoInt').val(val_dI.toFixed(5));
 		var val_nN= eq_nN*ut;
-		$('body #aterrizajeComercialNacional-tab #precio_nocturNac').val(val_nN.toFixed(2));
+		$('body #aterrizajeComercialNacional-tab #precio_nocturNac').val(val_nN.toFixed(5));
 		var val_nI= eq_nI*ut;
-		$('body #aterrizajeComercialNacional-tab #precio_nocturInt').val(val_nI.toFixed(2));
+		$('body #aterrizajeComercialNacional-tab #precio_nocturInt').val(val_nI.toFixed(5));
 	});
 
 	$( "body #aterrizajeComercialNacional-tab input" ).keyup(function( event ) {	
@@ -282,13 +282,13 @@ $(document).ready(function(){
 		var eq_nI =$('body #aterrizajeComercialNacional-tab .eq_nocturInt').val();
 
 		var val_dN= eq_dN*ut;
-		$('body #aterrizajeComercialNacional-tab .precio_diurnoNac').val(val_dN.toFixed(2));
+		$('body #aterrizajeComercialNacional-tab .precio_diurnoNac').val(val_dN.toFixed(5));
 		var val_dI= eq_dI*ut;
-		$('body #aterrizajeComercialNacional-tab .precio_diurnoInt').val(val_dI.toFixed(2));
+		$('body #aterrizajeComercialNacional-tab .precio_diurnoInt').val(val_dI.toFixed(5));
 		var val_nN= eq_nN*ut;
-		$('body #aterrizajeComercialNacional-tab .precio_nocturNac').val(val_nN.toFixed(2));
+		$('body #aterrizajeComercialNacional-tab .precio_nocturNac').val(val_nN.toFixed(5));
 		var val_nI= eq_nI*ut;
-		$('body #aterrizajeComercialNacional-tab .precio_nocturInt').val(val_nI.toFixed(2));
+		$('body #aterrizajeComercialNacional-tab .precio_nocturInt').val(val_nI.toFixed(5));
 	});
 
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
@@ -297,9 +297,9 @@ $(document).ready(function(){
 		var eq_bN =$('body #estacionamientoComercialNacional-tab .eq_bloqueNac').val();
 
 		var val_precioInt= eq_bI*ut;
-		$('body #estacionamientoComercialNacional-tab .precio_estInt').val(val_precioInt.toFixed(2));
+		$('body #estacionamientoComercialNacional-tab .precio_estInt').val(val_precioInt.toFixed(5));
 		var val_precioNac= eq_bN*ut;
-		$('body #estacionamientoComercialNacional-tab .precio_estNac').val(val_precioNac.toFixed(2));
+		$('body #estacionamientoComercialNacional-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
 	$( "body #estacionamientoComercialNacional-tab input" ).keyup(function( event ) {	
@@ -308,9 +308,9 @@ $(document).ready(function(){
 		var eq_bN =$('body #estacionamientoComercialNacional-tab .eq_bloqueNac').val();
 
 		var val_precioInt= eq_bI*ut;
-		$('body #estacionamientoComercialNacional-tab .precio_estInt').val(val_precioInt.toFixed(2));
+		$('body #estacionamientoComercialNacional-tab .precio_estInt').val(val_precioInt.toFixed(5));
 		var val_precioNac= eq_bN*ut;
-		$('body #estacionamientoComercialNacional-tab .precio_estNac').val(val_precioNac.toFixed(2));
+		$('body #estacionamientoComercialNacional-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
 	
@@ -340,13 +340,13 @@ $(document).ready(function(){
 		var eq_nI =$('body #aterrizajeGeneralExtranjera-tab .eq_nocturInt').val();
 
 		var val_dN= eq_dN*ut;
-		$('body #aterrizajeGeneralExtranjera-tab .precio_diurnoNac').val(val_dN.toFixed(2));
+		$('body #aterrizajeGeneralExtranjera-tab .precio_diurnoNac').val(val_dN.toFixed(5));
 		var val_dI= eq_dI*ut;
-		$('body #aterrizajeGeneralExtranjera-tab .precio_diurnoInt').val(val_dI.toFixed(2));
+		$('body #aterrizajeGeneralExtranjera-tab .precio_diurnoInt').val(val_dI.toFixed(5));
 		var val_nN= eq_nN*ut;
-		$('body #aterrizajeGeneralExtranjera-tab .precio_nocturNac').val(val_nN.toFixed(2));
+		$('body #aterrizajeGeneralExtranjera-tab .precio_nocturNac').val(val_nN.toFixed(5));
 		var val_nI= eq_nI*ut;
-		$('body #aterrizajeGeneralExtranjera-tab .precio_nocturInt').val(val_nI.toFixed(2));
+		$('body #aterrizajeGeneralExtranjera-tab .precio_nocturInt').val(val_nI.toFixed(5));
 	});
 
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
@@ -355,9 +355,9 @@ $(document).ready(function(){
 		var eq_bN =$('body #estacionamientoGeneralExtranjera-tab .eq_bloqueNac').val();
 
 		var val_precioInt= eq_bI*ut;
-		$('body #estacionamientoGeneralExtranjera-tab .precio_estInt').val(val_precioInt.toFixed(2));
+		$('body #estacionamientoGeneralExtranjera-tab .precio_estInt').val(val_precioInt.toFixed(5));
 		var val_precioNac= eq_bN*ut;
-		$('body #estacionamientoGeneralExtranjera-tab .precio_estNac').val(val_precioNac.toFixed(2));
+		$('body #estacionamientoGeneralExtranjera-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
 	$( "body #estacionamientoGeneralExtranjera-tab input" ).keyup(function( event ) {	
@@ -366,9 +366,9 @@ $(document).ready(function(){
 		var eq_bN =$('body #estacionamientoGeneralExtranjera-tab .eq_bloqueNac').val();
 
 		var val_precioInt= eq_bI*ut;
-		$('body #estacionamientoGeneralExtranjera-tab .precio_estInt').val(val_precioInt.toFixed(2));
+		$('body #estacionamientoGeneralExtranjera-tab .precio_estInt').val(val_precioInt.toFixed(5));
 		var val_precioNac= eq_bN*ut;
-		$('body #estacionamientoGeneralExtranjera-tab .precio_estNac').val(val_precioNac.toFixed(2));
+		$('body #estacionamientoGeneralExtranjera-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
@@ -379,13 +379,13 @@ $(document).ready(function(){
 		var eq_nI =$('body #aterrizajeComercialExtranjera-tab .eq_nocturInt').val();
 
 		var val_dN= eq_dN*ut;
-		$('body #aterrizajeComercialExtranjera-tab #precio_diurnoNac').val(val_dN.toFixed(2));
+		$('body #aterrizajeComercialExtranjera-tab #precio_diurnoNac').val(val_dN.toFixed(5));
 		var val_dI= eq_dI*ut;
-		$('body #aterrizajeComercialExtranjera-tab #precio_diurnoInt').val(val_dI.toFixed(2));
+		$('body #aterrizajeComercialExtranjera-tab #precio_diurnoInt').val(val_dI.toFixed(5));
 		var val_nN= eq_nN*ut;
-		$('body #aterrizajeComercialExtranjera-tab #precio_nocturNac').val(val_nN.toFixed(2));
+		$('body #aterrizajeComercialExtranjera-tab #precio_nocturNac').val(val_nN.toFixed(5));
 		var val_nI= eq_nI*ut;
-		$('body #aterrizajeComercialExtranjera-tab #precio_nocturInt').val(val_nI.toFixed(2));
+		$('body #aterrizajeComercialExtranjera-tab #precio_nocturInt').val(val_nI.toFixed(5));
 	});
 
 	$( "body #aterrizajeComercialExtranjera-tab input" ).keyup(function( event ) {	
@@ -396,11 +396,11 @@ $(document).ready(function(){
 		var eq_nI =$('body #aterrizajeComercialExtranjera-tab .eq_nocturInt').val();
 
 		var val_dN= eq_dN*ut;
-		$('body #aterrizajeComercialExtranjera-tab .precio_diurnoNac').val(val_dN.toFixed(2));
+		$('body #aterrizajeComercialExtranjera-tab .precio_diurnoNac').val(val_dN.toFixed(5));
 		var val_dI= eq_dI*ut;
-		$('body #aterrizajeComercialExtranjera-tab .precio_diurnoInt').val(val_dI.toFixed(2));
+		$('body #aterrizajeComercialExtranjera-tab .precio_diurnoInt').val(val_dI.toFixed(5));
 		var val_nN= eq_nN*ut;
-		$('body #aterrizajeComercialExtranjera-tab .precio_nocturNac').val(val_nN.toFixed(2));
+		$('body #aterrizajeComercialExtranjera-tab .precio_nocturNac').val(val_nN.toFixed(5));
 		var val_nI= eq_nI*ut;
 		$('body #aterrizajeComercialExtranjera-tab .precio_nocturInt').val(val_nI);
 	});
@@ -411,9 +411,9 @@ $(document).ready(function(){
 		var eq_bN =$('body #estacionamientoComercialExtranjera-tab .eq_bloqueNac').val();
 
 		var val_precioInt= eq_bI*ut;
-		$('body #estacionamientoComercialExtranjera-tab .precio_estInt').val(val_precioInt.toFixed(2));
+		$('body #estacionamientoComercialExtranjera-tab .precio_estInt').val(val_precioInt.toFixed(5));
 		var val_precioNac= eq_bN*ut;
-		$('body #estacionamientoComercialExtranjera-tab .precio_estNac').val(val_precioNac.toFixed(2));
+		$('body #estacionamientoComercialExtranjera-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
 	$( "body #estacionamientoComercialExtranjera-tab input" ).keyup(function( event ) {	
@@ -422,9 +422,9 @@ $(document).ready(function(){
 		var eq_bN =$('body #estacionamientoComercialExtranjera-tab .eq_bloqueNac').val();
 
 		var val_precioInt= eq_bI*ut;
-		$('body #estacionamientoComercialExtranjera-tab .precio_estInt').val(val_precioInt.toFixed(2));
+		$('body #estacionamientoComercialExtranjera-tab .precio_estInt').val(val_precioInt.toFixed(5));
 		var val_precioNac= eq_bN*ut;
-		$('body #estacionamientoComercialExtranjera-tab .precio_estNac').val(val_precioNac.toFixed(2));
+		$('body #estacionamientoComercialExtranjera-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
 	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
@@ -435,7 +435,7 @@ $(document).ready(function(){
 		var eq_AborCH =$('body #cargosVarios-tab .eq_usoAbordajeConHab').val();
 
 		var val_form= Math.ceil(eq_form*ut);
-		$('body #cargosVarios-tab #precio_formulario-input').val(val_form.toFixed(2));
+		$('body #cargosVarios-tab #precio_formulario-input').val(val_form.toFixed(5));
 		var val_DerHab= eq_DerHab*ut;
 		$('body #cargosVarios-tab #precio_derechoHabilitacion-input').val(val_DerHab)
 		var val_AborSH= eq_AborSH*ut;
@@ -453,7 +453,7 @@ $(document).ready(function(){
 		var eq_AborCH =$('body #cargosVarios-tab .eq_usoAbordajeConHab').val();
 
 		var val_form= eq_form*ut;
-		$('body #cargosVarios-tab #precio_formulario-input').val(val_form.toFixed(2));
+		$('body #cargosVarios-tab #precio_formulario-input').val(val_form.toFixed(5));
 		var val_DerHab= eq_DerHab*ut;
 		$('body #cargosVarios-tab #precio_derechoHabilitacion-input').val(val_DerHab);
 		var val_AborSH= eq_AborSH*ut;
@@ -468,7 +468,7 @@ $(document).ready(function(){
 		var eq_UT     =$('body #Carga-tab .equivalenteUT').val();
 		
 		var val_carga = eq_UT*ut;
-		$('body #Carga-tab #precio_carga-input').val(val_carga.toFixed(2));
+		$('body #Carga-tab #precio_carga-input').val(val_carga.toFixed(5));
 	});
 
 	$( "body #Carga-tab input" ).keyup(function( event ) {	
@@ -476,7 +476,7 @@ $(document).ready(function(){
 		var eq_UT     =$('body #Carga-tab .equivalenteUT').val();
 		
 		var val_carga = eq_UT*ut;
-		$('body #Carga-tab #precio_carga-input').val(val_carga.toFixed(2));
+		$('body #Carga-tab #precio_carga-input').val(val_carga.toFixed(5));
 	});
 
 

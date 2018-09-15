@@ -598,10 +598,10 @@ class DespegueController extends Controller {
                 if($minimo == 0){
 
                     //Calculo Estandar
-                    $equivalente     = number_format($precio_estacionamiento, 2);
+                    $equivalente     = number_format($precio_estacionamiento, 5);
 
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
-                        $equivalente = number_format($eq_bloque*$dolar, 2);
+                        $equivalente = number_format($eq_bloque*$dolar, 5);
 
                     $montoDes        = $equivalente * $tiempoAFacturar * $peso_aeronave;
                     $cantidadDes     = '1';
@@ -616,9 +616,9 @@ class DespegueController extends Controller {
 
 
                     //Calculo Estandar
-                    $equivalenteEstandar = number_format($precio_estacionamiento, 2);
+                    $equivalenteEstandar = number_format($precio_estacionamiento, 5);
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
-                        $equivalenteEstandar = number_format($eq_bloque*$dolar, 2);
+                        $equivalenteEstandar = number_format($eq_bloque*$dolar, 5);
                     $montoDesEstandar    = $equivalenteEstandar * $tiempoAFacturar * $peso_aeronave;
                     $montoIvaEstandar    = ($iva * $montoDesEstandar)/100 ;
                     $totalDesEstandar    = $montoDesEstandar + $montoIvaEstandar;
@@ -1059,10 +1059,10 @@ class DespegueController extends Controller {
                 }else{
                     switch ($oc->nacionalidad_matricula) {
                         case 1:
-                            $montoDes = round(($oc->cantidad_unidades * $ut), 2);
+                            $montoDes = round(($oc->cantidad_unidades * $ut), 5);
                             break;
                         case 2:
-                            $montoDes = round(($oc->cantidad_unidades * $dolar), 2);
+                            $montoDes = round(($oc->cantidad_unidades * $dolar), 5);
                             break;
                     }
                 }

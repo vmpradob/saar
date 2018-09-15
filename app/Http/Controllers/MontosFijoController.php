@@ -84,7 +84,6 @@ class MontosFijoController extends Controller {
 		$confGeneral                    =MontosFijo::find($id);
 		$confGeneral->unidad_tributaria =$request->input('unidad_tributaria');
 		$confGeneral->dolar_oficial     =$request->input('dolar_oficial');
-
 		if($confGeneral->save())
 		{
 			return response()->json(array("text"=>'Montos modificados exitósamente.',
