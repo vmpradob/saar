@@ -209,13 +209,13 @@ $(document).ready(function(){
 		var eq_nI =$('body #aterrizajeGeneralNacional-tab .eq_nocturInt').val();
 
 		var val_dN= eq_dN*ut;
-		$('body #aterrizajeGeneralNacional-tab #precio_diurnoNac').val(val_dN);
+		$('body #aterrizajeGeneralNacional-tab #precio_diurnoNac').val(val_dN.toFixed(5));
 		var val_dI= eq_dI*ut;
-		$('body #aterrizajeGeneralNacional-tab #precio_diurnoInt').val(val_dI));
+		$('body #aterrizajeGeneralNacional-tab #precio_diurnoInt').val(val_dI.toFixed(5));
 		var val_nN= eq_nN*ut;
-		$('body #aterrizajeGeneralNacional-tab #precio_nocturNac').val(val_nN);
+		$('body #aterrizajeGeneralNacional-tab #precio_nocturNac').val(val_nN.toFixed(5));
 		var val_nI= eq_nI*ut;
-		$('body #aterrizajeGeneralNacional-tab #precio_nocturInt').val(val_nI);
+		$('body #aterrizajeGeneralNacional-tab #precio_nocturInt').val(val_nI.toFixed(5));
 	});
 
 	$( "body #aterrizajeGeneralNacional-tab input" ).keyup(function( event ) {	
