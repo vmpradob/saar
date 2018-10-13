@@ -201,234 +201,414 @@
 
 $(document).ready(function(){
 	//Cálculos para Matrículas Nacionales
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
-		var ut    =$('body #General-tab .unidad_tributaria').val();
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {	
+		if($('#tipo_pago_ate_gen_matricula_nac_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_ate_gen_matricula_nac_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}		
 		var eq_dN =$('body #aterrizajeGeneralNacional-tab .eq_diurnoNac').val();
 		var eq_dI =$('body #aterrizajeGeneralNacional-tab .eq_diurnoInt').val();
 		var eq_nN =$('body #aterrizajeGeneralNacional-tab .eq_nocturNac').val();
 		var eq_nI =$('body #aterrizajeGeneralNacional-tab .eq_nocturInt').val();
 
-		var val_dN= eq_dN*ut;
+		var val_dN= eq_dN*ut1;
 		$('body #aterrizajeGeneralNacional-tab #precio_diurnoNac').val(val_dN.toFixed(5));
-		var val_dI= eq_dI*ut;
+		var val_dI= eq_dI*ut2;
 		$('body #aterrizajeGeneralNacional-tab #precio_diurnoInt').val(val_dI.toFixed(5));
-		var val_nN= eq_nN*ut;
+		var val_nN= eq_nN*ut1;
 		$('body #aterrizajeGeneralNacional-tab #precio_nocturNac').val(val_nN.toFixed(5));
-		var val_nI= eq_nI*ut;
+		var val_nI= eq_nI*ut2;
 		$('body #aterrizajeGeneralNacional-tab #precio_nocturInt').val(val_nI.toFixed(5));
 	});
 
-	$( "body #aterrizajeGeneralNacional-tab input" ).keyup(function( event ) {	
-		var ut    =$('body #General-tab .unidad_tributaria').val();
+	$( "body #aterrizajeGeneralNacional-tab input" ).keyup(function( event ) {
+		if($('#tipo_pago_ate_gen_matricula_nac_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_ate_gen_matricula_nac_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}
 		var eq_dN =$('body #aterrizajeGeneralNacional-tab .eq_diurnoNac').val();
 		var eq_dI =$('body #aterrizajeGeneralNacional-tab .eq_diurnoInt').val();
 		var eq_nN =$('body #aterrizajeGeneralNacional-tab .eq_nocturNac').val();
 		var eq_nI =$('body #aterrizajeGeneralNacional-tab .eq_nocturInt').val();
 
-		var val_dN= eq_dN*ut;
+		var val_dN= eq_dN*ut1;
 		$('body #aterrizajeGeneralNacional-tab .precio_diurnoNac').val(val_dN.toFixed(5));
-		var val_dI= eq_dI*ut;
+		var val_dI= eq_dI*ut2;
 		$('body #aterrizajeGeneralNacional-tab .precio_diurnoInt').val(val_dI.toFixed(5));
-		var val_nN= eq_nN*ut;
+		var val_nN= eq_nN*ut1;
 		$('body #aterrizajeGeneralNacional-tab .precio_nocturNac').val(val_nN.toFixed(5));
-		var val_nI= eq_nI*ut;
+		var val_nI= eq_nI*ut2;
 		$('body #aterrizajeGeneralNacional-tab .precio_nocturInt').val(val_nI.toFixed(5));
 	});
 
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
-		var ut    =$('body #General-tab .unidad_tributaria').val();
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		if($('#tipo_pago_est_gen_matricula_nac_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_est_gen_matricula_nac_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}
 		var eq_bI =$('body #estacionamientoGeneralNacional-tab .eq_bloqueInt').val();
 		var eq_bN =$('body #estacionamientoGeneralNacional-tab .eq_bloqueNac').val();
 
-		var val_precioInt= eq_bI*ut;
+		var val_precioInt= eq_bI*ut2;
 		$('body #estacionamientoGeneralNacional-tab .precio_estInt').val(val_precioInt.toFixed(5));
-		var val_precioNac= eq_bN*ut;
+		var val_precioNac= eq_bN*ut1;
 		$('body #estacionamientoGeneralNacional-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
 	$( "body #estacionamientoGeneralNacional-tab input" ).keyup(function( event ) {	
-		var ut    =$('body #General-tab .unidad_tributaria').val();
+		if($('#tipo_pago_est_gen_matricula_nac_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_est_gen_matricula_nac_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}
 		var eq_bI =$('body #estacionamientoGeneralNacional-tab .eq_bloqueInt').val();
 		var eq_bN =$('body #estacionamientoGeneralNacional-tab .eq_bloqueNac').val();
 
-		var val_precioInt= eq_bI*ut;
+		var val_precioInt= eq_bI*ut2;
 		$('body #estacionamientoGeneralNacional-tab .precio_estInt').val(val_precioInt.toFixed(5));
-		var val_precioNac= eq_bN*ut;
+		var val_precioNac= eq_bN*ut1;
 		$('body #estacionamientoGeneralNacional-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 	
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
-		var ut    =$('body #General-tab .unidad_tributaria').val();
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		if($('#tipo_pago_ate_com_matricula_nac_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_ate_com_matricula_nac_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}	
 		var eq_dN =$('body #aterrizajeComercialNacional-tab .eq_diurnoNac').val();
 		var eq_dI =$('body #aterrizajeComercialNacional-tab .eq_diurnoInt').val();
 		var eq_nN =$('body #aterrizajeComercialNacional-tab .eq_nocturNac').val();
 		var eq_nI =$('body #aterrizajeComercialNacional-tab .eq_nocturInt').val();
 
-		var val_dN= eq_dN*ut;
+		var val_dN= eq_dN*ut1;
 		$('body #aterrizajeComercialNacional-tab #precio_diurnoNac').val(val_dN.toFixed(5));
-		var val_dI= eq_dI*ut;
+		var val_dI= eq_dI*ut2;
 		$('body #aterrizajeComercialNacional-tab #precio_diurnoInt').val(val_dI.toFixed(5));
-		var val_nN= eq_nN*ut;
+		var val_nN= eq_nN*ut1;
 		$('body #aterrizajeComercialNacional-tab #precio_nocturNac').val(val_nN.toFixed(5));
-		var val_nI= eq_nI*ut;
+		var val_nI= eq_nI*ut2;
 		$('body #aterrizajeComercialNacional-tab #precio_nocturInt').val(val_nI.toFixed(5));
 	});
 
-	$( "body #aterrizajeComercialNacional-tab input" ).keyup(function( event ) {	
-		var ut    =$('body #General-tab .unidad_tributaria').val();
+	$( "body #aterrizajeComercialNacional-tab input" ).keyup(function( event ) {
+		if($('#tipo_pago_ate_com_matricula_nac_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_ate_com_matricula_nac_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}	
 		var eq_dN =$('body #aterrizajeComercialNacional-tab .eq_diurnoNac').val();
 		var eq_dI =$('body #aterrizajeComercialNacional-tab .eq_diurnoInt').val();
 		var eq_nN =$('body #aterrizajeComercialNacional-tab .eq_nocturNac').val();
 		var eq_nI =$('body #aterrizajeComercialNacional-tab .eq_nocturInt').val();
 
-		var val_dN= eq_dN*ut;
+		var val_dN= eq_dN*ut1;
 		$('body #aterrizajeComercialNacional-tab .precio_diurnoNac').val(val_dN.toFixed(5));
-		var val_dI= eq_dI*ut;
+		var val_dI= eq_dI*ut2;
 		$('body #aterrizajeComercialNacional-tab .precio_diurnoInt').val(val_dI.toFixed(5));
-		var val_nN= eq_nN*ut;
+		var val_nN= eq_nN*ut1;
 		$('body #aterrizajeComercialNacional-tab .precio_nocturNac').val(val_nN.toFixed(5));
-		var val_nI= eq_nI*ut;
+		var val_nI= eq_nI*ut2;
 		$('body #aterrizajeComercialNacional-tab .precio_nocturInt').val(val_nI.toFixed(5));
 	});
 
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
-		var ut    =$('body #General-tab .unidad_tributaria').val();
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		if($('#tipo_pago_est_com_matricula_nac_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_est_com_matricula_nac_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}			
 		var eq_bI =$('body #estacionamientoComercialNacional-tab .eq_bloqueInt').val();
 		var eq_bN =$('body #estacionamientoComercialNacional-tab .eq_bloqueNac').val();
 
-		var val_precioInt= eq_bI*ut;
+		var val_precioInt= eq_bI*ut2;
 		$('body #estacionamientoComercialNacional-tab .precio_estInt').val(val_precioInt.toFixed(5));
-		var val_precioNac= eq_bN*ut;
+		var val_precioNac= eq_bN*ut1;
 		$('body #estacionamientoComercialNacional-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
-	$( "body #estacionamientoComercialNacional-tab input" ).keyup(function( event ) {	
-		var ut    =$('body #General-tab .unidad_tributaria').val();
+	$( "body #estacionamientoComercialNacional-tab input" ).keyup(function( event ) {
+		if($('#tipo_pago_est_com_matricula_nac_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_est_com_matricula_nac_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}	
 		var eq_bI =$('body #estacionamientoComercialNacional-tab .eq_bloqueInt').val();
 		var eq_bN =$('body #estacionamientoComercialNacional-tab .eq_bloqueNac').val();
 
-		var val_precioInt= eq_bI*ut;
+		var val_precioInt= eq_bI*ut2;
 		$('body #estacionamientoComercialNacional-tab .precio_estInt').val(val_precioInt.toFixed(5));
-		var val_precioNac= eq_bN*ut;
+		var val_precioNac= eq_bN*ut1;
 		$('body #estacionamientoComercialNacional-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
 	
 	//Cálculos para matrículas extrajeras
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
-		var ut    =$('body #General-tab .dolar_oficial').val();
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		if($('#tipo_pago_ate_gen_matricula_int_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_ate_gen_matricula_int_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}
 		var eq_dN =$('body #aterrizajeGeneralExtranjera-tab .eq_diurnoNac').val();
 		var eq_dI =$('body #aterrizajeGeneralExtranjera-tab .eq_diurnoInt').val();
 		var eq_nN =$('body #aterrizajeGeneralExtranjera-tab .eq_nocturNac').val();
 		var eq_nI =$('body #aterrizajeGeneralExtranjera-tab .eq_nocturInt').val();
 
-		var val_dN= eq_dN*ut;
+		var val_dN= eq_dN*ut1;
 		$('body #aterrizajeGeneralExtranjera-tab #precio_diurnoNac').val(val_dN);
-		var val_dI= eq_dI*ut;
+		var val_dI= eq_dI*ut2;
 		$('body #aterrizajeGeneralExtranjera-tab #precio_diurnoInt').val(val_dI);
-		var val_nN= eq_nN*ut;
+		var val_nN= eq_nN*ut1;
 		$('body #aterrizajeGeneralExtranjera-tab #precio_nocturNac').val(val_nN);
-		var val_nI= eq_nI*ut;
+		var val_nI= eq_nI*ut2;
 		$('body #aterrizajeGeneralExtranjera-tab #precio_nocturInt').val(val_nI);
 	});
 
 	$( "body #aterrizajeGeneralExtranjera-tab input" ).keyup(function( event ) {	
-		var ut    =$('body #General-tab .dolar_oficial').val();
+		if($('#tipo_pago_ate_gen_matricula_int_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_ate_gen_matricula_int_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}
 		var eq_dN =$('body #aterrizajeGeneralExtranjera-tab .eq_diurnoNac').val();
 		var eq_dI =$('body #aterrizajeGeneralExtranjera-tab .eq_diurnoInt').val();
 		var eq_nN =$('body #aterrizajeGeneralExtranjera-tab .eq_nocturNac').val();
 		var eq_nI =$('body #aterrizajeGeneralExtranjera-tab .eq_nocturInt').val();
 
-		var val_dN= eq_dN*ut;
+		var val_dN= eq_dN*ut1;
 		$('body #aterrizajeGeneralExtranjera-tab .precio_diurnoNac').val(val_dN.toFixed(5));
-		var val_dI= eq_dI*ut;
+		var val_dI= eq_dI*ut2;
 		$('body #aterrizajeGeneralExtranjera-tab .precio_diurnoInt').val(val_dI.toFixed(5));
-		var val_nN= eq_nN*ut;
+		var val_nN= eq_nN*ut1;
 		$('body #aterrizajeGeneralExtranjera-tab .precio_nocturNac').val(val_nN.toFixed(5));
-		var val_nI= eq_nI*ut;
+		var val_nI= eq_nI*ut2;
 		$('body #aterrizajeGeneralExtranjera-tab .precio_nocturInt').val(val_nI.toFixed(5));
 	});
 
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
-		var ut    =$('body #General-tab .dolar_oficial').val();
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		if($('#tipo_pago_est_gen_matricula_int_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_est_gen_matricula_int_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}	
 		var eq_bI =$('body #estacionamientoGeneralExtranjera-tab .eq_bloqueInt').val();
 		var eq_bN =$('body #estacionamientoGeneralExtranjera-tab .eq_bloqueNac').val();
 
-		var val_precioInt= eq_bI*ut;
+		var val_precioInt= eq_bI*ut2;
 		$('body #estacionamientoGeneralExtranjera-tab .precio_estInt').val(val_precioInt.toFixed(5));
-		var val_precioNac= eq_bN*ut;
+		var val_precioNac= eq_bN*ut1;
 		$('body #estacionamientoGeneralExtranjera-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
-	$( "body #estacionamientoGeneralExtranjera-tab input" ).keyup(function( event ) {	
-		var ut    =$('body #General-tab .dolar_oficial').val();
+	$( "body #estacionamientoGeneralExtranjera-tab input" ).keyup(function( event ) {
+		if($('#tipo_pago_est_gen_matricula_int_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_est_gen_matricula_int_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}	
 		var eq_bI =$('body #estacionamientoGeneralExtranjera-tab .eq_bloqueInt').val();
 		var eq_bN =$('body #estacionamientoGeneralExtranjera-tab .eq_bloqueNac').val();
 
-		var val_precioInt= eq_bI*ut;
+		var val_precioInt= eq_bI*ut2;
 		$('body #estacionamientoGeneralExtranjera-tab .precio_estInt').val(val_precioInt.toFixed(5));
-		var val_precioNac= eq_bN*ut;
+		var val_precioNac= eq_bN*ut1;
 		$('body #estacionamientoGeneralExtranjera-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
-		var ut    =$('body #General-tab .dolar_oficial').val();
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {	
+		if($('#tipo_pago_ate_com_matricula_int_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_ate_com_matricula_int_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}		
 		var eq_dN =$('body #aterrizajeComercialExtranjera-tab .eq_diurnoNac').val();
 		var eq_dI =$('body #aterrizajeComercialExtranjera-tab .eq_diurnoInt').val();
 		var eq_nN =$('body #aterrizajeComercialExtranjera-tab .eq_nocturNac').val();
 		var eq_nI =$('body #aterrizajeComercialExtranjera-tab .eq_nocturInt').val();
 
-		var val_dN= eq_dN*ut;
+		var val_dN= eq_dN*ut1;
 		$('body #aterrizajeComercialExtranjera-tab #precio_diurnoNac').val(val_dN.toFixed(5));
-		var val_dI= eq_dI*ut;
+		var val_dI= eq_dI*ut2;
 		$('body #aterrizajeComercialExtranjera-tab #precio_diurnoInt').val(val_dI.toFixed(5));
-		var val_nN= eq_nN*ut;
+		var val_nN= eq_nN*ut1;
 		$('body #aterrizajeComercialExtranjera-tab #precio_nocturNac').val(val_nN.toFixed(5));
-		var val_nI= eq_nI*ut;
+		var val_nI= eq_nI*ut2;
 		$('body #aterrizajeComercialExtranjera-tab #precio_nocturInt').val(val_nI.toFixed(5));
 	});
 
-	$( "body #aterrizajeComercialExtranjera-tab input" ).keyup(function( event ) {	
-		var ut    =$('body #General-tab .dolar_oficial').val();
+	$( "body #aterrizajeComercialExtranjera-tab input" ).keyup(function( event ) {
+		if($('#tipo_pago_ate_com_matricula_int_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_ate_com_matricula_int_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}		
 		var eq_dN =$('body #aterrizajeComercialExtranjera-tab .eq_diurnoNac').val();
 		var eq_dI =$('body #aterrizajeComercialExtranjera-tab .eq_diurnoInt').val();
 		var eq_nN =$('body #aterrizajeComercialExtranjera-tab .eq_nocturNac').val();
 		var eq_nI =$('body #aterrizajeComercialExtranjera-tab .eq_nocturInt').val();
 
-		var val_dN= eq_dN*ut;
+		var val_dN= eq_dN*ut1;
 		$('body #aterrizajeComercialExtranjera-tab .precio_diurnoNac').val(val_dN.toFixed(5));
-		var val_dI= eq_dI*ut;
+		var val_dI= eq_dI*ut2;
 		$('body #aterrizajeComercialExtranjera-tab .precio_diurnoInt').val(val_dI.toFixed(5));
-		var val_nN= eq_nN*ut;
+		var val_nN= eq_nN*ut1;
 		$('body #aterrizajeComercialExtranjera-tab .precio_nocturNac').val(val_nN.toFixed(5));
-		var val_nI= eq_nI*ut;
+		var val_nI= eq_nI*ut2;
 		$('body #aterrizajeComercialExtranjera-tab .precio_nocturInt').val(val_nI);
 	});
 
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
-		var ut    =$('body #General-tab .dolar_oficial').val();
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		if($('#tipo_pago_est_com_matricula_int_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_est_com_matricula_int_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}
 		var eq_bI =$('body #estacionamientoComercialExtranjera-tab .eq_bloqueInt').val();
 		var eq_bN =$('body #estacionamientoComercialExtranjera-tab .eq_bloqueNac').val();
 
-		var val_precioInt= eq_bI*ut;
+		var val_precioInt= eq_bI*ut2;
 		$('body #estacionamientoComercialExtranjera-tab .precio_estInt').val(val_precioInt.toFixed(5));
-		var val_precioNac= eq_bN*ut;
+		var val_precioNac= eq_bN*ut1;
 		$('body #estacionamientoComercialExtranjera-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
-	$( "body #estacionamientoComercialExtranjera-tab input" ).keyup(function( event ) {	
-		var ut    =$('body #General-tab .dolar_oficial').val();
+	$( "body #estacionamientoComercialExtranjera-tab input" ).keyup(function( event ) {
+		if($('#tipo_pago_est_com_matricula_int_nac_id').val() == 1){
+			var ut1    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut1   =$('body #General-tab .dolar_oficial').val();
+		}
+		if($('#tipo_pago_est_com_matricula_int_int_id').val() == 1){
+			var ut2    =$('body #General-tab .unidad_tributaria').val();
+		}else{
+				
+			var ut2   =$('body #General-tab .dolar_oficial').val();
+		}	
 		var eq_bI =$('body #estacionamientoComercialExtranjera-tab .eq_bloqueInt').val();
 		var eq_bN =$('body #estacionamientoComercialExtranjera-tab .eq_bloqueNac').val();
 
-		var val_precioInt= eq_bI*ut;
+		var val_precioInt= eq_bI*ut2;
 		$('body #estacionamientoComercialExtranjera-tab .precio_estInt').val(val_precioInt.toFixed(5));
-		var val_precioNac= eq_bN*ut;
+		var val_precioNac= eq_bN*ut1;
 		$('body #estacionamientoComercialExtranjera-tab .precio_estNac').val(val_precioNac.toFixed(5));
 	});
 
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
-		var ut        =$('body #General-tab .unidad_tributaria').val();
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {	
+		if($('#tipo_pago_formulario_id').val() == 1){
+			var ut = $('body #General-tab .unidad_tributaria').val();
+		}else{	
+			var ut = $('body #General-tab .dolar_oficial').val();
+		}
 		var eq_form   =$('body #cargosVarios-tab .eq_formulario').val();
 		var eq_DerHab =$('body #cargosVarios-tab .eq_derechoHabilitacion').val();
 		var eq_AborSH =$('body #cargosVarios-tab .eq_usoAbordajeSinHab').val();
@@ -436,6 +616,8 @@ $(document).ready(function(){
 
 		var val_form= Math.ceil(eq_form*ut);
 		$('body #cargosVarios-tab #precio_formulario-input').val(val_form.toFixed(5));
+
+		var ut        =$('body #General-tab .unidad_tributaria').val();
 		var val_DerHab= eq_DerHab*ut;
 		$('body #cargosVarios-tab #precio_derechoHabilitacion-input').val(val_DerHab)
 		var val_AborSH= eq_AborSH*ut;
@@ -446,33 +628,69 @@ $(document).ready(function(){
 
 	$("body #cargosVarios-tab input" ).keyup(function( event ) {	
 
-		var ut        =$('body #General-tab .unidad_tributaria').val();
 		var eq_form   =$('body #cargosVarios-tab .eq_formulario').val();
 		var eq_DerHab =$('body #cargosVarios-tab .eq_derechoHabilitacion').val();
 		var eq_AborSH =$('body #cargosVarios-tab .eq_usoAbordajeSinHab').val();
 		var eq_AborCH =$('body #cargosVarios-tab .eq_usoAbordajeConHab').val();
 
+
+		if($('#tipo_pago_formulario_id').val() == 1){
+			var ut = $('body #General-tab .unidad_tributaria').val();
+		}else{	
+			var ut = $('body #General-tab .dolar_oficial').val();
+		}
 		var val_form= eq_form*ut;
 		$('body #cargosVarios-tab #precio_formulario-input').val(val_form.toFixed(5));
+
+
+
+		if($('#tipo_pago_habilitacion_id').val() == 1){
+			var ut = $('body #General-tab .unidad_tributaria').val();
+		}else{	
+			var ut = $('body #General-tab .dolar_oficial').val();
+		}
 		var val_DerHab= eq_DerHab*ut;
 		$('body #cargosVarios-tab #precio_derechoHabilitacion-input').val(val_DerHab);
+
+
+
+		if($('#tipo_pago_derecho_abordaje_nac_id').val() == 1){
+			var ut = $('body #General-tab .unidad_tributaria').val();
+		}else{	
+			var ut = $('body #General-tab .dolar_oficial').val();
+		}
 		var val_AborSH= eq_AborSH*ut;
-		$('body #cargosVarios-tab #precio_usoAbordajeConHab-input').val(val_AborSH);
+		$('body #cargosVarios-tab #precio_usoAbordajeSinHab-input').val(val_AborSH);
+
+
+		if($('#tipo_pago_derecho_abordaje_int_id').val() == 1){
+			var ut = $('body #General-tab .unidad_tributaria').val();
+		}else{	
+			var ut = $('body #General-tab .dolar_oficial').val();
+		}
 		var val_AborCH= eq_AborCH*ut;
 		$('body #cargosVarios-tab #precio_usoAbordajeConHab-input').val(val_AborCH);
 	});
 
 
-	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {			
-		var ut        =$('body #General-tab .unidad_tributaria').val();
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {	
+		if($('#tipo_pago_carga_id').val() == 1){
+			var ut = $('body #General-tab .unidad_tributaria').val();
+		}else{	
+			var ut = $('body #General-tab .dolar_oficial').val();
+		}
 		var eq_UT     =$('body #Carga-tab .equivalenteUT').val();
 		
 		var val_carga = eq_UT*ut;
 		$('body #Carga-tab #precio_carga-input').val(val_carga.toFixed(5));
 	});
 
-	$( "body #Carga-tab input" ).keyup(function( event ) {	
-		var ut        =$('body #General-tab .unidad_tributaria').val();
+	$( "body #Carga-tab input" ).keyup(function( event ) {
+		if($('#tipo_pago_carga_id').val() == 1){
+			var ut = $('body #General-tab .unidad_tributaria').val();
+		}else{	
+			var ut = $('body #General-tab .dolar_oficial').val();
+		}
 		var eq_UT     =$('body #Carga-tab .equivalenteUT').val();
 		
 		var val_carga = eq_UT*ut;

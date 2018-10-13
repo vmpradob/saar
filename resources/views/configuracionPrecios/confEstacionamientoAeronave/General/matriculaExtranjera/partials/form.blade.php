@@ -53,6 +53,15 @@
 							{!! Form::text('precio_estInt_general_ext', null, ["id"=>"precio_estInt-input", 'class'=>"form-control precio_estInt","placeholder"=>"Precio Establecido", "readonly"=>"readonly"]) !!}
 					</div><!-- /.input group -->
 				</div><!-- /.form group -->
+				<div class="form-group">
+				<div class="checkbox col-md-6"  style="margin-left: -40px">
+					<label>
+						<strong>Tipo de divisa:</strong>
+						
+					</label>
+					</div>
+					{!! Form::select('tipo_pago_gen_matricula_int_int_id',$tipo_pagos,$estacionamientoAeronave[0]->tipo_pago_gen_matricula_int_int_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_est_gen_matricula_int_int_id']) !!}
+				</div><!-- /.form group -->	
 				<!-- Definición de Bloque -->
 				<div class="bootstrap-timepicker">
 					<div class="form-group">
@@ -123,6 +132,15 @@
 							{!! Form::text('precio_estNac_general_ext', null, ["id"=>"precio_estNac-input", 'class'=>"form-control precio_estNac","placeholder"=>"Precio Establecido", "readonly"=>"readonly"]) !!}
 					</div><!-- /.input group -->
 				</div><!-- /.form group -->
+				<div class="form-group">
+				<div class="checkbox col-md-6"  style="margin-left: -40px">
+					<label>
+						<strong>Tipo de divisa:</strong>
+						
+					</label>
+					</div>
+					{!! Form::select('tipo_pago_gen_matricula_int_nac_id',$tipo_pagos,$estacionamientoAeronave[0]->tipo_pago_gen_matricula_int_nac_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_est_gen_matricula_int_nac_id']) !!}
+				</div><!-- /.form group -->	
 				<!-- Definición de Bloque -->
 				<div class="bootstrap-timepicker">
 					<div class="form-group">

@@ -78,7 +78,16 @@
 					</div>
 					{!! Form::text('eq_bloqueMinimoNocInt_general_ext', null, [ 'class'=>"form-control eq_bloqueMinimoNocInt","placeholder"=>"Equivalente de la UT por bloque"]) !!}
 				</div><!-- /.input group -->
-			</div><!-- /.form group -->						
+			</div><!-- /.form group -->
+			<div class="form-group">
+				<div class="checkbox col-md-6"  style="margin-left: -40px">
+					<label>
+						<strong>Tipo de divisa:</strong>
+						
+					</label>
+				</div>
+				{!! Form::select('tipo_pago_gen_matricula_int_int_id',$tipo_pagos,$precioAterrizajes->tipo_pago_gen_matricula_int_int_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_ate_gen_matricula_int_int_id']) !!}
+			</div><!-- /.form group -->					
 		</div><!-- /.box-body -->
 	</div><!-- /.box -->
 </div> <!-- /.col -->
@@ -124,8 +133,8 @@
 					</div>
 					{!! Form::text('eq_bloqueMinimoDiuNac_general_ext', null, [ 'class'=>"form-control eq_bloqueMinimoDiuNac","placeholder"=>"Equivalente de la UT por bloque"]) !!}
 				</div><!-- /.input group -->
-			</div><!-- /.form group -->		
-
+			</div><!-- /.form group -->	
+			
 			<!-- Precio Nocturno-->
 			<!-- Equivalente de la UT-->
 			<div class="form-group">
@@ -160,7 +169,16 @@
 					</div>
 					{!! Form::text('eq_bloqueMinimoNocNac_general_ext', null, [ 'class'=>"form-control eq_bloqueMinimoNocNac","placeholder"=>"Equivalente de la UT por bloque"]) !!}
 				</div><!-- /.input group -->
-			</div><!-- /.form group -->						
+			</div><!-- /.form group -->		
+			<div class="form-group">
+				<div class="checkbox col-md-6"  style="margin-left: -40px">
+					<label>
+						<strong>Tipo de divisa:</strong>
+						
+					</label>
+				</div>
+				{!! Form::select('tipo_pago_gen_matricula_int_nac_id',$tipo_pagos,$precioAterrizajes->tipo_pago_gen_matricula_int_nac_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_ate_gen_matricula_int_nac_id']) !!}
+			</div><!-- /.form group -->				
 		</div><!-- /.box-body -->
 	</div><!-- /.box -->
 </div> <!-- /.col -->

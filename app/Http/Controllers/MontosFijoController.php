@@ -11,7 +11,10 @@ use App\MontosFijo;
 use App\TipoMatricula;
 use App\NacionalidadVuelo;
 use App\Concepto;
-
+use App\EstacionamientoAeronave;
+use App\PreciosAterrizajesDespegue;
+use App\TipoPago;
+use App\CargosVario;
 class MontosFijoController extends Controller {
 
 	/**
@@ -21,11 +24,25 @@ class MontosFijoController extends Controller {
 	 */
 	public function index()
 	{
+		$cargoVario = CargosVario::where('aeropuerto_id',session('aeropuerto')->id)->first();
 		$conceptoss = Concepto::where('aeropuerto_id', session('aeropuerto')->id)->orderby('nompre','ASC')->where('stacod','A')->lists('nompre', 'id');
 		$nacionalidades_vuelos = NacionalidadVuelo::lists('nombre','id');
 		//NacionalidadVuelo::all()->pluck('nombre','id');
+		$montoFijo = MontosFijo::where('aeropuerto_id', session('aeropuerto')->id)->first();
+		$tipo_pagos = TipoPago::lists('name','id');
 		$tipos_matriculas = TipoMatricula::lists('nombre','id');
-		return view('configuracionPrecios.index',compact('conceptoss','nacionalidades_vuelos', 'tipos_matriculas'));
+		$estacionamientoAeronave = EstacionamientoAeronave::where('aeropuerto_id',session('aeropuerto')->id)->first();
+		$precioAterrizajes = PreciosAterrizajesDespegue::where('aeropuerto_id',session('aeropuerto')->id)->first();
+		return view('configuracionPrecios.index',compact(
+			'conceptoss',
+			'nacionalidades_vuelos',
+			'tipos_matriculas',
+			'tipo_pagos',
+			'montoFijo',
+			'estacionamientoAeronave',
+			'precioAterrizajes',
+			'cargoVario'
+		));
 	}
 
 	/**
@@ -84,9 +101,12 @@ class MontosFijoController extends Controller {
 		$confGeneral                    =MontosFijo::find($id);
 		$confGeneral->unidad_tributaria =$request->input('unidad_tributaria');
 		$confGeneral->dolar_oficial     =$request->input('dolar_oficial');
+		$confGeneral->tipo_pago_nacional_id = $request->input('tipo_pago_nacional_id');
+		$confGeneral->tipo_pago_internacional_id = $request->input('tipo_pago_internacional_id');
+
 		if($confGeneral->save())
 		{
-			return response()->json(array("text"=>'Montos modificados exitósamente.',
+			return response()->json(array("text"=>'Configuracion modificada exitósamente.',
 										  "confGeneral"=>$confGeneral,
 										  "success"=>1));
 		}

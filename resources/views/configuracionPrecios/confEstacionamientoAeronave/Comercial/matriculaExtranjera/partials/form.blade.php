@@ -30,6 +30,15 @@
 						{!! Form::text('eq_bloqueInt_ext', null, [ 'class'=>"form-control eq_bloqueInt","placeholder"=>"Equivalente de la UT por bloque"]) !!}
 					</div><!-- /.input group -->
 				</div><!-- /.form group -->	
+				<div class="form-group">
+				<div class="checkbox col-md-6"  style="margin-left: -40px">
+					<label>
+						<strong>Tipo de divisa:</strong>
+						
+					</label>
+					</div>
+					{!! Form::select('tipo_pago_com_matricula_int_int_id',$tipo_pagos,$estacionamientoAeronave[0]->tipo_pago_com_matricula_int_int_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_est_com_matricula_int_int_id']) !!}
+				</div><!-- /.form group -->	
 				<!-- Precio -->
 				<div class="form-group">
 					<div class="input-group">
@@ -122,6 +131,15 @@
 						</div>
 						{!! Form::text('eq_bloqueMinimoNac_ext', null, [ 'class'=>"form-control eq_bloqueMinimoNac","placeholder"=>"Equivalente de la UT por bloque"]) !!}
 					</div><!-- /.input group -->
+				</div><!-- /.form group -->	
+				<div class="form-group">
+				<div class="checkbox col-md-6"  style="margin-left: -40px">
+					<label>
+						<strong>Tipo de divisa:</strong>
+						
+					</label>
+					</div>
+					{!! Form::select('tipo_pago_com_matricula_int_nac_id',$tipo_pagos,$estacionamientoAeronave[0]->tipo_pago_com_matricula_int_nac_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_est_com_matricula_int_nac_id']) !!}
 				</div><!-- /.form group -->	
 				<!-- Definición de Bloque -->
 				<div class="bootstrap-timepicker">

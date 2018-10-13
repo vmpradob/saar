@@ -29,7 +29,15 @@
 					{!! Form::text('precio_formulario', null, [ "id"=>"precio_formulario-input", 'class'=>"form-control precio_formulario","placeholder"=>"Precio Establecido", "readonly"=>"readonly"]) !!}
 				</div><!-- /.input group -->
 			</div><!-- /.form group -->	
-
+			<div class="form-group">
+				<div class="checkbox col-md-6">
+					<label>
+						<strong>Tipo de divisa:</strong>
+						
+					</label>
+					</div>
+					{!! Form::select('tipo_pago_formulario_id',$tipo_pagos,$cargoVario->tipo_pago_formulario_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_formulario_id']) !!}
+				</div><!-- /.form group -->		
 			<!-- Equivalente de la Unidad Dolar DICOM-->
 			<div class="form-group">
 				<label>Precio: </label>
@@ -61,7 +69,8 @@
 				<label>Concepto Contado: </label><br/>
 
 				{!! Form::select('formularioContado_id',	$conceptoss, null, [ 'class'=>"form-control"]) !!}
-			</div>					
+			</div>	
+				
 		</div><!-- /.box-body -->
 	</div><!-- /.box -->
 </div>
@@ -103,7 +112,16 @@
 				<label>Concepto Contado: </label><br/>
 
 				{!! Form::select('habilitacionContado_id',	$conceptoss, null, [ 'class'=>"form-control"]) !!}
-			</div>					
+			</div>				
+			<div class="form-group">
+				<div class="checkbox col-md-6">
+				<label>
+					<strong>Tipo de divisa:</strong>
+					
+				</label>
+				</div>
+				{!! Form::select('tipo_pago_habilitacion_id',$tipo_pagos,$cargoVario->tipo_pago_habilitacion_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_habilitacion_id']) !!}
+			</div><!-- /.form group -->			
 		</div><!-- /.box-body -->
 	</div><!-- /.box -->		
 </div><!-- /.col -->
@@ -135,7 +153,15 @@
 					{!! Form::text('precio_usoAbordajeSinHab', null, [ "id"=>"precio_usoAbordajeSinHab-input", 'class'=>"form-control precio_usoAbordajeSinHab","placeholder"=>"Precio Establecido", "readonly"=>"readonly"]) !!}
 				</div><!-- /.input group -->
 			</div><!-- /.form group -->
-
+			<div class="form-group">
+				<div class="checkbox col-md-6">
+				<label>
+					<strong>Tipo de divisa:</strong>
+					
+				</label>
+				</div>
+				{!! Form::select('tipo_pago_derecho_abordaje_nac_id',$tipo_pagos,$cargoVario->tipo_pago_derecho_abordaje_nac_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_derecho_abordaje_nac_id']) !!}
+			</div><!-- /.form group -->	
 
 			<!-- Equivalente de la UT-->
 			<div class="form-group">
@@ -146,6 +172,15 @@
 					</div>
 					{!! Form::text('eq_usoAbordajeConHab', null, [ 'class'=>"form-control eq_usoAbordajeConHab","placeholder"=>"Equivalente de la UT"]) !!}
 				</div><!-- /.input group -->
+			</div><!-- /.form group -->	
+			<div class="form-group">
+				<div class="checkbox col-md-6">
+				<label>
+					<strong>Tipo de divisa:</strong>
+					
+				</label>
+				</div>
+				{!! Form::select('tipo_pago_derecho_abordaje_int_id',$tipo_pagos,$cargoVario->tipo_pago_derecho_abordaje_int_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_derecho_abordaje_int_id']) !!}
 			</div><!-- /.form group -->	
 			<!-- Precio -->
 			<div class="form-group">

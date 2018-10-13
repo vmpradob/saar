@@ -91,7 +91,7 @@ class EstacionamientoAeronaveController extends Controller {
 		$estacionamientoAeronave->aplicar_minimo_nac_general_ext =($request->input('aplicar_minimo_nac_general_ext'))?1:0;
 		
 		if($estacionamientoAeronave->save())
-		{			
+		{
 			return response()->json(array("text"=>'Información Modificada exitósamente',
 										  "estacionamientoAeronave"=>$estacionamientoAeronave,
 										  "success"=>1));

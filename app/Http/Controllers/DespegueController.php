@@ -30,6 +30,7 @@ use App\DiaFeriado;
 
 use Carbon\Carbon;
 use Validator;
+use App\Estacionamiento;
 
 class DespegueController extends Controller {
 
@@ -324,8 +325,8 @@ class DespegueController extends Controller {
                 $finishTime            = Carbon::parse($fecha_hora_despegue);
 
                 $totalDuration = $finishTime->diffInMinutes($startTime);
-
                 $despegue->tiempo_estacionamiento = $totalDuration;
+                $despegue->save();
             }
 
 
@@ -626,8 +627,8 @@ class DespegueController extends Controller {
 
 
                     //Cálculo con mínimo
-                    $montoDesMinimo    = $minimo * $ut;
-
+                    
+                    $montoDesMinimo    = $minimo * $this->monto_minimo_est_despegue($despegue);
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
                         $montoDesMinimo = $minimo*$dolar;
 
@@ -868,12 +869,11 @@ class DespegueController extends Controller {
 
 
                 //Cálculo con Mínimo
-                $montoDesMinimo   = $minimo * $ut;
+                $montoDesMinimo   = $minimo * $this->monto_minimo_ate_despegue($despegue);
 
 
 
-                if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
-                    $montoDesMinimo = $minimo*$dolar;
+
 
                 $montoIvaMinimo = ($iva * $montoDesMinimo)/100 ;
                 $totalDesMinimo = $montoDesMinimo + $montoIvaMinimo;
@@ -1394,4 +1394,295 @@ class DespegueController extends Controller {
         return $this->exportar($despegue, $pasajeros);
     }
 
+    private function monto_minimo_est_despegue(Despegue $despegue){
+        $monto = MontosFijo::where('aeropuerto_id', session('aeropuerto')->id)->first();
+        $estacionamiento = Estacionamiento::where('aeropuerto_id',session('aeropuerto')->id)->first();
+        switch($despegue->aeronave->tipo->nombre)
+        {
+            case 'Privado':
+                switch ($despegue->aeronave->nacionalidad_id) {
+                    case 246:
+                        switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
+                            case 'Nacional':
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  1)
+                                    return $monto->unidad_tributaria;
+
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  2)
+                                    return $monto->dolar_oficial;
+                                break;
+                            
+                            
+                            default:
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_int_id ==  1)
+                                    return $monto->unidad_tributaria;
+
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_int_id ==  2)
+                                    return $monto->dolar_oficial;
+                                break;
+                        }
+                        break;
+                    
+                    default:
+                        switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
+                            case 'Nacional':
+                                # code...
+                                if($estacionamiento->tipo_pago_gen_matricula_int_nac_id ==  1)
+                                return $monto->unidad_tributaria;
+
+                                if($estacionamiento->tipo_pago_gen_matricula_int_nac_id ==  2)
+                                    return $monto->dolar_oficial;
+                                break;
+                            
+                            default:
+                                # code...
+                                if($estacionamiento->tipo_pago_gen_matricula_int_int_id ==  1)
+                                return $monto->unidad_tributaria;
+
+                                if($estacionamiento->tipo_pago_gen_matricula_int_int_id ==  2)
+                                    return $monto->dolar_oficial;
+                                break;
+                        }
+                        break;
+                }
+            break;
+            case 'Comercial Privado':
+            switch ($despegue->aeronave->nacionalidad_id) {
+                case 246:
+                    switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
+                        case 'Nacional':
+                            if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  1)
+                                return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                        
+                        
+                        default:
+                            if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  1)
+                                return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                    }
+                    break;
+                
+                default:
+                    switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
+                        case 'Nacional':
+                            # code...
+                            if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  1)
+                            return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                        
+                        default:
+                            # code...
+                            if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  1)
+                            return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                    }
+                    break;
+            }
+            break;
+            case 'Comercial':
+            switch ($despegue->aeronave->nacionalidad_id) {
+                case 246:
+                    switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
+                        case 'Nacional':
+                            if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  1)
+                                return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                        
+                        
+                        default:
+                            if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  1)
+                                return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                    }
+                    break;
+                
+                default:
+                    switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
+                        case 'Nacional':
+                            # code...
+                            if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  1)
+                            return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                        
+                        default:
+                            # code...
+                            if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  1)
+                            return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                    }
+                    break;
+            }
+            break;
+        }
+    }
+
+    private function monto_minimo_ate_despegue(Despegue $despegue){
+        $monto = MontosFijo::where('aeropuerto_id', session('aeropuerto')->id)->first();
+        $estacionamiento = PreciosAterrizajesDespegue::where('aeropuerto_id',session('aeropuerto')->id)->first();
+        switch($despegue->aeronave->tipo->nombre)
+        {
+            case 'Privado':
+                switch ($despegue->aeronave->nacionalidad_id) {
+                    case 246:
+                        switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
+                            case 'Nacional':
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  1)
+                                    return $monto->unidad_tributaria;
+
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  2)
+                                    return $monto->dolar_oficial;
+                                break;
+                            
+                            
+                            default:
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_int_id ==  1)
+                                    return $monto->unidad_tributaria;
+
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_int_id ==  2)
+                                    return $monto->dolar_oficial;
+                                break;
+                        }
+                        break;
+                    
+                    default:
+                        switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
+                            case 'Nacional':
+                                # code...
+                                if($estacionamiento->tipo_pago_gen_matricula_int_nac_id ==  1)
+                                return $monto->unidad_tributaria;
+
+                                if($estacionamiento->tipo_pago_gen_matricula_int_nac_id ==  2)
+                                    return $monto->dolar_oficial;
+                                break;
+                            
+                            default:
+                                # code...
+                                if($estacionamiento->tipo_pago_gen_matricula_int_int_id ==  1)
+                                return $monto->unidad_tributaria;
+
+                                if($estacionamiento->tipo_pago_gen_matricula_int_int_id ==  2)
+                                    return $monto->dolar_oficial;
+                                break;
+                        }
+                        break;
+                }
+            break;
+            case 'Comercial Privado':
+            switch ($despegue->aeronave->nacionalidad_id) {
+                case 246:
+                    switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
+                        case 'Nacional':
+                            if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  1)
+                                return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                        
+                        
+                        default:
+                            if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  1)
+                                return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                    }
+                    break;
+                
+                default:
+                    switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
+                        case 'Nacional':
+                            # code...
+                            if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  1)
+                            return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                        
+                        default:
+                            # code...
+                            if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  1)
+                            return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                    }
+                    break;
+            }
+            break;
+            case 'Comercial':
+            switch ($despegue->aeronave->nacionalidad_id) {
+                case 246:
+                    switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
+                        case 'Nacional':
+                            if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  1)
+                                return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                        
+                        
+                        default:
+                            if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  1)
+                                return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                    }
+                    break;
+                
+                default:
+                    switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
+                        case 'Nacional':
+                            # code...
+                            if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  1)
+                            return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                        
+                        default:
+                            # code...
+                            if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  1)
+                            return $monto->unidad_tributaria;
+
+                            if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  2)
+                                return $monto->dolar_oficial;
+                            break;
+                    }
+                    break;
+            }
+            break;
+        }
+    }
 }

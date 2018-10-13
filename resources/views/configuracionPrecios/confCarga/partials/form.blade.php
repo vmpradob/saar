@@ -25,6 +25,15 @@
 					{!! Form::text('precio_carga', null, ["id"=>"precio_carga-input", 'class'=>"form-control equivalenteUT","placeholder"=>"Equivalente de la UT", "readonly"=>"readonly"]) !!}
 				</div><!-- /.input group -->
 			</div><!-- /.form group -->
+			<div class="form-group">
+				<div class="checkbox col-md-6">
+					<label>
+						<strong>Tipo de divisa:</strong>
+						
+					</label>
+					</div>
+					{!! Form::select('tipo_pago_id',$tipo_pagos,$cargoVario->tipo_pago_formulario_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_carga_id']) !!}
+				</div><!-- /.form group -->	
 			<!-- Definición de Bloque -->
 			<div class="bootstrap-timepicker">
 				<div class="form-group">

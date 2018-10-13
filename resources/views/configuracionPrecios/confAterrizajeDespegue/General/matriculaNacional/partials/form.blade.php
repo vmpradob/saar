@@ -64,7 +64,6 @@
 					<input type="hidden" name="aeropuerto_id" value="{{session('aeropuerto')->id}}"></input>
 				</div><!-- /.input group -->
 			</div><!-- /.form group -->	
-
 			<!-- Equivalente de la UT por mínimo-->
 			<div class="form-group">
 				<div class="checkbox col-md-6"  style="margin-left: -40px">
@@ -78,7 +77,16 @@
 					</div>
 					{!! Form::text('eq_bloqueMinimoNocInt_general', null, [ 'class'=>"form-control eq_bloqueMinimoNocInt","placeholder"=>"Equivalente de la UT por bloque"]) !!}
 				</div><!-- /.input group -->
-			</div><!-- /.form group -->						
+			</div><!-- /.form group -->	
+			<div class="form-group">
+				<div class="checkbox col-md-6">
+					<label>
+						<strong>Tipo de divisa:</strong>
+						
+					</label>
+					</div>
+					{!! Form::select('tipo_pago_gen_matricula_nac_int_id',$tipo_pagos,$precioAterrizajes->tipo_pago_gen_matricula_nac_int_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_ate_gen_matricula_nac_int_id']) !!}
+				</div><!-- /.form group -->					
 		</div><!-- /.box-body -->
 	</div><!-- /.box -->
 </div> <!-- /.col -->
@@ -160,7 +168,16 @@
 					</div>
 					{!! Form::text('eq_bloqueMinimoNocNac_general', null, [ 'class'=>"form-control eq_bloqueMinimoNocNac","placeholder"=>"Equivalente de la UT por bloque"]) !!}
 				</div><!-- /.input group -->
-			</div><!-- /.form group -->						
+			</div><!-- /.form group -->	
+			<div class="form-group">
+				<div class="checkbox col-md-6">
+					<label>
+						<strong>Tipo de divisa:</strong>
+						
+					</label>
+					</div>
+					{!! Form::select('tipo_pago_gen_matricula_nac_nac_id',$tipo_pagos,$precioAterrizajes->tipo_pago_gen_matricula_nac_nac_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_ate_gen_matricula_nac_nac_id']) !!}
+				</div><!-- /.form group -->	
 		</div><!-- /.box-body -->
 	</div><!-- /.box -->
 </div> <!-- /.col -->
