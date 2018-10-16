@@ -627,7 +627,6 @@ class DespegueController extends Controller {
 
 
                     //Cálculo con mínimo
-                    dd($minimo, $this->monto_minimo_est_despegue($despegue));
                     $montoDesMinimo    = $minimo * $this->monto_minimo_est_despegue($despegue);
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
                         $montoDesMinimo = $minimo*$dolar;
