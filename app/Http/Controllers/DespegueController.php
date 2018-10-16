@@ -1396,7 +1396,7 @@ class DespegueController extends Controller {
 
     private function monto_minimo_est_despegue(Despegue $despegue){
         $monto = MontosFijo::where('aeropuerto_id', session('aeropuerto')->id)->first();
-        $estacionamiento = Estacionamiento::where('aeropuerto_id',session('aeropuerto')->id)->first();
+        $estacionamiento = EstacionamientoAeronave::where('aeropuerto_id',session('aeropuerto')->id)->first();
         switch($despegue->aeronave->tipo->nombre)
         {
             case 'Privado':
@@ -1408,7 +1408,6 @@ class DespegueController extends Controller {
                                     return $monto->unidad_tributaria;
 
                                 if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  2){
-                                    dd($monto->dolar_oficial);
                                     return $monto->dolar_oficial;
                                 }
                                 break;
