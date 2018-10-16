@@ -7,7 +7,6 @@ class Estacionamiento extends Model {
 
     use DecimalConverterTrait;
 
-    protected $fillable = ['nTurnos', 'nTaquillas', 'tarjetacosto'];
 
     protected $hidden = ['created_at', 'updated_at'];
 

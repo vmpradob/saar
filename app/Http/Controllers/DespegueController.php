@@ -1407,8 +1407,10 @@ class DespegueController extends Controller {
                                 if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  1)
                                     return $monto->unidad_tributaria;
 
-                                if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  2)
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  2){
+                                    dd($monto->dolar_oficial);
                                     return $monto->dolar_oficial;
+                                }
                                 break;
                             
                             
