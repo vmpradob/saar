@@ -29,21 +29,15 @@
 								<input type="text" name="peso_hasta" class="form-control" placeholder="">
 								<span class="input-group-addon">Kg(s)</span>
 							</div>
-							<div>
-								<h5 class="">Monto</h5>
-								<div>
-									<h6 id="esperando-monto">Esperando selección de nacionalidad de la matricula...</h6>
-								</div>
-								<div id="d-tributarias" class="input-group hidden">
-									<span class="input-group-addon">UT</span>
-									<input type="text" id="unidad_tributaria" disabled="true" name="unidades" class="form-control" placeholder="Unidades Tributarias">
-									<span class="input-group-addon">Unidades</span>
-								</div>
-								<div id="d-dolares" class="input-group hidden">
-									<span class="input-group-addon">Dolares</span>
-									<input type="text" id="dolares" disabled="true" name="unidades" class="form-control" placeholder="Cantidad Dolares">
-									<span class="input-group-addon">$</span>
-								</div>
+							<h5 class="">Monto</h5>
+							<div id="d-tributarias" class="input-group">
+								<span class="input-group-addon">Unidades</span>
+								<input type="number" step="0.00001" id="unidad_tributaria" name="unidades" class="form-control" placeholder="">
+								<span class="input-group-addon">Unidades</span>
+							</div>
+							<div class="input-group">
+								<span class="input-group-addon">Tipo pago</span>
+								{!! Form::select('tipo_pago_id',$tipo_pagos,null, [ 'class'=>"form-control", 'id' => 'tipo_pago_otros_cargos']) !!}
 							</div>
 						</div>
 						<div class="col-sm-6">
@@ -54,7 +48,7 @@
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon">Nacionalidad</span>
-								{!! Form::select('nacionalidad_matricula', $nacionalidades_vuelos, null, [ 'class'=>"form-control chosen-select nacionalidad_matricula-select", 'id'=>"nacionalidad_matricula-select"]) !!}
+								{!! Form::select('nacionalidad_matriculas[]', $nacionalidades_vuelos, null, [ 'class'=>"form-control chosen-select nacionalidad_matricula-select", "multiple"=>"true", 'id'=>"nacionalidad_matricula-select"]) !!}
 							</div>
 							<h5 class="">Vuelo</h5>
 							<div class="input-group">
@@ -174,35 +168,18 @@
 		$('#cal-unidad-tributaria').val($('body #General-tab .unidad_tributaria').val());
 		$('#cal-dolar-oficial').val($('body #General-tab .dolar_oficial').val());
 
-		//MOSTRAR CAMPO MONTO PARA CADA CASO DE LA NACIONALIDAD DE LA MATRICULA
-		$('#nacionalidad_matricula-select').change(function(e){
-			if($('#nacionalidad_matricula-select').val() != ""){
-				$('#esperando-monto').addClass('hidden');
-				if($('#nacionalidad_matricula-select').val() == 1)
-				{
-					$('#d-dolares').addClass('hidden');
-					$('#dolares').attr("disabled", true);
-
-					$('#d-tributarias').removeClass('hidden ');
-					$('#unidad_tributaria').prop('disabled', false);
+		$( "body body #aterrizajeComercialNacional-tab input").keyup(function( event ) {
+			console.log($('#tipo_pago_otros_cargos').val() )
+			if($('#tipo_pago_otros_cargos').val() == 1){
+					var eq    =$('body #General-tab .unidad_tributaria').val();
 				}else{
-					$('#d-dolares').removeClass('hidden');
-					$('#dolares').prop('disabled', false);
-
-					$('#d-tributarias').addClass('hidden');
-					$('#unidad_tributaria').attr("disabled", true);
+						
+					var eq   =$('body #General-tab .dolar_oficial').val();
 				}
-			}else{
-				$('#esperando-monto').removeClass('hidden');
-
-				$('#d-dolares').addClass('hidden');
-				$('#dolares').attr("disabled", true);
-
-				$('#d-tributarias').addClass('hidden');
-				$('#unidad_tributaria').attr("disabled", true);
-			}
-		}).trigger('change');
-
+				let val = $('#equivalente_otros_cargos').val() * eq;
+				console.log(val);
+				$('#unidad_tributaria').val(val.toFixed(5));
+		});
 	
 
 

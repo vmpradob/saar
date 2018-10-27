@@ -9,6 +9,7 @@ use App\OtrosCargo;
 use App\Concepto;
 use App\TipoMatricula;
 use App\NacionalidadVuelo;
+use App\TipoPago;
 
 class OtrosCargoController extends Controller {
 
@@ -42,7 +43,7 @@ class OtrosCargoController extends Controller {
 			$otros_cargos = OtrosCargo::with("conceptos")
 										->where('nombre_cargo', 'like', $nombre_cargo)
 										->orderBy($sortName, $sortType)
-										->paginate(3);
+										->paginate(20);
 
 
 			return view('configuracionPrecios.confOtrosCargos.partials.table', compact('otros_cargos','tipos_matriculas', 'nacionalidades_vuelos'));
@@ -71,7 +72,6 @@ class OtrosCargoController extends Controller {
 	public function store(Request $request)
 	{
 		$cantidad_unidades = $request->unidades;
-		$nacionalidad_matricula = $request->nacionalidad_matricula;
 		$aeropuerto_id = $request->aeropuerto_id;
 		$precio_cargo = 0;
 		$peso_desde = $request->peso_desde;
@@ -82,38 +82,35 @@ class OtrosCargoController extends Controller {
 			$nombre_cargo = $concepto->nompre;
 			foreach ($request->tipos_matriculas_id as $key => $tipo_matricula_id) {
 				foreach ($request->procedencias_id as $key => $procedencia_id) {
-					$otros_cargos = OtrosCargo::create([
-						'nombre_cargo' => $nombre_cargo,
-						'precio_cargo' => $precio_cargo,
-						'aeropuerto_id' => $aeropuerto_id,
-						'cantidad_unidades' => $cantidad_unidades,
-						'concepto_id' => $concepto_id,
-						'conceptoCredito_id' => $concepto_id,
-						'conceptoContado_id' => $concepto_id,
-						'peso_desde' => $peso_desde,
-						'peso_hasta' => $peso_hasta,
-						'tipo_matricula' => $tipo_matricula_id,
-						'nacionalidad_matricula' => $nacionalidad_matricula,
-						'procedencia' => $procedencia_id
-					]);
+					foreach($request->nacionalidad_matriculas as $key => $nacionalidad_matricula)
+					{
+						$whereIn['concepto_id'] = $concepto_id;
+						$whereIn['tipo_matricula'] = $tipo_matricula_id;						
+						$whereIn['aeropuerto_id'] = $aeropuerto_id;
+						$whereIn['procedencia'] = $procedencia_id;
+						$whereIn['nacionalidad_matricula'] = $nacionalidad_matricula;
+						$whereIn['peso_desde'] = $peso_desde;
+						$whereIn['peso_hasta'] = $peso_hasta;
+						
+						$otros_cargos = OtrosCargo::updateOrCreate($whereIn,array_filter([
+							'nombre_cargo' => $nombre_cargo,
+							'precio_cargo' => $precio_cargo,
+							'aeropuerto_id' => $aeropuerto_id,
+							'cantidad_unidades' => $cantidad_unidades,
+							'concepto_id' => $concepto_id,
+							'conceptoCredito_id' => $concepto_id,
+							'conceptoContado_id' => $concepto_id,
+							'peso_desde' => $peso_desde,
+							'peso_hasta' => $peso_hasta,
+							'tipo_matricula' => $tipo_matricula_id,
+							'nacionalidad_matricula' => $nacionalidad_matricula,
+							'procedencia' => $procedencia_id,
+							'tipo_pago_id' => $request->tipo_pago_id
+						]));
+					}
 				}
 			}
 		}
-
-		/*$otros_cargos = OtrosCargo::create([
-			'nombre_cargo' => $concepto->nompre,
-			'precio_cargo' => 0,
-			'aeropuerto_id' => $request->input('aeropuerto_id'),
-			'cantidad_unidades' => $request->input('unidades'),
-			'concepto_id' => $request->input('concepto_id'),
-			'conceptoCredito_id' => $request->input('concepto_id'),
-			'conceptoContado_id' => $request->input('concepto_id'),
-			'peso_desde' => $request->input('peso_desde'),
-			'peso_hasta' => $request->input('peso_hasta'),
-			'tipo_matricula' => $request->input('tipo_matricula'),
-			'nacionalidad_matricula' => $request->input('nacionalidad_matricula'),
-			'procedencia' => $request->input('procedencia')
-		]);*/
 		
 		if ($otros_cargos){
 			return response()->json(array("text"=>'Registro realizado exitósamente',
@@ -146,7 +143,8 @@ class OtrosCargoController extends Controller {
 		$otrosCargo = OtrosCargo::find($id);
 		$nacionalidades_vuelos = NacionalidadVuelo::lists('nombre','id');
 		$tipos_matriculas = TipoMatricula::lists('nombre','id');
-		return view('configuracionPrecios.confOtrosCargos.partials.edit', compact('otrosCargo', 'tipos_matriculas', 'nacionalidades_vuelos'));
+		$tipo_pagos = TipoPago::lists('name','id');
+		return view('configuracionPrecios.confOtrosCargos.partials.edit', compact('otrosCargo', 'tipos_matriculas', 'nacionalidades_vuelos','tipo_pagos'));
 	}
 
 	/**

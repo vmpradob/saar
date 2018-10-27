@@ -33,24 +33,19 @@
 <br>
 <h6><b>Monto</b></h6>
 <hr>
-	<div id="d-tributarias-modal" class="form-group hidden">
+	<div id="d-tributarias-modal" class="form-group">
 		<div class="col-sm-10">
-			<label for="unidad_tributaria" class="col-sm-2 control-label" >Unidades Tributarias: </label>
+			<label for="unidad_tributaria" class="col-sm-2 control-label" >Cantidad de unidades: </label>
 			<div class="input-group">		
-				{!! Form::text('cantidad_unidades', null, ['id'=>"unidad_tributaria-modal", 'class'=>"form-control",'style' => "margin-left: 10px;", $disabled, "placeholder"=>"Cantidad Unidades"]) !!}
-				<span class="input-group-addon">UT</span>
+				{!! Form::text('cantidad_unidades', null, ['id'=>"unidad_tributaria-modal", 'class'=>"form-control",'style' => "margin-left: 10px;", $disabled, "placeholder"=>""]) !!}
+				<span class="input-group-addon"></span>
 			</div>
 		</div>
+	</div>							
+	<div class="input-group">
+		<span class="input-group-addon">Tipo pago</span>
+		{!! Form::select('tipo_pago_id',$tipo_pagos,$otrosCargo->tipo_pago_id, [ 'class'=>"form-control", 'id' => 'tipo_pago_otros_cargos']) !!}
 	</div>
-	<div id="d-dolares-modal" class="form-group hidden">
-	<div class="col-sm-10">
-		<label for="dolares" class="col-sm-2 control-label" >Dolares: </label>
-		<div class="input-group">		
-			{!! Form::text('cantidad_unidades', null, ['id' =>"dolares-modal",'class'=>"form-control", $disabled, "placeholder"=>"Cantidad Unidades"]) !!}
-			<span class="input-group-addon">$</span>
-		</div>
-	</div>
-</div>
 <br>
 <h6><b>Pesos</b></h6>
 <hr>

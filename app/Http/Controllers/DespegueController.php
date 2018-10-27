@@ -1056,7 +1056,7 @@ class DespegueController extends Controller {
                 if($oc->cantidad_unidades == 0){
                     $montoDes = $oc->precio_cargo;
                 }else{
-                    switch ($oc->nacionalidad_matricula) {
+                    switch ($oc->tipo_pago_id) {
                         case 1:
                             $montoDes = round(($oc->cantidad_unidades * $ut), 5);
                             break;
