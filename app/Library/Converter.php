@@ -168,7 +168,7 @@ class Converter
     public function format($number){
         if(is_string($number))
             $number=floatval($number);
-        return number_format($number,5, ',', '.');
+        return number_format($number,2, ',', '.');
     }
 
 
