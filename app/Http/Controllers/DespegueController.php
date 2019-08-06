@@ -398,9 +398,8 @@ class DespegueController extends Controller {
         $tipo_matricula = $despegue->aterrizaje->aeronave->tipo_id;
         $factura                = new Factura();
         $modulo                 = \App\Modulo::find(5)->nombre;
-        $ut                     = MontosFijo::where('aeropuerto_id', session('aeropuerto')->id)->first()->unidad_tributaria;
 
-        $dolar                  = MontosFijo::where('aeropuerto_id', session('aeropuerto')->id)->first()->dolar_oficial;
+        $euro                  = MontosFijo::where('aeropuerto_id', session('aeropuerto')->id)->first()->euro_oficial;
         $condicionPago          = $despegue->condicionPago;
         $peso                   = ($despegue->aterrizaje->aeronave->peso)/1000;
         $peso_aeronave          = ceil($peso);
@@ -453,7 +452,7 @@ class DespegueController extends Controller {
             if($despegue->aeronave->nacionalidad_id == 246)
                 $montoDes      = $precio_formulario+0;
             else{
-                $montoDes      = $eq_formulario_inter * $dolar;
+                $montoDes      = $eq_formulario_inter * $euro;
             }
             $cantidadDes       = '1';
             $iva               = Concepto::find($concepto_id)->iva;
@@ -599,10 +598,10 @@ class DespegueController extends Controller {
                 if($minimo == 0){
 
                     //Calculo Estandar
-                    $equivalente     = number_format($precio_estacionamiento, 5);
+                    $equivalente     = $precio_estacionamiento;
 
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
-                        $equivalente = number_format($eq_bloque*$dolar, 5);
+                        $equivalente = $eq_bloque*$euro;
 
                     $montoDes        = $equivalente * $tiempoAFacturar * $peso_aeronave;
                     $cantidadDes     = '1';
@@ -617,21 +616,20 @@ class DespegueController extends Controller {
 
 
                     //Calculo Estandar
-                    $equivalenteEstandar = number_format($precio_estacionamiento, 5);
+                    $equivalenteEstandar = $precio_estacionamiento;
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
-                        $equivalenteEstandar = number_format($eq_bloque*$dolar, 5);
+                        $equivalenteEstandar = $eq_bloque*$euro;
                     $montoDesEstandar    = $equivalenteEstandar * $tiempoAFacturar * $peso_aeronave;
                     $montoIvaEstandar    = ($iva * $montoDesEstandar)/100 ;
                     $totalDesEstandar    = $montoDesEstandar + $montoIvaEstandar;
 
 
-
                     //Cálculo con mínimo
                     $montoDesMinimo    = $minimo * $this->monto_minimo_est_despegue($despegue);
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
-                        $montoDesMinimo = $minimo*$dolar;
+                        $montoDesMinimo = $minimo*$euro;
 
-                    $montoIvaMinimo    = ($iva * $montoDesMinimo)/100 ;
+                    $montoIvaMinimo    = ($iva * $montoDesMinimo)/100;
                     $totalDesMinimo    = $montoDesMinimo + $montoIvaMinimo;
 
                     $montoDes = max($montoDesEstandar,$montoDesMinimo);
@@ -845,9 +843,8 @@ class DespegueController extends Controller {
                 $montoDes              = $precio_AterDesp * $peso_aeronave;
 
                 if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela"){
-                    $montoDes =$eq_aterDesp*$dolar*$peso_aeronave;
+                    $montoDes =$eq_aterDesp*$euro*$peso_aeronave;
                 }
-
                 $cantidadDes       = '1';
                 $iva               = Concepto::find($concepto_id)->iva;
                 $montoIva          = ($iva * $montoDes)/100 ;
@@ -861,11 +858,10 @@ class DespegueController extends Controller {
                 $montoDesEstandar = $precio_AterDesp * $peso_aeronave;
 
                 if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
-                    $montoDesEstandar =$eq_aterDesp*$dolar*$peso_aeronave;
+                    $montoDesEstandar =$eq_aterDesp*$euro*$peso_aeronave;
 
                 $montoIvaEstandar = ($iva * $montoDesEstandar)/100 ;
                 $totalDesEstandar = $montoDesEstandar + $montoIvaEstandar;
-
 
                 //Cálculo con Mínimo
                 $montoDesMinimo   = $minimo * $this->monto_minimo_ate_despegue($despegue);
@@ -1058,10 +1054,10 @@ class DespegueController extends Controller {
                 }else{
                     switch ($oc->tipo_pago_id) {
                         case 1:
-                            $montoDes = round(($oc->cantidad_unidades * $ut), 5);
+                            $montoDes = round(($oc->cantidad_unidades * $euro), 5);
                             break;
                         case 2:
-                            $montoDes = round(($oc->cantidad_unidades * $dolar), 5);
+                            $montoDes = round(($oc->cantidad_unidades * $euro), 5);
                             break;
                     }
                 }
@@ -1409,6 +1405,9 @@ class DespegueController extends Controller {
                                 if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  2){
                                     return $monto->dolar_oficial;
                                 }
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  3){
+                                    return $monto->euro_oficial;
+                                }
                                 break;
                             
                             
@@ -1418,7 +1417,10 @@ class DespegueController extends Controller {
 
                                 if($estacionamiento->tipo_pago_gen_matricula_nac_int_id ==  2)
                                     return $monto->dolar_oficial;
-                                break;
+                                
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_int_id ==  3)
+                                    return $monto->euro_oficial;
+                            break;
                         }
                         break;
                     
@@ -1431,7 +1433,11 @@ class DespegueController extends Controller {
 
                                 if($estacionamiento->tipo_pago_gen_matricula_int_nac_id ==  2)
                                     return $monto->dolar_oficial;
-                                break;
+                                
+                                if($estacionamiento->tipo_pago_gen_matricula_int_nac_id ==  3)
+                                    return $monto->euro_oficial;
+                            
+                                    break;
                             
                             default:
                                 # code...
@@ -1440,6 +1446,10 @@ class DespegueController extends Controller {
 
                                 if($estacionamiento->tipo_pago_gen_matricula_int_int_id ==  2)
                                     return $monto->dolar_oficial;
+                            
+                                if($estacionamiento->tipo_pago_gen_matricula_int_int_id ==  3)
+                                    return $monto->euro_oficial;
+                            
                                 break;
                         }
                         break;
@@ -1455,6 +1465,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  2)
                                 return $monto->dolar_oficial;
+                            
+                            if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  3)
+                                return $monto->euro_oficial;
+                            
                             break;
                         
                         
@@ -1464,6 +1478,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  2)
                                 return $monto->dolar_oficial;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  3)
+                                return $monto->euro_oficial;
+                        
                             break;
                     }
                     break;
@@ -1477,6 +1495,9 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  2)
                                 return $monto->dolar_oficial;
+
+                            if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  3)
+                                return $monto->euro_oficial;
                             break;
                         
                         default:
@@ -1486,6 +1507,9 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  2)
                                 return $monto->dolar_oficial;
+                            
+                            if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  3)
+                                return $monto->euro_oficial;
                             break;
                     }
                     break;
@@ -1501,6 +1525,9 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  2)
                                 return $monto->dolar_oficial;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  3)
+                                return $monto->euro_oficial;
                             break;
                         
                         
@@ -1510,6 +1537,9 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  2)
                                 return $monto->dolar_oficial;
+                                
+                            if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  3)
+                                return $monto->euro_oficial;
                             break;
                     }
                     break;
@@ -1523,7 +1553,11 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  2)
                                 return $monto->dolar_oficial;
-                            break;
+                                
+                            if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  3)
+                                return $monto->euro_oficial;
+                            
+                                break;
                         
                         default:
                             # code...
@@ -1532,6 +1566,9 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  2)
                                 return $monto->dolar_oficial;
+
+                            if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  3)
+                                return $monto->euro_oficial;
                             break;
                     }
                     break;
@@ -1555,6 +1592,10 @@ class DespegueController extends Controller {
 
                                 if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  2)
                                     return $monto->dolar_oficial;
+
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  3)
+                                    return $monto->euro_oficial;
+
                                 break;
                             
                             
@@ -1564,6 +1605,11 @@ class DespegueController extends Controller {
 
                                 if($estacionamiento->tipo_pago_gen_matricula_nac_int_id ==  2)
                                     return $monto->dolar_oficial;
+
+                                if($estacionamiento->tipo_pago_gen_matricula_nac_int_id ==  3)
+                                    return $monto->euro_oficial;
+
+
                                 break;
                         }
                         break;
@@ -1577,6 +1623,9 @@ class DespegueController extends Controller {
 
                                 if($estacionamiento->tipo_pago_gen_matricula_int_nac_id ==  2)
                                     return $monto->dolar_oficial;
+
+                                if($estacionamiento->tipo_pago_gen_matricula_int_nac_id ==  3)
+                                    return $monto->euro_oficial;
                                 break;
                             
                             default:
@@ -1586,6 +1635,9 @@ class DespegueController extends Controller {
 
                                 if($estacionamiento->tipo_pago_gen_matricula_int_int_id ==  2)
                                     return $monto->dolar_oficial;
+
+                                if($estacionamiento->tipo_pago_gen_matricula_int_int_id ==  3)
+                                    return $monto->euro_oficial;
                                 break;
                         }
                         break;
@@ -1601,6 +1653,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  2)
                                 return $monto->dolar_oficial;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  3)
+                                return $monto->euro_oficial;
+                            
                             break;
                         
                         
@@ -1610,6 +1666,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  2)
                                 return $monto->dolar_oficial;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  3)
+                                return $monto->euro_oficial;
+                                
                             break;
                     }
                     break;
@@ -1623,6 +1683,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  2)
                                 return $monto->dolar_oficial;
+
+                            if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  3)
+                                return $monto->euro_oficial;
+                            
                             break;
                         
                         default:
@@ -1632,6 +1696,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  2)
                                 return $monto->dolar_oficial;
+                                
+                            if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  3)
+                                return $monto->euro_oficial;
+                            
                             break;
                     }
                     break;
@@ -1647,6 +1715,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  2)
                                 return $monto->dolar_oficial;
+                            
+                            if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  3)
+                                return $monto->euro_oficial;
+                            
                             break;
                         
                         
@@ -1656,6 +1728,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  2)
                                 return $monto->dolar_oficial;
+
+                            if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  3)
+                                return $monto->euro_oficial;
+                            
                             break;
                     }
                     break;
@@ -1669,6 +1745,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  2)
                                 return $monto->dolar_oficial;
+                                
+                            if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  3)
+                                return $monto->euro_oficial;
+                            
                             break;
                         
                         default:
@@ -1678,6 +1758,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  2)
                                 return $monto->dolar_oficial;
+                            
+                            if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  3)
+                                return $monto->euro_oficial;
+                            
                             break;
                     }
                     break;

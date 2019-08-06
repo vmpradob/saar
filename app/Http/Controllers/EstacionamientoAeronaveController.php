@@ -72,14 +72,25 @@ class EstacionamientoAeronaveController extends Controller {
 	{		
 
 		$estacionamientoAeronave                    = EstacionamientoAeronave::find($id);
-		$estacionamientoAeronave->update($request->except('aplicar_minimo_int',
-														  'aplicar_minimo_nac',
-														  'aplicar_minimo_int_general',
-														  'aplicar_minimo_nac_general',
-														  'aplicar_minimo_int_ext',
-														  'aplicar_minimo_nac_ext',
-														  'aplicar_minimo_int_general_ext',
-														  'aplicar_minimo_nac_general_ext'));
+
+		$update_values = $request->except('aplicar_minimo_int',
+		'aplicar_minimo_nac',
+		'aplicar_minimo_int_general',
+		'aplicar_minimo_nac_general',
+		'aplicar_minimo_int_ext',
+		'aplicar_minimo_nac_ext',
+		'aplicar_minimo_int_general_ext',
+		'aplicar_minimo_nac_general_ext');
+		$update_values['precio_estInt'] = round($update_values['precio_estInt'],2);
+		$update_values['precio_estNac'] = round($update_values['precio_estNac'],2);
+		$update_values['precio_estInt_general'] = round($update_values['precio_estInt_general'],2);
+		$update_values['precio_estNac_general'] = round($update_values['precio_estNac_general'],2);
+		$update_values['precio_estInt_ext'] = round($update_values['precio_estInt_ext'],2);
+		$update_values['precio_estNac_ext'] = round($update_values['precio_estNac_ext'],2);
+		$update_values['precio_estInt_general'] = round($update_values['precio_estInt_general_ext'],2);
+		$update_values['precio_estNac_general'] = round($update_values['precio_estNac_general_ext'],2);
+
+		$estacionamientoAeronave->update($update_values);
 		
 		$estacionamientoAeronave->aplicar_minimo_int =($request->input('aplicar_minimo_int'))?1:0;
 		$estacionamientoAeronave->aplicar_minimo_nac =($request->input('aplicar_minimo_nac'))?1:0;
