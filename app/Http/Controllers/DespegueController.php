@@ -1059,6 +1059,9 @@ class DespegueController extends Controller {
                         case 2:
                             $montoDes = round(($oc->cantidad_unidades * $euro), 5);
                             break;
+                        case 3:
+                            $montoDes = round(($oc->cantidad_unidades * $euro), 5);
+                            break;
                     }
                 }
                 $cantidadDes  = '1';
