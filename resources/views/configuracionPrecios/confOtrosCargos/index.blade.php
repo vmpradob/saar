@@ -1,5 +1,7 @@
 <input type="hidden" id="cal-unidad-tributaria"></input>
 <input type="hidden" id="cal-dolar-oficial"></input>
+<input type="hidden" id="cal-euro-oficial"></input>
+
 <div class="row invoice-info">
 	<div class="col-sm-12 invoice-col">	
 		<div class="box box-info">
@@ -167,15 +169,12 @@
 		$('#nacionalidad_matricula-select').change();
 		$('#cal-unidad-tributaria').val($('body #General-tab .unidad_tributaria').val());
 		$('#cal-dolar-oficial').val($('body #General-tab .dolar_oficial').val());
+		$('#cal-euro-oficial').val($('body #General-tab .euro_oficial').val());
+
 
 		$( "body body #aterrizajeComercialNacional-tab input").keyup(function( event ) {
 			console.log($('#tipo_pago_otros_cargos').val() )
-			if($('#tipo_pago_otros_cargos').val() == 1){
-					var eq    =$('body #General-tab .unidad_tributaria').val();
-				}else{
-						
-					var eq   =$('body #General-tab .dolar_oficial').val();
-				}
+			var eq   =$('body #General-tab .euro_oficial').val();
 				let val = $('#equivalente_otros_cargos').val() * eq;
 				console.log(val);
 				$('#unidad_tributaria').val(val.toFixed(5));

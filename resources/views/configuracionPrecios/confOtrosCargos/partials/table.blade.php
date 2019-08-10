@@ -59,7 +59,7 @@
                     var monto_formato = addCommas(monto_total);
                     monto.text(monto_formato);
               }else if(monto.hasClass('internacional') == true){
-                    var monto_total = (unidades.val() * $('#cal-dolar-oficial').val()).toFixed(2);
+                    var monto_total = (unidades.val() * $('#cal-euro-oficial').val()).toFixed(2);
                     var monto_formato = addCommas(monto_total);
                     monto.text(monto_formato);
               }
