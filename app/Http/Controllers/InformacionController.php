@@ -155,23 +155,27 @@ class InformacionController extends Controller {
 	 */
 	public function update(Request $request)
 	{
-
+        
         //actualizando aeropuerto de sesion
 		$aeropuerto=session("aeropuerto");
         $aeropuerto->update($request->get("aeropuerto"));
-
+        
         //actualizando bancos
         $bancos=\App\Banco::all();
         $this->actualizarBancos($bancos, $request->get('bancosNuevos',[]), $request->get("bancos", []));
-
+        
         //actualizando cuentas bancarias
         $cuentas=\App\Bancoscuenta::all();
         $this->actualizarCuentas($cuentas, $request->get('cuentasNuevas',[]), $request->get("cuentas", []));
-
+        
         //actualizando estacionamientos del aeropuerto de la sesion
         $estacionamiento=$aeropuerto->estacionamiento;
-        $estacionamiento->update($request->get("estacionamiento"));
+        $estacionamiento_update = $request->get("estacionamiento");
 
+        $estacionamiento->nTurnos = $estacionamiento_update['nTurnos'];
+        $estacionamiento->nTaquillas = $estacionamiento_update['nTaquillas'];
+        $estacionamiento->tarjetacosto = $estacionamiento_update['tarjetacosto'];
+        $estacionamiento->save();
         //actualizando portones
         $this->actualizarEstacionamientos($estacionamiento, $request->get('portonesNuevos',[]), $request->get("portones", []));
 
@@ -181,7 +185,6 @@ class InformacionController extends Controller {
         //actualizando configuración 
         $otrasConfiguraciones = \App\OtrasConfiguraciones::where('aeropuerto_id', session('aeropuerto')->id)->first();
         $otrasConfiguraciones->update($request->get("otrasConfiguraciones"));
-
 
 
 
