@@ -590,9 +590,12 @@ class DespegueController extends Controller {
 
 
             if($tiempoAFacturar > 0){
-
-
+                $interesEstacionamientoHorasExtra = 0;
                 $tiempoAFacturar =ceil($tiempoAFacturar);
+                if($tiempoAFacturar > 6){
+                    $interesEstacionamientoHorasExtra = ceil(($tiempoAFacturar -6)/6);  
+                    $tiempoAFacturar = 6;
+                }
                 $mensajeEstacionamiento = 'Estacionamiento '.$tipoEstacionamiento.'. Horas: '.intval($tiempoAFacturar).', Tiempo libre: '.$minutosLibre.' min.';
 
                 if($minimo == 0){
@@ -603,7 +606,7 @@ class DespegueController extends Controller {
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
                         $equivalente = $eq_bloque*$euro;
 
-                    $montoDes        = $equivalente * $tiempoAFacturar * $peso_aeronave;
+                    $montoDes        = ($equivalente * $tiempoAFacturar * $peso_aeronave) + ($interesEstacionamientoHorasExtra * $equivalente * $peso_aeronave);
                     $cantidadDes     = '1';
                     $iva             = Concepto::find($concepto_id)->iva;
                     $montoIva        = ($iva * $montoDes)/100 ;
@@ -619,7 +622,7 @@ class DespegueController extends Controller {
                     $equivalenteEstandar = $precio_estacionamiento;
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
                         $equivalenteEstandar = $eq_bloque*$euro;
-                    $montoDesEstandar    = $equivalenteEstandar * $tiempoAFacturar * $peso_aeronave;
+                    $montoDesEstandar    = ($equivalente * $tiempoAFacturar * $peso_aeronave) + ($interesEstacionamientoHorasExtra * $equivalente * $peso_aeronave);
                     $montoIvaEstandar    = ($iva * $montoDesEstandar)/100 ;
                     $totalDesEstandar    = $montoDesEstandar + $montoIvaEstandar;
 
