@@ -591,18 +591,17 @@ class DespegueController extends Controller {
 
             if($tiempoAFacturar > 0){
                 $interesEstacionamientoHorasExtra = 0;
+                $mensajeEstacionamiento = 'Estacionamiento '.$tipoEstacionamiento.'. Horas: '.intval($tiempoAFacturar).', Tiempo libre: '.$minutosLibre.' min.';
                 $tiempoAFacturar =ceil($tiempoAFacturar);
                 if($tiempoAFacturar > 6){
                     $interesEstacionamientoHorasExtra = ceil(($tiempoAFacturar -6)/6);  
                     $tiempoAFacturar = 6;
                 }
-                $mensajeEstacionamiento = 'Estacionamiento '.$tipoEstacionamiento.'. Horas: '.intval($tiempoAFacturar).', Tiempo libre: '.$minutosLibre.' min.';
 
                 if($minimo == 0){
 
                     //Calculo Estandar
                     $equivalente     = $precio_estacionamiento;
-
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
                         $equivalente = $eq_bloque*$euro;
 
