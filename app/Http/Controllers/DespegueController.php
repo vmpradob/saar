@@ -606,7 +606,7 @@ class DespegueController extends Controller {
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
                         $equivalente = $eq_bloque*$euro;
 
-                    $montoDes        = ($equivalente * $tiempoAFacturar * $peso_aeronave) + ($interesEstacionamientoHorasExtra * $equivalente * $peso_aeronave);
+                    $montoDes        = ($equivalente * $tiempoAFacturar * $peso_aeronave) + ($interesEstacionamientoHorasExtra * $equivalente * $peso_aeronave *2);
                     $cantidadDes     = '1';
                     $iva             = Concepto::find($concepto_id)->iva;
                     $montoIva        = ($iva * $montoDes)/100 ;
@@ -622,7 +622,7 @@ class DespegueController extends Controller {
                     $equivalenteEstandar = $precio_estacionamiento;
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
                         $equivalenteEstandar = $eq_bloque*$euro;
-                    $montoDesEstandar    = ($equivalente * $tiempoAFacturar * $peso_aeronave) + ($interesEstacionamientoHorasExtra * $equivalente * $peso_aeronave);
+                    $montoDesEstandar    = ($equivalenteEstandar * $tiempoAFacturar * $peso_aeronave) + ($interesEstacionamientoHorasExtra * $equivalenteEstandar * $peso_aeronave *2);
                     $montoIvaEstandar    = ($iva * $montoDesEstandar)/100 ;
                     $totalDesEstandar    = $montoDesEstandar + $montoIvaEstandar;
 
