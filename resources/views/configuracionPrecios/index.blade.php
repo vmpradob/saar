@@ -853,7 +853,7 @@ $(document).ready(function(){
 		var val_form= Math.ceil(eq_form*ut);
 		$('body #cargosVarios-tab #precio_formulario-input').val(val_form.toFixed(5));
 
-		var ut        =$('body #General-tab .unidad_tributaria').val();
+		var ut        =$('body #General-tab .euro_oficial').val();
 		var val_DerHab= eq_DerHab*ut;
 		$('body #cargosVarios-tab #precio_derechoHabilitacion-input').val(val_DerHab)
 		var val_AborSH= eq_AborSH*ut;
