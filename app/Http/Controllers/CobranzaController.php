@@ -239,11 +239,10 @@ class CobranzaController extends Controller {
                 'retencionComprobante' => $f["retencionComprobante"],
                 ]]);
 
-            if($abonadoReal >= $factura->total){
 
                 $factura->estado="C";
                 $factura->save();
-            }
+            
         }
 
         foreach($pagos as $p){
