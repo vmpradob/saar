@@ -594,7 +594,7 @@ class FacturaController extends Controller {
         $modulo = \App\Modulo::where('nombre', $modulo)->where('aeropuerto_id', $aeropuerto)->first();
         
         $clientes   = \App\Cliente::all();
-        $conceptos  = \App\Concepto::where('aeropuerto_id', $aeropuerto)->where('modulo_id', $modulo->id)->orderby('nompre','ASC')->where('stacod','A')->get();
+        $conceptos  = \App\Concepto::where('aeropuerto_id', $aeropuerto)->orderby('nompre','ASC')->where('stacod','A')->get();
        
         /*$conceptoss = Concepto::where('aeropuerto_id', session('aeropuerto')->id)->orderby('nompre','ASC')->where('stacod','A')->lists('nompre', 'id');*/
         $nControlPrefix = $modulo->nControlPrefixManual;
