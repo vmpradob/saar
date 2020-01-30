@@ -85,6 +85,7 @@ class EstacionamientoAeronaveController extends Controller {
 		$update_values['precio_estNac'] = round($update_values['precio_estNac'],2);
 		$update_values['precio_estInt_general'] = round($update_values['precio_estInt_general'],2);
 		$update_values['precio_estNac_general'] = round($update_values['precio_estNac_general'],2);
+		
 		$update_values['precio_estInt_ext'] = round($update_values['precio_estInt_ext'],2);
 		$update_values['precio_estNac_ext'] = round($update_values['precio_estNac_ext'],2);
 		$update_values['precio_estInt_general_ext'] = round($update_values['precio_estInt_general_ext'],2);

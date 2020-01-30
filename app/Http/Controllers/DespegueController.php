@@ -624,7 +624,7 @@ class DespegueController extends Controller {
                     $montoDesEstandar    = ($equivalenteEstandar * $tiempoAFacturar * $peso_aeronave) + ($interesEstacionamientoHorasExtra * $equivalenteEstandar * $peso_aeronave *2);
                     $montoIvaEstandar    = ($iva * $montoDesEstandar)/100 ;
                     $totalDesEstandar    = $montoDesEstandar + $montoIvaEstandar;
-
+		//	dd ( $equivalenteEstandar,$tiempoAFacturar+($interesEstacionamientoHorasExtra*2),$peso_aeronave);
 
                     //Cálculo con mínimo
                     $montoDesMinimo    = $minimo * $this->monto_minimo_est_despegue($despegue);
@@ -858,8 +858,8 @@ class DespegueController extends Controller {
 
                 //Cálculo Estándar
                 $montoDesEstandar = $precio_AterDesp * $peso_aeronave;
-
-                if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
+		
+               if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
                     $montoDesEstandar =$eq_aterDesp*$euro*$peso_aeronave;
 
                 $montoIvaEstandar = ($iva * $montoDesEstandar)/100 ;
@@ -867,8 +867,6 @@ class DespegueController extends Controller {
 
                 //Cálculo con Mínimo
                 $montoDesMinimo   = $minimo * $this->monto_minimo_ate_despegue($despegue);
-
-
 
 
 

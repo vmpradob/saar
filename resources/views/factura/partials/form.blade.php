@@ -30,7 +30,7 @@
             <div class="input-group-btn">
                 <button style="max-height:37px" type="button" class="btn btn-default"><span class="nControlPrefix-text">{{$modulo->nControlPrefix}}</span></button>
             </div>
-            {!! Form::text('nControl', ($factura->nControl)?$factura->nControl:$factura->getMaxWith('nControlPrefix', 'nControl', $modulo->nControlPrefix), [ 'id' => 'nControl', 'class'=>"form-control", $disabled,"data-empty"=>"false", "data-type"=>"int", "data-name"=>"Número de control", 'style' => 'padding-left:2px']) !!}
+            {!! Form::text('nControl', null, [ 'id' => 'nControl', 'class'=>"form-control", $disabled,"data-empty"=>"false", "data-type"=>"int", "data-name"=>"Número de control", 'style' => 'padding-left:2px']) !!}
         </div>
 	</div>
 </div>

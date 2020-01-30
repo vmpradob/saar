@@ -14,4 +14,9 @@ class PreciosCarga extends Model {
     { 
         return $this->hasOne('App\Carga');
     }
+
+    public function tipo_pago()
+    {
+        return $this->belongsTo('App\TipoPago','tipo_pago_id','id');
+    }
 }

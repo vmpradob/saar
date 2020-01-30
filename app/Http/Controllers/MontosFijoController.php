@@ -15,6 +15,7 @@ use App\EstacionamientoAeronave;
 use App\PreciosAterrizajesDespegue;
 use App\TipoPago;
 use App\CargosVario;
+use App\PreciosCarga;
 class MontosFijoController extends Controller {
 
 	/**
@@ -98,12 +99,60 @@ class MontosFijoController extends Controller {
 	 */
 	public function update($id, Request $request)
 	{
+		//actualizo el valor de la unidad monetaria
 		$confGeneral                    =MontosFijo::find($id);
 		$confGeneral->unidad_tributaria =$request->input('unidad_tributaria');
 		$confGeneral->dolar_oficial     =$request->input('dolar_oficial');
 		$confGeneral->euro_oficial			=$request->input('euro_oficial');
+
+
+
+
+
 		if($confGeneral->save())
 		{
+			$precioCargas = PreciosCarga::where('aeropuerto_id',session('aeropuerto')->id)->first();
+			$precioCargas->precio_carga = $precioCargas->equivalenteUT * $precioCargas->tipo_pago->precio();
+			$precioCargas->save();
+			// actualizo los valores del formulario, derecho habilitacion, derecho de abordaje internacional y nacional
+			$cargoVario = CargosVario::where('aeropuerto_id',session('aeropuerto')->id)->first();
+			$cargoVario->precio_formulario = $cargoVario->eq_formulario * $cargoVario->TipoPagoFormulario->precio(); 
+			$cargoVario->precio_derechoHabilitacion = $cargoVario->eq_derechoHabilitacion * $cargoVario->tipoPagoFHabilitacion->precio(); 
+			$cargoVario->precio_usoAbordajeSinHab = $cargoVario->eq_usoAbordajeSinHab * $cargoVario->tipoPagoDerechoAbordajeNac->precio();
+			$cargoVario->precio_usoAbordajeConHab = $cargoVario->eq_usoAbordajeConHab * $cargoVario->tipoPagoDerechoAbordajeInt->precio();
+			$cargoVario->save();
+			
+		// actualizar los valores de los cobros por matricula general y comercial tanto de procedencia nacional como de procedencia internacional
+		$estacionamientoAeronave = EstacionamientoAeronave::where('aeropuerto_id',session('aeropuerto')->id)->first();
+		$estacionamientoAeronave->precio_estNac = $estacionamientoAeronave->eq_bloqueNac * $estacionamientoAeronave->tipo_pago_com_matricula_nac_nac->precio();
+		$estacionamientoAeronave->precio_estInt = $estacionamientoAeronave->eq_bloqueInt * $estacionamientoAeronave->tipo_pago_com_matricula_nac_int->precio();
+		$estacionamientoAeronave->precio_estNac_general = $estacionamientoAeronave->eq_bloqueNac_general * $estacionamientoAeronave->tipo_pago_gen_matricula_nac_nac->precio();
+		$estacionamientoAeronave->precio_estInt_general = $estacionamientoAeronave->eq_bloqueInt_general * $estacionamientoAeronave->tipo_pago_gen_matricula_nac_int->precio();
+		$estacionamientoAeronave->precio_estNac_ext = $estacionamientoAeronave->eq_bloqueNac_ext * $estacionamientoAeronave->tipo_pago_com_matricula_int_nac->precio();
+		$estacionamientoAeronave->precio_estInt_ext = $estacionamientoAeronave->eq_bloqueInt_ext * $estacionamientoAeronave->tipo_pago_com_matricula_int_int->precio();
+		$estacionamientoAeronave->precio_estNac_general_ext = $estacionamientoAeronave->eq_bloqueNac_general_ext * $estacionamientoAeronave->tipo_pago_gen_matricula_int_nac->precio();
+		$estacionamientoAeronave->precio_estInt_general_ext =$estacionamientoAeronave->eq_bloqueInt_general_ext * $estacionamientoAeronave->tipo_pago_gen_matricula_int_int->precio();
+		$estacionamientoAeronave->save();
+
+		// actualizar los valores de los cobros por matricula general y comercial tanto de procedencia nacional como de procedencia internacional
+		$precioAterrizajeDespegue = PreciosAterrizajesDespegue::where('aeropuerto_id',session('aeropuerto')->id)->first();
+		$precioAterrizajeDespegue->precio_diurnoNac = $precioAterrizajeDespegue->eq_diurnoNac * $precioAterrizajeDespegue->tipo_pago_com_matricula_nac_nac->precio();
+		$precioAterrizajeDespegue->precio_nocturNac = $precioAterrizajeDespegue->eq_nocturNac * $precioAterrizajeDespegue->tipo_pago_com_matricula_nac_nac->precio();
+		$precioAterrizajeDespegue->precio_diurnoInt = $precioAterrizajeDespegue->eq_diurnoInt * $precioAterrizajeDespegue->tipo_pago_com_matricula_nac_int->precio();
+		$precioAterrizajeDespegue->precio_nocturInt = $precioAterrizajeDespegue->eq_nocturInt * $precioAterrizajeDespegue->tipo_pago_com_matricula_nac_int->precio();
+		$precioAterrizajeDespegue->precio_diurnoNac_general = $precioAterrizajeDespegue->eq_diurnoNac_general * $precioAterrizajeDespegue->tipo_pago_gen_matricula_nac_nac->precio();
+		$precioAterrizajeDespegue->precio_nocturNac_general = $precioAterrizajeDespegue->eq_nocturNac_general * $precioAterrizajeDespegue->tipo_pago_gen_matricula_nac_nac->precio();
+		$precioAterrizajeDespegue->precio_diurnoInt_general = $precioAterrizajeDespegue->eq_diurnoInt_general * $precioAterrizajeDespegue->tipo_pago_gen_matricula_nac_int->precio();
+		$precioAterrizajeDespegue->precio_nocturInt_general = $precioAterrizajeDespegue->eq_nocturInt_general * $precioAterrizajeDespegue->tipo_pago_gen_matricula_nac_int->precio();
+		$precioAterrizajeDespegue->precio_diurnoNac_ext = $precioAterrizajeDespegue->eq_diurnoNac_ext * $precioAterrizajeDespegue->tipo_pago_com_matricula_int_nac->precio();
+		$precioAterrizajeDespegue->precio_nocturNac_ext = $precioAterrizajeDespegue->eq_nocturNac_ext * $precioAterrizajeDespegue->tipo_pago_com_matricula_int_nac->precio();
+		$precioAterrizajeDespegue->precio_diurnoInt_ext = $precioAterrizajeDespegue->eq_diurnoInt_ext * $precioAterrizajeDespegue->tipo_pago_com_matricula_int_int->precio();
+		$precioAterrizajeDespegue->precio_nocturInt_ext = $precioAterrizajeDespegue->eq_nocturInt_ext * $precioAterrizajeDespegue->tipo_pago_com_matricula_int_int->precio();
+		$precioAterrizajeDespegue->precio_diurnoNac_general_ext = $precioAterrizajeDespegue->eq_diurnoNac_general_ext * $precioAterrizajeDespegue->tipo_pago_gen_matricula_int_nac->precio();
+		$precioAterrizajeDespegue->precio_nocturNac_general_ext = $precioAterrizajeDespegue->eq_nocturNac_general_ext * $precioAterrizajeDespegue->tipo_pago_gen_matricula_int_nac->precio();
+		$precioAterrizajeDespegue->precio_diurnoInt_general_ext = $precioAterrizajeDespegue->eq_diurnoInt_general_ext * $precioAterrizajeDespegue->tipo_pago_gen_matricula_int_int->precio();
+		$precioAterrizajeDespegue->precio_nocturInt_general_ext = $precioAterrizajeDespegue->eq_nocturInt_general_ext * $precioAterrizajeDespegue->tipo_pago_gen_matricula_int_int->precio();
+		$estacionamientoAeronave->save();
 			return response()->json(array("text"=>'Configuracion modificada exitósamente.',
 										  "confGeneral"=>$confGeneral,
 										  "success"=>1));

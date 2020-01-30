@@ -144,8 +144,7 @@ class CobranzaController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-
-        $impresion="";
+	$impresion="";
         \DB::transaction(function () use ($request, &$impresion) {
             $cobro=\App\Cobro::create([
                 'cliente_id'    => $request->get('cliente_id'),
@@ -257,6 +256,7 @@ class CobranzaController extends Controller {
 
         $cobro->montofacturas=$request->get("totalFacturas");
         $cobro->montodepositado=$request->get("totalDepositado");
+	
         $ajuste=$request->get("ajuste");
 
         if($cobro->montodepositado>($cobro->montofacturas-$ajuste)){
@@ -269,7 +269,6 @@ class CobranzaController extends Controller {
         $cobro->observacion=$request->get('observacion');
         $cobro->hasrecaudos=$request->get('hasrecaudos');
         $cobro->save();
-
         //VERIFICAMOS SI EN EL COBRO EL CLIENTE TIENE AJUSTE SI NO SE CREO, SE REALIZA UN rollback
         if($cobro->montodepositado>($cobro->montofacturas-$ajuste)){
             $tiene_ajuste = \App\Ajuste::where('cliente_id' , $request->get("cliente_id"))->get();
@@ -277,9 +276,10 @@ class CobranzaController extends Controller {
                 DB::rollback();
             }
         }
-
+	
         $impresion=action('CobranzaController@getPrint', ["cobro"=>$cobro->id, "modulo"=>$cobro->modulo_id]);
-
+	
+	
     });
 return ["success"=>1, "impresion" => $impresion];
 }
@@ -545,6 +545,7 @@ return ["success"=>1, "impresion" => $impresion];
 
         $cobroid =$cobro;
         $cobro   =\App\Cobro::with('pagos', 'cliente')->find($cobroid);
+	
         $monto = 0;
         $aeropuerto=session('aeropuerto');
 
