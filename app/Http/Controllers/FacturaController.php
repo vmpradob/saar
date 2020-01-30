@@ -373,9 +373,25 @@ class FacturaController extends Controller {
             }   
         }
 */
-        $ultimaFactura=\DB::table('facturas')->orderBy('id','desc')->first();
+        $facturas=\App\Factura::all();
+             foreach ($facturas as $factura) {
+                $nFacturaPrefix    =$factura->nFacturaPrefix;
+                $nControlPrefix    =$factura->nControlPrefix;
+                $nFacturaPrefixReq =$request->get('nFacturaPrefix');
+                $nControlPrefixReq =$request->get('nControlPrefix');
+                $nFactura          =$factura->nFactura;
+                $nControl          =$factura->nControl;
+                $nFacturaReq       =$request->get('nFactura');
+                $nControlReq       =$request->get('nControl');
+                if($nFacturaPrefix.$nFactura==$nFacturaPrefixReq.$nFacturaReq){
+                    $mensaje='El número de factura indicado ya ha sido tomado.';
+                }                
+                if($nControlPrefix.$nControl==$nControlPrefixReq.$nControlReq){
+                    $mensaje='El número de control indicado ya ha sido tomado.';
+                }
 
 
+            }
 
         if($mensaje==""){
             $impresion="";
@@ -394,7 +410,16 @@ class FacturaController extends Controller {
                     $dicom = MontosFijo::where('aeropuerto_id', session('aeropuerto')->id)->first()->dolar_oficial;
                     $factura->dicom = $dicom;
                     $factura->save();
-
+                    /*
+                    if ($cliente && $cliente->isEnvioAutomatico == true && $cliente->email != "") {
+                        $path = $this->crearFactura($factura, 'F');
+                        Mail::send('emails.test', ['name' => $cliente->nombre], function ($message) use ($factura, $cliente, $path) {
+                            $message
+                                ->to($cliente->email, $cliente->nombre)
+                                ->subject('Vuestra factura #' . $factura->codigo . ' esta lista')
+                                ->attach($path);
+                        });
+                    */
 
                     if ($request->has('despegue_id')) {
                         $despegue = \App\Despegue::find($request->get('despegue_id'));
