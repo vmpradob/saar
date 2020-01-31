@@ -2598,7 +2598,8 @@ class ReporteController extends Controller {
                                 'otrosCargosBs'     => 0,
                                 'totalDosa'         => 0,
                                 'fechaDeposito'     => 0,
-                                'totalDepositado'   => 0
+                                'totalDepositado'   => 0,
+                                'condicionPago'     => $factura->condicionPago
                             ];
             $dosaFactura[$factura->nroDosa]["cliente"]         =$factura->cliente->nombre;
             $dosaFactura[$factura->nroDosa]["totalDosa"]       =$factura->total;
@@ -2624,9 +2625,9 @@ class ReporteController extends Controller {
             }
 
             foreach ($factura->cobros as $recibo){
-                    $dosaFactura[$factura->nroDosa]["fecha"]=$recibo->fecha;
-                    $dosaFactura[$factura->nroDosa]["reciboCaja"]=$recibo->nRecibo;
-                    $dosaFactura[$factura->nroDosa]["nCobro"]=$recibo->id;
+                $dosaFactura[$factura->nroDosa]["fecha"]=$recibo->fecha;
+                $dosaFactura[$factura->nroDosa]["reciboCaja"]=$recibo->nRecibo;
+                $dosaFactura[$factura->nroDosa]["nCobro"]=$recibo->id;
                 foreach ($recibo->pagos as $pago){
                         $dosaFactura[$factura->nroDosa]["refBancaria"]     =$pago->ncomprobante;
                         $dosaFactura[$factura->nroDosa]["fechaDeposito"]   =$pago->fecha;

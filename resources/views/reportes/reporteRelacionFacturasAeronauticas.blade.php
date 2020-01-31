@@ -88,7 +88,7 @@
                                     <tr class="bg-primary" >
                                         <th  style="vertical-align: middle" class="text-center" >Nro.</th>
                                         <th  style="vertical-align: middle" class="text-center" >Rec. Caja</th>
-                                       
+                                        <th  style="vertical-align: middle" class="text-center" >Tipo de Pago</th>
                                         <th style="vertical-align: middle" class="text-center" >Fecha</th>
                                         <th style="vertical-align: middle" class="text-center" >Nro.</th>
                                         <th style="vertical-align: middle" class="text-center" >Formulario(Bs.)</th>
@@ -113,7 +113,8 @@
 
                                                 <td class="text-center" align="center">{{$df['nCobro']}}</td>                         
                                                 <td class="text-center" align="center">{{$df['reciboCaja']}}</td>                         
-                                                <td class="text-center" align="center">{{$df['fecha']}}</td>  
+                                                <td class="text-center" align="center">{{$df['condicionPago']}}</td>  
+                                                <td class="text-center" align="center">{{$df['fecha']}}</td>
 
                                                 <td class="text-center" align="center">{{$index}}</td>                               
                                                 <td class="text-right formularioBs" align="right">{{$traductor->format($df['formularioBs'])}}</td>                               
