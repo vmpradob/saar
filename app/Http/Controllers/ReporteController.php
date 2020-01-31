@@ -2531,6 +2531,116 @@ class ReporteController extends Controller {
 
     }
 
+    public function getReporteRelacionFacturasAeronauticas(Request $request){
+        $diaDesde         =$request->get('diaDesde', \Carbon\Carbon::now()->day);
+        $mesDesde         =$request->get('mesDesde', \Carbon\Carbon::now()->month);
+        $annoDesde        =$request->get('annoDesde', \Carbon\Carbon::now()->year);
+        $diaHasta         =$request->get('diaHasta', \Carbon\Carbon::now()->day);
+        $mesHasta         =$request->get('mesHasta', \Carbon\Carbon::now()->month);
+        $annoHasta        =$request->get('annoHasta', \Carbon\Carbon::now()->year);
+        $aeropuerto       =$request->get('aeropuerto_id', session('aeropuerto')->id);
+        $aeropuertoNombre =\App\Aeropuerto::find($aeropuerto)->nombre;
+        $cliente          =$request->get('cliente_id', 0);
+        $clienteNombre    =($cliente==0)?'TODOS':(\App\Cliente::where('id', $cliente)->first()->nombre);
+
+        $formulario      =\App\Concepto::where('aeropuerto_id', $aeropuerto)->where('nompre', 'FORMULARIO DOSA (CRÉDITO)')->first();
+        $aterrizaje      =\App\Concepto::where('aeropuerto_id', $aeropuerto)->where('nompre', 'ATERRIZAJE Y DESPEGUE DE AERONAVES (CRÉDITO)')->first();
+        $estacionamiento =\App\Concepto::where('aeropuerto_id', $aeropuerto)->where('nompre', 'ESTACIONAMIENTO DE AERONAVES (CRÉDITO)')->first();
+        $habilitacion    =\App\Concepto::where('aeropuerto_id', $aeropuerto)->where('nompre', 'HABILITACION (CRÉDITO)')->first();
+        $jetway          =\App\Concepto::where('aeropuerto_id', $aeropuerto)->where('nompre', 'JETWAY (CRÉDITO)')->first();
+        $carga           =\App\Concepto::where('aeropuerto_id', $aeropuerto)->where('nompre', 'CARGA (CRÉDITO)')->first();
+        $otrosIngresos   =\App\Concepto::where('aeropuerto_id', $aeropuerto)->where('nombreImprimible', 'Otros Aero. (Créd)')->get();
+
+
+
+
+        $facturasAnteriores  =  \App\Factura::where('fecha', '<',  $annoHasta.'-'.$mesHasta.'-'.$diaHasta)
+                                            ->where('estado', 'C')
+                                            ->where('aeropuerto_id', $aeropuerto)
+                                            ->where('nroDosa', '<>', 'NULL')
+                                            ->orderBy('facturas.nFactura')
+                                            ->lists('facturas.id');
+
+
+        $cobrosFacturasAnteriores  =  \App\Cobro::select('cobros.id as cobroID')
+                                                ->join('cobro_factura', 'cobros.id', '=', 'cobro_factura.cobro_id')
+                                                ->whereBetween('cobros.fecha', array($annoDesde.'-'.$mesDesde.'-'.$diaDesde,  $annoHasta.'-'.$mesHasta.'-'.$diaHasta) )
+                                                ->whereIn('cobro_factura.factura_id', $facturasAnteriores)
+                                                ->groupBy('cobros.id')
+                                                ->lists('cobroID');
+
+
+         $facturas        =\App\Factura::with('detalles', 'cobros')->select('facturas.*', 'clientes.nombre')
+                                 ->join('clientes', 'facturas.cliente_id', '=', 'clientes.id')
+                                 ->join('cobro_factura', 'facturas.id', '=', 'cobro_factura.factura_id')
+                                 ->where('cliente_id', ($cliente==0)?'>=':'=', $cliente)
+                                 ->whereIn('cobro_factura.cobro_id', $cobrosFacturasAnteriores)
+                                 ->orderBy('nombre', 'ASC')
+                                 ->orderBy('fecha', 'ASC')
+                                 ->orderBy('nFactura', 'ASC')
+                                 ->get();
+
+        $dosaFactura=[];
+        $recibo=[];
+
+        foreach ($facturas as $factura) {
+            $dosaFactura[$factura->nroDosa] =[
+                                'fecha'             => 0,
+                                'reciboCaja'        => [],
+                                'nCobro'            => [],
+                                'refBancaria'       => [],
+                                'formularioBs'      => 0,
+                                'aterrizajeBs'      => 0,
+                                'estacionamientoBs' => 0,
+                                'habilitacionBs'    => 0,
+                                'jetwayBs'          => 0,
+                                'cargaBs'           => 0,
+                                'otrosCargosBs'     => 0,
+                                'totalDosa'         => 0,
+                                'fechaDeposito'     => 0,
+                                'totalDepositado'   => 0
+                            ];
+            $dosaFactura[$factura->nroDosa]["cliente"]         =$factura->cliente->nombre;
+            $dosaFactura[$factura->nroDosa]["totalDosa"]       =$factura->total;
+            foreach ($factura->detalles as $detalle) {
+                if($detalle->concepto_id == $formulario->id){
+                    $dosaFactura[$factura->nroDosa]["formularioBs"]=$detalle->totalDes;
+                }elseif($detalle->concepto_id == $aterrizaje->id){
+                    $dosaFactura[$factura->nroDosa]["aterrizajeBs"]=$detalle->totalDes;
+                }elseif($detalle->concepto_id == $estacionamiento->id){
+                    $dosaFactura[$factura->nroDosa]["estacionamientoBs"]=$detalle->totalDes;
+                }elseif($detalle->concepto_id == $habilitacion->id){
+                    $dosaFactura[$factura->nroDosa]["habilitacionBs"]=$detalle->totalDes;
+                }elseif($detalle->concepto_id == $jetway->id){
+                    $dosaFactura[$factura->nroDosa]["jetwayBs"]=$detalle->totalDes;
+                }elseif($detalle->concepto_id == $carga->id){
+                    $dosaFactura[$factura->nroDosa]["cargaBs"]=$detalle->totalDes;
+                }else{
+                    foreach ($otrosIngresos as $otroIngreso) {
+                        if($detalle->concepto_id == $otroIngreso->id)
+                            $dosaFactura[$factura->nroDosa]["otrosCargosBs"]+=$detalle->totalDes;
+                    }
+                }
+            }
+
+            foreach ($factura->cobros as $recibo){
+                    $dosaFactura[$factura->nroDosa]["fecha"]=$recibo->fecha;
+                    $dosaFactura[$factura->nroDosa]["reciboCaja"]=$recibo->nRecibo;
+                    $dosaFactura[$factura->nroDosa]["nCobro"]=$recibo->id;
+                foreach ($recibo->pagos as $pago){
+                        $dosaFactura[$factura->nroDosa]["refBancaria"]     =$pago->ncomprobante;
+                        $dosaFactura[$factura->nroDosa]["fechaDeposito"]   =$pago->fecha;
+                        $dosaFactura[$factura->nroDosa]["totalDepositado"] +=$pago->monto;
+                }
+            }
+
+
+        }
+        
+        return view('reportes.reporteRelacionFacturasAeronauticas', compact('aeropuertoNombre', 'diaDesde', 'mesDesde', 'annoDesde', 'diaHasta', 'mesHasta', 'annoHasta', 'aeropuerto', 'cliente', 'clienteNombre', 'facturas', 'dosaFactura', 'clientes'));
+
+    }
+
     //Relación de Facturas Aeronáuticas Crédito RESUMEN
     public function getReporteResumenFacturasAeronauticasCredito (Request $request){
         $diaDesde         =$request->get('diaDesde', \Carbon\Carbon::now()->day);
