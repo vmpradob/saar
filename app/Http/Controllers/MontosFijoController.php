@@ -144,6 +144,7 @@ class MontosFijoController extends Controller {
 		$precioAterrizajeDespegue->precio_nocturNac_general = $precioAterrizajeDespegue->eq_nocturNac_general * $precioAterrizajeDespegue->tipo_pago_gen_matricula_nac_nac->precio();
 		$precioAterrizajeDespegue->precio_diurnoInt_general = $precioAterrizajeDespegue->eq_diurnoInt_general * $precioAterrizajeDespegue->tipo_pago_gen_matricula_nac_int->precio();
 		$precioAterrizajeDespegue->precio_nocturInt_general = $precioAterrizajeDespegue->eq_nocturInt_general * $precioAterrizajeDespegue->tipo_pago_gen_matricula_nac_int->precio();
+
 		$precioAterrizajeDespegue->precio_diurnoNac_ext = $precioAterrizajeDespegue->eq_diurnoNac_ext * $precioAterrizajeDespegue->tipo_pago_com_matricula_int_nac->precio();
 		$precioAterrizajeDespegue->precio_nocturNac_ext = $precioAterrizajeDespegue->eq_nocturNac_ext * $precioAterrizajeDespegue->tipo_pago_com_matricula_int_nac->precio();
 		$precioAterrizajeDespegue->precio_diurnoInt_ext = $precioAterrizajeDespegue->eq_diurnoInt_ext * $precioAterrizajeDespegue->tipo_pago_com_matricula_int_int->precio();
@@ -152,7 +153,8 @@ class MontosFijoController extends Controller {
 		$precioAterrizajeDespegue->precio_nocturNac_general_ext = $precioAterrizajeDespegue->eq_nocturNac_general_ext * $precioAterrizajeDespegue->tipo_pago_gen_matricula_int_nac->precio();
 		$precioAterrizajeDespegue->precio_diurnoInt_general_ext = $precioAterrizajeDespegue->eq_diurnoInt_general_ext * $precioAterrizajeDespegue->tipo_pago_gen_matricula_int_int->precio();
 		$precioAterrizajeDespegue->precio_nocturInt_general_ext = $precioAterrizajeDespegue->eq_nocturInt_general_ext * $precioAterrizajeDespegue->tipo_pago_gen_matricula_int_int->precio();
-		$estacionamientoAeronave->save();
+		$precioAterrizajeDespegue->save();
+
 			return response()->json(array("text"=>'Configuracion modificada exitósamente.',
 										  "confGeneral"=>$confGeneral,
 										  "success"=>1));
