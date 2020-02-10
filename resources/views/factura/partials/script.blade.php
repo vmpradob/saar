@@ -1,7 +1,6 @@
     $('#condicionPago').change(function(e){
         var value=$(this).val();
         $('#concepto-select').val('');
-        $('#concepto-select option').addClass('inactive').hide();
         $('#concepto-select option[condicionPago="'+value+'"], #concepto-select option[condicionPago="Ambas"]').removeClass('inactive').show();
         $('#concepto-select').trigger('chosen:updated');
         var fecha = $('#fecha').val();
