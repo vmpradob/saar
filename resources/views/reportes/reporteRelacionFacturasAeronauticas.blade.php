@@ -137,6 +137,7 @@
                                             <td>  </td>
                                             <td>  </td>
                                             <td>  </td>
+                                            <td>  </td>
                                             <strong>
                                             <td align="right" id="totalFormulario">0,00</td>                           
                                             <td align="right" id="totalAterrizaje">0,00</td>                           
