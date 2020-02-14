@@ -2708,9 +2708,10 @@ class ReporteController extends Controller {
                 $dosaFactura[$i]["reciboCaja"]=$recibo->nRecibo;
                 $dosaFactura[$i]["nCobro"]=$recibo->id;
                 foreach ($recibo->pagos as $pago){
-                        $dosaFactura[$i]["refBancaria"]     =$pago->ncomprobante;
-                        $dosaFactura[$i]["fechaDeposito"]   =$pago->fecha;
-                        $dosaFactura[$i]["totalDepositado"] +=$pago->monto;
+                    $dosaFactura[$i]["refBancaria"]     =$pago->ncomprobante;
+                    $dosaFactura[$i]["fechaDeposito"]   =$pago->fecha;
+                    $dosaFactura[$i]["totalDepositado"] +=$pago->monto;
+                    $dosaFactura[$i]["banco"] = $pago->banco->nombre;
                 }
             }
             usort($dosaFactura,function ($a,$b){

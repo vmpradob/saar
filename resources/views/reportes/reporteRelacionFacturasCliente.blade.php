@@ -87,16 +87,17 @@
                                     </tr>
                                     <tr class="bg-primary" >
                                         <!--cobro -->
-                                        <th  style="vertical-align: middle" class="text-center" >Nro.</th>
                                         <th  style="vertical-align: middle" class="text-center" >Rec. Caja</th>
+                                        <th style="vertical-align: middle" class="text-center" >Nro.</th>
                                         <th  style="vertical-align: middle" class="text-center" >Tipo de Pago</th>
                                         <th style="vertical-align: middle" class="text-center" >Fecha</th>
-
-
-                                        <th style="vertical-align: middle" class="text-center" >Nro.</th>
+                                        
+                                        <!-- Concepto -->
                                         <th style="vertical-align: middle" class="text-center" >Concepto.</th>
                                         <th style="vertical-align: middle" class="text-center" >Total (Bs.)</th>
-
+                                        
+                                        <!-- Deposito -->
+                                        <th  style="vertical-align: middle" class="text-center" >Banco.</th>
                                         <th style="vertical-align: middle" class="text-center">Ref.</th>
                                         <th style="vertical-align: middle" class="text-center">Fecha</th>
                                         <th style="vertical-align: middle" class="text-center">Monto (Bs.)</th>
@@ -113,11 +114,11 @@
                                                 <td class="text-center" rowspan="{{$df['detalle_count']}}" align="center">{{$df['condicionPago']}}</td>  
                                                 <td class="text-center" rowspan="{{$df['detalle_count']}}" align="center">{{$df['fecha']}}</td>
 
-                                                <td class="text-center" rowspan="{{$df['detalle_count']}}" align="center">{{$index}}</td>
                                                 <td>{{$df['detalle'][0]['concepto']}}</td>
                                                 <td class="text-right totalDosa" rowspan="{{$df['detalle_count']}}" align="right">{{$traductor->format($df['totalDosa'])}}</td>
-
-
+                                                
+                                                
+                                                <td class="text-center" rowspan="{{$df['detalle_count']}}" align="center">{{$df['banco']}}</td>
                                                 <td rowspan="{{$df['detalle_count']}}">{{($df['refBancaria'])?$df['refBancaria']:'N/A'}}</td>   
                                                 <td rowspan="{{$df['detalle_count']}}">{{($df['fechaDeposito']!=0)?$df['fechaDeposito']:'N/A'}}</td>                               
                                                 <td class="text-right totalDepositado" rowspan="{{$df['detalle_count']}}" align="right">{{($df['totalDepositado']!=0)?$traductor->format($df['totalDepositado']):$traductor->format($df['totalDosa'])}}</td>                               
