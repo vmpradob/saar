@@ -134,9 +134,7 @@
                     </table>
                     <div class="row">
                         <div class="col-md-6 col-md-offset-6 text-right">
-                            @if(($tasaOp->consolidado!=true && $tasaOp->detalles->count()==0) || isset($isSupervisor))
                                 <button type="button" class="save-tasa-btn btn btn-primary">Guardar</button>
-                            @endif
                         </div>
                     </div>
                 </form>
