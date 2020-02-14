@@ -68,6 +68,7 @@
                 {!! Form::hidden('departamento', $departamento) !!}
                 {!! Form::hidden('gerencia', $gerencia) !!}
                     <span class="pull-right">
+										<input type="checkbox" name="excel"> Excel 
                         <button type="button" class="btn btn-primary" id="export-btn">
                             <span class="glyphicon glyphicon-file"></span> Exportar
                         </button>

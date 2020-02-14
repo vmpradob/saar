@@ -2849,12 +2849,15 @@ class ReporteController extends Controller {
     //Función para exportar los reportes
     public function postExportReport(Request $request){
 
-
         require_once('../vendor/autoload.php');
         $table        =$request->get('table');
         $tableFirmas  =$request->get('tableFirmas');
         /*$departamento =$request->get('departamento');
         $gerencia     =$request->get('gerencia');*/
+        if($request->get('excel')){
+            return ReportToExcel($table);
+        }
+
 
         $mpdf =  new \mPDF('','', 0, '', 15, 15, 16, 16, 9, 9, 'L', 'dejavusans');
         //$mpdf->SetHTMLHeader(asset('<img src="imgs/gobernacion.png"/>', '33', "SERVICIO AUTÓNOMO DE AEROPUERTOS REGIONALES DEL EDO. BOLÍVAR","SAAR BOLÍVAR\n".$gerencia."\n".$departamento);
@@ -2882,4 +2885,16 @@ class ReporteController extends Controller {
         $mpdf->Output();
    }
 
+   private function ReportToExcel($htmlTable)
+   {
+    //convierto un Html Table a formato csv
+    $sentence = strip_tags(str_replace("</tr>","\n",trim(preg_replace('/\n+/', ";", str_replace("</tr>\n","</tr>",preg_replace('/\r/', '', preg_replace('/\t/', '',strip_tags($html,'<tr>')))))))); 
+    //cambiar encode a utf-8
+    $sentence = iconv("UTF-8", "ISO-8859-1//TRANSLIT", $sentence);
+
+    $file = fopen(storage_path()."/app/reporte.csv",'w');
+    fwrite($file,$sentence);
+    fclose($file);
+    return response()->download(storage_path()."/app/reporte.csv",'reporte.csv',['Content-type'=>'text/html; charset=utf-8']);
+   }
 }
