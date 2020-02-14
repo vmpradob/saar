@@ -266,6 +266,7 @@ Route::group(['prefix' => 'reporte/'], function () {
     Route::get('reporteRelacionCobranza', 'ReporteController@getReporteRelacionCobranza');
     Route::get('reporteRelacionFacturasAeronauticasCredito', 'ReporteController@getReporteRelacionFacturasAeronauticasCredito');
     Route::get('reporteRelacionFacturasAeronauticas', 'ReporteController@getReporteRelacionFacturasAeronauticas');
+    Route::get('reporteRelacionFacturasCliente', 'ReporteController@getReporteRelacionFacturasCliente');
     Route::get('reporteResumenFacturasAeronauticasCredito', 'ReporteController@getReporteResumenFacturasAeronauticasCredito');
     Route::get('reporteContratos', 'ReporteController@getReporteContratos');
     Route::get('reporteRelacionMetaRecaudacionMensual', 'ReporteController@getReporteRelacionMetaRecaudacionMensual');

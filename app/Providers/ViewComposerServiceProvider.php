@@ -91,7 +91,7 @@ class ViewComposerServiceProvider extends ServiceProvider {
             $view->with(compact('clientes'));
         });
 
-        view()->composer(['aeronaves.partials.form', 'aeronaves.index', 'aterrizajes.index', 'aterrizajes.create', 'aterrizajes.partials.form', 'aterrizajes.partials.edit', 'aterrizajes.partials.show', 'despegues.index', 'despegues.create', 'despegues.partials.form', 'despegues.partials.edit', 'despegues.partials.show', 'cargas.index', 'cargas.create', 'cargas.partials.edit', 'cargas.partials.form', 'cargas.partials.show', 'reportes.reporteRelacionFacturasAeronauticasCredito', 'reportes.reporteRelacionFacturasAeronauticas', 'reportes.reporteRelacionFacturasAeronauticasCreditoResumen'], function($view){
+        view()->composer(['aeronaves.partials.form', 'aeronaves.index', 'aterrizajes.index', 'aterrizajes.create', 'aterrizajes.partials.form', 'aterrizajes.partials.edit', 'aterrizajes.partials.show', 'despegues.index', 'despegues.create', 'despegues.partials.form', 'despegues.partials.edit', 'despegues.partials.show', 'cargas.index', 'cargas.create', 'cargas.partials.edit', 'cargas.partials.form', 'cargas.partials.show', 'reportes.reporteRelacionFacturasAeronauticasCredito', 'reportes.reporteRelacionFacturasAeronauticas','reportes.reporteRelacionFacturasCliente', 'reportes.reporteRelacionFacturasAeronauticasCreditoResumen'], function($view){
             $clientes= [""=>"-- Seleccione Cliente--"]+\App\Cliente::where("tipo","=", "Aeronáutico")->orWhere("tipo","=", "Mixto")->lists('nombre', 'id');
             $view->with(compact('clientes'));
         });
@@ -241,6 +241,7 @@ class ViewComposerServiceProvider extends ServiceProvider {
                             'reportes.reporteRelacionIngresosAeronauticosContado',
                             'reportes.reporteRelacionFacturasAeronauticasCredito',
                             'reportes.reporteRelacionFacturasAeronauticas',
+                            'reportes.reporteRelacionFacturasCliente',
                             'reportes.reporteRelacionFacturasAeronauticasCreditoResumen',
                             'reportes.reporteRelacionMetaRecaudacionMensual',
                             'reportes.reporteDiario',
@@ -321,6 +322,7 @@ class ViewComposerServiceProvider extends ServiceProvider {
             'reportes.reporteLibroDeVentas',
             'reportes.reporteRelacionFacturasAeronauticasCredito',
             'reportes.reporteRelacionFacturasAeronauticas',
+            'reportes.reporteRelacionFacturasCliente',
             'reportes.reporteRelacionFacturasAeronauticasCreditoResumen',
             'reportes.reporteTraficoAereo'], function($view){
             $aeropuertos = \App\Aeropuerto::lists('nombre', 'id');
@@ -345,6 +347,7 @@ class ViewComposerServiceProvider extends ServiceProvider {
             'reportes.reporteRelacionMetaRecaudacionMensual',
             'reportes.reporteRelacionFacturasAeronauticasCredito',
             'reportes.reporteRelacionFacturasAeronauticas',
+            'reportes.reporteRelacionFacturasCliente',
             'reportes.reporteRelacionFacturasAeronauticasCreditoResumen',
             'reportes.reporteRelacionMensualDeIngresosRecaudacionPendiente',
             'reportes.reporteControlDeRecaudacionMensual',

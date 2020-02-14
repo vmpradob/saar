@@ -216,7 +216,12 @@
 					<li {{ (\Request::is('reporte/reporteLibroDeVentas*'))?"class=active":"" }}><a href="#"><i class="fa fa-folder-open"></i><span> Cierre Mensual</span><i class="fa fa-angle-left pull-right"></i></a>
 					<ul class="treeview-menu">
 						<li {{ (\Request::is('reporte/reporteLibroDeVentas*'))?"class=active":"" }}><a href="{{ URL::to('reporte/reporteLibroDeVentas') }}"><i class="fa fa-folder-o"></i> 1-. Libro de Ventas</a></li>
-					</ul>   
+					</ul>
+					<li {{ (\Request::is('reporte/reporteRelacionCobranza*') || \Request::is('reporte/reporteRelacionFacturasAeronauticasCredito*') || \Request::is('reporte/reporteRelacionIngresosAeronauticosContado*'))?"class=active":"" }}><a href="#"><i class="fa fa-folder-open"></i><span> Clientes</span><i class="fa fa-angle-left pull-right"></i></a>
+					<ul class="treeview-menu">
+							<li {{ (\Request::is('reporte/reporteRelacionFacturasCliente*'))?"class=active":"" }}><a href="{{ URL::to('reporte/reporteRelacionFacturasCliente') }}"><i class="fa fa-file-o"></i> 1-. Relación de Facturas De CLientes</a></li>
+
+					</ul>    
 <!--             			<li><a href="{{action('ReporteController@getReporteModuloMetaMensual')}}"><i class="fa fa-folder-o"></i> Libro de ventas</a></li> -->
 <!-- 						<li {{ (\Request::is('reporte/mensual*'))?"class=active":"" }}><a href="{{ URL::to('reporte/mensual') }}"><i class="fa fa-folder-o"></i> Recaudación consolidada</a></li>-->
 <!--                  	<li><a href="{{action('ReporteController@getReporteMensual')}}"><i class="fa fa-folder-o"></i> Recaudación consolidada</a></li>-->            		<!-- <li><a href="#"><i class="fa fa-folder-o"></i> Relación facturado/cobrado</a></li> 
