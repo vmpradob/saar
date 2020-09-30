@@ -2855,7 +2855,7 @@ class ReporteController extends Controller {
         /*$departamento =$request->get('departamento');
         $gerencia     =$request->get('gerencia');*/
         if($request->get('excel')){
-            return ReportToExcel($table);
+            return $this->ReportToExcel($table);
         }
 
 
@@ -2888,7 +2888,7 @@ class ReporteController extends Controller {
    private function ReportToExcel($htmlTable)
    {
     //convierto un Html Table a formato csv
-    $sentence = strip_tags(str_replace("</tr>","\n",trim(preg_replace('/\n+/', ";", str_replace("</tr>\n","</tr>",preg_replace('/\r/', '', preg_replace('/\t/', '',strip_tags($html,'<tr>')))))))); 
+    $sentence = strip_tags(str_replace("</tr>","\n",trim(preg_replace('/\n+/', ";", str_replace("</tr>\n","</tr>",preg_replace('/\r/', '', preg_replace('/\t/', '',strip_tags($htmlTable,'<tr>')))))))); 
     //cambiar encode a utf-8
     $sentence = iconv("UTF-8", "ISO-8859-1//TRANSLIT", $sentence);
 
