@@ -253,13 +253,14 @@ class CobranzaController extends Controller {
                                     "monto"        =>$p["monto"]+0]);
         }
 
-
-        $cobro->montofacturas=$request->get("totalFacturas");
+        $cobro->montofacturas=$request->get("totalFacturas")/1;
         $cobro->montodepositado=$request->get("totalDepositado");
-	
+	      /*if( 1 ){
+          if($cobro->montodepositado>($cobro->montofacturas-$ajuste))
+            DB::rollback();
+        }*/
         $ajuste=$request->get("ajuste");
-
-        if($cobro->montodepositado>($cobro->montofacturas-$ajuste)){
+        if(($cobro->montodepositado>($cobro->montofacturas-$ajuste))){
             $cobro->ajustes()->create([
                                         "monto"         => $cobro->montodepositado-$cobro->montofacturas-$ajuste,
                                         "cliente_id"    => $request->get("cliente_id"),
@@ -271,6 +272,7 @@ class CobranzaController extends Controller {
         $cobro->save();
         //VERIFICAMOS SI EN EL COBRO EL CLIENTE TIENE AJUSTE SI NO SE CREO, SE REALIZA UN rollback
         if($cobro->montodepositado>($cobro->montofacturas-$ajuste)){
+
             $tiene_ajuste = \App\Ajuste::where('cliente_id' , $request->get("cliente_id"))->get();
             if(!isset($tiene_ajuste)){
                 DB::rollback();
