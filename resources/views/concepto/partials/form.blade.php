@@ -10,7 +10,14 @@
 	<div class="form-group">
 		<label for="nompre" class="col-sm-2 control-label">Nombre<span class="text-danger">*</span></label>
 		<div class="col-sm-10">
-			{!! Form::text('nompre', null, [ 'class'=>"form-control", $disabled,'readonly', "placeholder"=>"Nombre del concepto", "maxlength"=>"255"]) !!}
+			@if(isset($concepto))
+				@if(isset($concepto->nompre))
+			        {!! Form::text('nompre', null, [ 'class'=>"form-control", $disabled,'readonly', "placeholder"=>"Nombre del concepto", "maxlength"=>"255"]) !!}
+			    @else
+			    	{!! Form::text('nompre', null, [ 'class'=>"form-control", $disabled, "placeholder"=>"Nombre del concepto", "maxlength"=>"255"]) !!}
+			    @endif 
+			@endif
+			
 		</div>
 	</div>
 	<div class="form-group">
