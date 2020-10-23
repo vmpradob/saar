@@ -13,11 +13,10 @@
                 <div class="box box-primary">
                   <div class="box-header">
                     <h3 class="box-title">Gestión de Conceptos</h3>
-{{--        no deberia poderse agregar conceptos por este sistema, solo sincronizacion
 
         <div class="box-tools pull-right">
-                         <a class="btn btn-primary" href="{{action("ConceptoController@create")}}"><span class="glyphicon glyphicon-plus-sign"></span> Agregar un concepto</a>
-                        </div>--}}
+                         <a class="btn btn-primary" href="{{action('ConceptoController@create')}}"><span class="glyphicon glyphicon-plus-sign"></span> Agregar un concepto</a>
+                        </div>
                   </div><!-- /.box-header -->
                   <!-- form start -->
 

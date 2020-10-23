@@ -43,7 +43,16 @@ class ConceptoController extends Controller {
      */
     public function store(ConceptoRequest $request)
     {
-        \App\Concepto::create($request->only('nombre', 'condicionPago'));
+        $conceptoAttrs=$request->only('nompre', 'iva', 'nombreImprimible', 'condicionPago', 'recargo');
+        
+        \App\Concepto::create([
+                'nompre'                    => $conceptoAttrs['nompre'],
+                'iva'                       => $conceptoAttrs['iva'],
+                'nombreImprimible'          => $conceptoAttrs['nombreImprimible'],
+                'aeropuerto_id'             => session('aeropuerto')->id,
+                'recargo'                   => $conceptoAttrs['recargo'],
+                'condicionPago'             => $conceptoAttrs['condicionPago'],
+                'stacod'                    => 'A']);
 
         return redirect("administracion/concepto");
 

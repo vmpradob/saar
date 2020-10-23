@@ -806,7 +806,7 @@ $('#cxc-table').delegate('.saldo-abonado-input', 'keyup',function(){
 $('#cxc-table').delegate('.pay-all-btn', 'click',function(){
 	var row=$(this).closest('tr');
 
-	var saldoPendienteText =$(row).find('.saldo-pagar').text();
+	var saldoPendienteText =$(row).find('.saldo-pagar').text(); 
 	var saldoPendiente     =commaToNum(saldoPendienteText);
 	$(row).find('.saldo-restante').text("0,00");
 	if(checkRowCondition(row, saldoPendiente, saldoPendiente,saldoPendienteText)){
@@ -862,6 +862,7 @@ $('#save-cobro-btn').click(function(){
 	var ajuste    =parseFloat($('#ajuste-input').val());
 	var fecha     =$('#fecha-datepicker').val();
 	ajuste        =isNaN(ajuste)?0:ajuste;
+
 	if(pagar>depositar){
 		alertify.error("El monto a cobrar no puede ser mayor al depositado.");
 		return;
@@ -877,9 +878,12 @@ $('#save-cobro-btn').click(function(){
 			return;
 		}
 	}
+	var montoFacturas = 0;
 	var facturas=[];
 	var trs=$('#cxc-table tbody').find('tr.success, tr.info, tr.warning').not('.ajuste-row');
 	$.each(trs, function(index,value){
+		var test = commaToNum($(value).find('.saldo-pendiente').text());
+		montoFacturas += test;
 		var retencionInput=$(value).find('.retencion-pagar');
 		var isrlModal=$(retencionInput).data('islrModal');
 		var ivaModal=$(retencionInput).data('ivaModal');
@@ -900,12 +904,10 @@ $('#save-cobro-btn').click(function(){
 
 		facturas.push(o);
 	});
-
 	var pagos=[];
 	$('#formas-pago-table tbody tr').each(function(index,value){
 		pagos.push($(value).data('object'));
 	})
-
 	addLoadingOverlay('#main-box');
 	$.ajax({
 		method:'POST',
@@ -913,7 +915,7 @@ $('#save-cobro-btn').click(function(){
 			facturas:facturas,
 			pagos:pagos,
 			cliente_id: $('#cliente-select option:selected').data("id"),
-			totalFacturas:$('.total-a-pagar-doc-input').val() ,
+			totalFacturas: montoFacturas,//$('.total-a-pagar-doc-input').val() ,
 			totalDepositado:$('#total-a-depositar-doc-input').val(),
 			observacion:$('#observaciones-documento').val(),
 			hasrecaudos:$('#hasrecaudos-check').prop('checked'),
@@ -921,7 +923,7 @@ $('#save-cobro-btn').click(function(){
 			ajuste:ajuste,
 			modulo_id:'{{$id}}'
 		},
-		url: '{{action('CobranzaController@store')}}'
+		url: "{{action('CobranzaController@store')}}"
 	}).done(function(data, status, jx){
 		try{
 			var response=JSON.parse(jx.responseText);
@@ -936,7 +938,7 @@ $('#save-cobro-btn').click(function(){
 
 		}catch(e){
 			removeLoadingOverlay('#main-box');
-			alertify.error("Error en el servidor");
+			alertify.error("Error en el servidor" + e);
 		}
 
 
