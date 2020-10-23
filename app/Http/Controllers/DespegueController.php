@@ -1773,4 +1773,21 @@ class DespegueController extends Controller {
             break;
         }
     }
+    public function getSaldoCliente(Request $request){
+        $cliente =\App\Cliente::where("codigo","=", $request->codigo)->get()->first();
+        if(!$cliente)
+            return ["facturas"=>[], "ajuste"=> [], "ajusteCobros"=>[]];
+        $ajusteCliente= \DB::table('ajustes')
+            ->where('cliente_id', $cliente->id)
+            ->where('aeropuerto_id', session('aeropuerto')->id)
+            ->sum('monto');
+        $ajusteCobros= \DB::table('ajustes')
+            ->select('cobro_id')
+            ->where('cliente_id', $cliente->id)
+            ->where('aeropuerto_id', session('aeropuerto')->id)
+            ->get();
+
+        return ["ajuste"=> $ajusteCliente, "ajusteCobros"=> $ajusteCobros];
+
+    }
 }

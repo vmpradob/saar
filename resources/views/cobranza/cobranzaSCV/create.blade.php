@@ -689,8 +689,8 @@ if ($('#cliente-select').val() != ""){
 
 				if(!isRetencionEditable)
 					retencion=(base*metadata.islrpercentage+ivaPagado*metadata.ivapercentage)/100;
-
-				trs+='<tr data-id="'+value.id+'" data-is-retencion-editable="'+isRetencionEditable+'" \
+									
+				trs1='<tr data-id="'+value.id+'" data-is-retencion-editable="'+isRetencionEditable+'" \
 				data-islrper="'+metadata.islrpercentage+'" data-ivaper="'+metadata.ivapercentage+'"\
 				data-base="'+base+'" data-iva="'+ivaPagado+'" >\
 				<td><p class="form-control-static">'+value.nFacturaPrefix+'-'+value.nFactura+'</p></td>\
@@ -726,9 +726,54 @@ if ($('#cliente-select').val() != ""){
 					</div>\
 				</td>\
 			</tr>'
+			$.ajax({
+						url:"{{action('DespegueController@getSaldoCliente')}}",
+						data:{codigo:$('#cliente-select option:selected').val()}
+					}).done(function(response, status, responseObject){
+						var saldo=JSON.parse(responseObject.responseText);
+						if(saldo.ajuste>0)
+							trs2= '<tr class="ajuste-row" >\
+							<td rowspan="2" style="vertical-align: middle"> <p class="form-control-static "><strong>AJUSTE:</strong></p></td>\
+									<td class="monto-documento"><p class="form-control-static"><strong>Saldo Total</strong></p></td>\
+									<td class="monto-documento"><p class="form-control-static"><strong>Cobros</strong></p></td>\
+									<td></td>\
+									<td></td>\
+									<td></td>\
+									<td></td>\
+									<td></td>\
+									<td></td>\
+									<td class="monto-documento"><p class="form-control-static"><strong>Saldo Aplicado</strong></p></td>\
+									<td colspan="2" class="monto-documento"><p class="form-control-static"><strong>Acción</strong></p></td>\
+							</tr>\
+							<tr class="ajuste-row" >\
+								<td class="monto-documento"><p class="form-control-static">'+numToComma(saldo.ajuste)+'</p></td>\
+									<td></td>\
+									<td></td>\
+									<td></td>\
+									<td></td>\
+									<td></td>\
+								<td class="numero-cobros"><p class="form-control-static"></p></td>\
+								<td ><p class="form-control-static"><span style="display:none" class="saldo-pagar">'+numToComma(saldo.ajuste)+'</span></p></td>\
+								<td><input id="ajuste-input" class="form-control saldo-abonado-input "  autocomplete="off"></td>\
+								<td colspan="2">\
+									<div class="btn-group" role="group" aria-label="...">\
+										<div class="btn-group" role="group">\
+											<button type="button" class="btn btn-primary pay-all-btn">Abono total</button>\
+											<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">\
+												<span class="caret"></span>\
+											</button>\
+											<ul class="dropdown-menu" role="menu">\
+												<li><a class="pay-all-btn">Abono total</a></li>\
+											</ul>\
+										</div>\
+										<button type="button" class="btn btn-default reset-btn"><span class="glyphicon glyphicon-repeat"></span></button>\
+									</div>\
+								</td>\
+							</tr>'
+							$('#cxc-table tbody').html(trs2+trs1);
+					});
 
 		})
-		$('#cxc-table tbody').html(trs);
 		}catch(e){console.log(e)}
 		removeLoadingOverlay('#main-box');
 		$('#max-rows-cxc-table-wrapper-select').trigger('change');

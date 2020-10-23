@@ -52,6 +52,7 @@ function calculateTotalPagar(){
 	})
 	$('.total-a-pagar-doc-input').val(numToComma(total));
 	$('#total-diferencia-doc-input').val(numToComma(commaToNum($('#total-a-depositar-doc-input').val())-total));
+	getSaldoCliente();
 }
 
 
@@ -309,6 +310,19 @@ $('#cuota-modal').on('hidden.bs.modal', function (e) {
 	$('#cuota-saldo-input,#cuota-cantidad-input').val('');
 	$('#cxc-table tr.hasModalCuotaOpen').removeClass('hasModalCuotaOpen');
 })
+
+function getSaldoCliente(){
+	console.log('hola')
+	var option =$('#cliente-select option:selected');
+	$.ajax({
+		url:"{{action('DespegueController@getSaldoCliente')}}",
+		data:{codigo:value}
+	}).done(function(response, status, responseObject){
+
+		var response=JSON.parse(responseObject.responseText);
+		console.log(o);
+	});
+}
 
 $('#cliente-select').chosen({width: "100%"}).change(function(){
 	$('.total-a-pagar-doc-input').val("0.00");
