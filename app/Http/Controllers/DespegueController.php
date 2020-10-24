@@ -889,9 +889,18 @@ class DespegueController extends Controller {
                 $recargoPerDes = $feriado->porcentaje;
             }else
                 $recargoPerDes = 0;
-
             $aterrizajeDespegue->fill(compact('concepto_id', 'condicionPago',  'montoDes', 'cantidadDes', 'iva', 'totalDes', 'recargoPerDes'));
             $factura->detalles->push($aterrizajeDespegue);
+
+            //Recargo Articulo 51
+            $recargoArt51 = new Facturadetalle();
+            $montoDes = $precio_AterDesp * 0.1;    
+            $cantidadDes = 0.0;
+            $iva = 0.0;
+            $totalDes = $montoDes;
+            $recargoPerDes = 0.0;
+            $recargoArt51->fill(compact('concepto_id', 'condicionPago',  'montoDes', 'cantidadDes', 'iva', 'totalDes', 'recargoPerDes'));
+            $factura->detalles->push($recargoArt51);
         }
 
         //Ítem de Puentes de Abordaje.
