@@ -250,7 +250,7 @@
 			var nRecibo   =$('#nRecibo-input').val();
 			var fecha     =$('#fecha-datepicker').val();
 			var condicion =$('#cliente-select option:selected').data("condicion");
-
+			var sobrePago = 0;
 
 		    /*if(nRecibo=='' && condicion=="Crédito"){
 				alertify.error("Número de Recibo de Caja es requerido.");
@@ -285,6 +285,7 @@
 				ivaModal                 =(ivaModal===undefined)?0:ivaModal;
 				retencionFecha           =(retencionFecha===undefined)?0:retencionFecha;
 				retencionComprobante     =(retencionComprobante===undefined)?0:retencionComprobante
+				sobrePago +=commaToNum($(value).find('.saldo-pendiente').text());
                 var o={
                     id:$(value).data('id'),
                     montoAbonado: commaToNum($(value).find('.saldo-abonado-input').val()),
@@ -310,6 +311,9 @@
                 data:{
                     facturas:facturas,
                     pagos:pagos,
+                    aPagar: sobrePago,
+                    comparaPago:commaToNum($('.total-a-pagar-doc-input').first().val()),
+                    realPago: commaToNum($('#total-a-depositar-doc-input').first().val()),
                     cliente_id: $('#cliente-select option:selected').data("id"),
                     totalFacturas:$('.total-a-pagar-doc-input').first().val() ,
                     totalDepositado:$('#total-a-depositar-doc-input').val(),

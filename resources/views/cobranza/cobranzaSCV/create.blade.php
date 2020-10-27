@@ -916,7 +916,7 @@ $('#save-cobro-btn').click(function(){
 			pagos:pagos,
 			cliente_id: $('#cliente-select option:selected').data("id"),
 			totalFacturas: montoFacturas,//$('.total-a-pagar-doc-input').val() ,
-			totalDepositado:$('#total-a-depositar-doc-input').val(),
+			totalDepositado:commaToNum($('#total-a-depositar-doc-input').val()),
 			observacion:$('#observaciones-documento').val(),
 			hasrecaudos:$('#hasrecaudos-check').prop('checked'),
             fecha:$('#fecha-datepicker').val(),

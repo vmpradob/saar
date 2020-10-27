@@ -155,10 +155,11 @@ class CobranzaController extends Controller {
 
             $facturas=$request->get('facturas',[]);
             $pagos=$request->get('pagos',[]);
-
+        
+            /*dd($request); */
+            
             foreach($facturas as $f){
                 $factura=\App\Factura::find($f["id"]);
-
                 $facturaMetadata=\App\Facturametadata::firstOrCreate(["factura_id"=>$factura->id]);
                 $facturaMetadata->ncobros++;
             /**
@@ -253,19 +254,31 @@ class CobranzaController extends Controller {
                                     "monto"        =>$p["monto"]+0]);
         }
 
-        $cobro->montofacturas=$request->get("totalFacturas")/1;
+        $cobro->montofacturas=$request->get("totalFacturas");
         $cobro->montodepositado=$request->get("totalDepositado");
 	      /*if( 1 ){
           if($cobro->montodepositado>($cobro->montofacturas-$ajuste))
             DB::rollback();
         }*/
         $ajuste=$request->get("ajuste");
-        if(($cobro->montodepositado>($cobro->montofacturas-$ajuste))){
+        $sobrepagar = $request->get("aPagar");
+        $facturaTotal = $request->get("comparaPago");
+        $realPago = $request->get("realPago");
+        if($sobrepagar != null && $facturaTotal != null && ($sobrepagar - $facturaTotal) != 0.0){
             $cobro->ajustes()->create([
-                                        "monto"         => $cobro->montodepositado-$cobro->montofacturas-$ajuste,
+                                        "monto"         => $realPago-$sobrepagar-$ajuste,
                                         "cliente_id"    => $request->get("cliente_id"),
                                         "aeropuerto_id" => session('aeropuerto')->id]);
-
+        }else{
+            if($sobrepagar == null){
+                $cobro->montofacturas=$request->get("totalFacturas")/1;
+                if(($cobro->montodepositado>($cobro->montofacturas-$ajuste))){
+                    $cobro->ajustes()->create([
+                                                "monto"         => $cobro->montodepositado-$cobro->montofacturas-$ajuste,
+                                                "cliente_id"    => $request->get("cliente_id"),
+                                                "aeropuerto_id" => session('aeropuerto')->id]);
+                }
+            }
         }
         $cobro->observacion=$request->get('observacion');
         $cobro->hasrecaudos=$request->get('hasrecaudos');
