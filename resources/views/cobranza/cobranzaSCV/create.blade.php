@@ -686,7 +686,7 @@ if ($('#cliente-select').val() != ""){
 				var pendiente           =value.total-metadata.total;
 				var base                =value.subtotalNeto-metadata.basepagado;
 				var ivaPagado           =value.iva-metadata.ivapagado;
-
+				trs1 ="";
 				if(!isRetencionEditable)
 					retencion=(base*metadata.islrpercentage+ivaPagado*metadata.ivapercentage)/100;
 									
@@ -731,6 +731,7 @@ if ($('#cliente-select').val() != ""){
 						data:{codigo:$('#cliente-select option:selected').val()}
 					}).done(function(response, status, responseObject){
 						var saldo=JSON.parse(responseObject.responseText);
+						trs2 = "";
 						if(saldo.ajuste>0)
 							trs2= '<tr class="ajuste-row" >\
 							<td rowspan="2" style="vertical-align: middle"> <p class="form-control-static "><strong>AJUSTE:</strong></p></td>\
