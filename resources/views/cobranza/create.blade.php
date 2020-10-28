@@ -251,7 +251,7 @@
 			var fecha     =$('#fecha-datepicker').val();
 			var condicion =$('#cliente-select option:selected').data("condicion");
 			var sobrePago = 0;
-
+			var pagoCompleto = true;
 		    /*if(nRecibo=='' && condicion=="Crédito"){
 				alertify.error("Número de Recibo de Caja es requerido.");
 				return;
@@ -286,6 +286,9 @@
 				retencionFecha           =(retencionFecha===undefined)?0:retencionFecha;
 				retencionComprobante     =(retencionComprobante===undefined)?0:retencionComprobante
 				sobrePago +=commaToNum($(value).find('.saldo-pendiente').text());
+				if(commaToNum($(value).find('.saldo-restante').text()) > 0){
+					pagoCompleto = false;
+				}
                 var o={
                     id:$(value).data('id'),
                     montoAbonado: commaToNum($(value).find('.saldo-abonado-input').val()),
@@ -306,49 +309,53 @@
 
             addLoadingOverlay('#main-box');
             console.log("AJUSTE: " + ajuste);
-            $.ajax({
-                method:'POST',
-                data:{
-                    facturas:facturas,
-                    pagos:pagos,
-                    aPagar: sobrePago,
-                    comparaPago:commaToNum($('.total-a-pagar-doc-input').first().val()),
-                    realPago: commaToNum($('#total-a-depositar-doc-input').first().val()),
-                    cliente_id: $('#cliente-select option:selected').data("id"),
-                    totalFacturas:$('.total-a-pagar-doc-input').first().val() ,
-                    totalDepositado:$('#total-a-depositar-doc-input').val(),
-                    observacion:$('#observaciones-documento').val(),
-                    hasrecaudos:$('#hasrecaudos-check').prop('checked'),
-                    ajuste:ajuste,
-                    modulo_id:'{{$id}}',
-                    nRecibo:$('#nRecibo-input').val(),
-                    fecha:$('#fecha-datepicker').val()
-                },
-                url: "{{action('CobranzaController@store')}}"
-            }).done(function(data, status, jx){
-                try{
-                    var response=JSON.parse(jx.responseText);
-                    if(response.success==1){
-						alertify.success("Cobranza realizada con éxito.");
-						alertify.confirm("¿Desea imprimir el Recibo de Caja", function (e) {
-							if (e) {
-							    window.open(response.impresion, '_blank');
-								alertify.log("Se emitió orden de impresion");
-							}
-                        setTimeout(
-                            function()
-                            {
-                                location.reload();
-                            }, 2000);
-                    });
-                   }
-                }catch(e){
-                    removeLoadingOverlay('#main-box');
-                    alertify.error("Error en el servidor");
-                }
+            if(pagoCompleto){
+			    $.ajax({
+			        method:'POST',
+			        data:{
+			            facturas:facturas,
+			            pagos:pagos,
+			            aPagar: sobrePago,
+			            comparaPago:commaToNum($('.total-a-pagar-doc-input').first().val()),
+			            realPago: commaToNum($('#total-a-depositar-doc-input').first().val()),
+			            cliente_id: $('#cliente-select option:selected').data("id"),
+			            totalFacturas:$('.total-a-pagar-doc-input').first().val() ,
+			            totalDepositado:$('#total-a-depositar-doc-input').val(),
+			            observacion:$('#observaciones-documento').val(),
+			            hasrecaudos:$('#hasrecaudos-check').prop('checked'),
+			            ajuste:ajuste,
+			            modulo_id:'{{$id}}',
+			            nRecibo:$('#nRecibo-input').val(),
+			            fecha:$('#fecha-datepicker').val()
+			        },
+			        url: "{{action('CobranzaController@store')}}"
+			    }).done(function(data, status, jx){
+			        try{
+			            var response=JSON.parse(jx.responseText);
+			            if(response.success==1){
+							alertify.success("Cobranza realizada con éxito.");
+							alertify.confirm("¿Desea imprimir el Recibo de Caja", function (e) {
+								if (e) {
+								    window.open(response.impresion, '_blank');
+									alertify.log("Se emitió orden de impresion");
+								}
+			                setTimeout(
+			                    function()
+			                    {
+			                        location.reload();
+			                    }, 2000);
+			            });
+			           }
+			        }catch(e){
+			            removeLoadingOverlay('#main-box');
+			            alertify.error("Error en el servidor");
+			        }
+			    })
 
-
-            })
+            }else{
+            	removeLoadingOverlay('#main-box');
+            	alertify.error("Error factura con saldo pendiente");
+            }
         })
     });
 

@@ -863,7 +863,7 @@ $('#save-cobro-btn').click(function(){
 	var ajuste    =parseFloat($('#ajuste-input').val());
 	var fecha     =$('#fecha-datepicker').val();
 	ajuste        =isNaN(ajuste)?0:ajuste;
-
+	var pagoCompleto = true;
 	if(pagar>depositar){
 		alertify.error("El monto a cobrar no puede ser mayor al depositado.");
 		return;
@@ -894,6 +894,9 @@ $('#save-cobro-btn').click(function(){
 		ivaModal=(ivaModal===undefined)?0:ivaModal;
 		retencionFecha=(retencionFecha===undefined)?0:retencionFecha;
 		retencionComprobante=(retencionComprobante===undefined)?0:retencionComprobante;
+		if(commaToNum($(value).find('.saldo-restante').text()) > 0){
+			pagoCompleto = false;
+		}
 		var o={
 			id:$(value).data('id'),
 			montoAbonado: commaToNum($(value).find('.saldo-abonado-input').val()),
@@ -910,40 +913,43 @@ $('#save-cobro-btn').click(function(){
 		pagos.push($(value).data('object'));
 	})
 	addLoadingOverlay('#main-box');
-	$.ajax({
-		method:'POST',
-		data:{
-			facturas:facturas,
-			pagos:pagos,
-			cliente_id: $('#cliente-select option:selected').data("id"),
-			totalFacturas: montoFacturas,//$('.total-a-pagar-doc-input').val() ,
-			totalDepositado:commaToNum($('#total-a-depositar-doc-input').val()),
-			observacion:$('#observaciones-documento').val(),
-			hasrecaudos:$('#hasrecaudos-check').prop('checked'),
-            fecha:$('#fecha-datepicker').val(),
-			ajuste:ajuste,
-			modulo_id:'{{$id}}'
-		},
-		url: "{{action('CobranzaController@store')}}"
-	}).done(function(data, status, jx){
-		try{
-			var response=JSON.parse(jx.responseText);
-			if(response.success){
-				alertify.success("El pago se efectuó con éxito.");
-				setTimeout(
-					function()
-					{
-						window.location="{{action('DespegueController@index')}}";
-					}, 2000);
+	if(pagoCompleto){
+		$.ajax({
+			method:'POST',
+			data:{
+				facturas:facturas,
+				pagos:pagos,
+				cliente_id: $('#cliente-select option:selected').data("id"),
+				totalFacturas: montoFacturas,//$('.total-a-pagar-doc-input').val() ,
+				totalDepositado:commaToNum($('#total-a-depositar-doc-input').val()),
+				observacion:$('#observaciones-documento').val(),
+				hasrecaudos:$('#hasrecaudos-check').prop('checked'),
+	            fecha:$('#fecha-datepicker').val(),
+				ajuste:ajuste,
+				modulo_id:'{{$id}}'
+			},
+			url: "{{action('CobranzaController@store')}}"
+		}).done(function(data, status, jx){
+			try{
+				var response=JSON.parse(jx.responseText);
+				if(response.success){
+					alertify.success("El pago se efectuó con éxito.");
+					setTimeout(
+						function()
+						{
+							window.location="{{action('DespegueController@index')}}";
+						}, 2000);
+				}
+
+			}catch(e){
+				removeLoadingOverlay('#main-box');
+				alertify.error("Error en el servidor" + e);
 			}
-
-		}catch(e){
-			removeLoadingOverlay('#main-box');
-			alertify.error("Error en el servidor" + e);
-		}
-
-
-	})
+		})
+	}else{
+		removeLoadingOverlay('#main-box');
+		alertify.error("Error factura con saldo pendiente");
+	}
 })
 
 });

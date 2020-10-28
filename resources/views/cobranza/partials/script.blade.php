@@ -20,6 +20,7 @@ function checkRowCondition(row, saldoAbonado, saldoPendiente,saldoAbonadoText){
 	}else if(status>0){
 		$(row).removeClass('success warning danger').addClass('info');
 	}else{
+		console.log('testo');
 		$(row).removeClass('info success danger').addClass('warning');
 	}
 	return true;
