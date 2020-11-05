@@ -10,7 +10,7 @@
 	<div class="form-group">
 		<label for="nompre" class="col-sm-2 control-label">Nombre<span class="text-danger">*</span></label>
 		<div class="col-sm-10">
-			{!! Form::text('nompre', null, [ 'class'=>"form-control", $disabled,'readonly', "placeholder"=>"Nombre del concepto", "maxlength"=>"255"]) !!}
+			{!! Form::text('nompre', null, [ 'class'=>"form-control", $disabled, "placeholder"=>"Nombre del concepto", "maxlength"=>"255"]) !!}
 		</div>
 	</div>
 	<div class="form-group">
@@ -55,13 +55,13 @@
 			<div class="form-group">
 				<label for="codpre" class="col-sm-2 control-label">Código presupuestario</label>
 				<div class="col-sm-10">
-					{!! Form::text('codpre', null, ['readonly', 'class'=>"form-control", $disabled, "placeholder"=>"Información del código presupuestario", "maxlength"=>"255"]) !!}
+					{!! Form::text('codpre', null, [null, 'class'=>"form-control", $disabled, "placeholder"=>"Información del código presupuestario", "maxlength"=>"255"]) !!}
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="codcta" class="col-sm-2 control-label">Código contable</label>
 				<div class="col-sm-10">
-					{!! Form::text('codcta', null, ['readonly', 'class'=>"form-control", $disabled, "placeholder"=>"Información del código contable", "maxlength"=>"255"]) !!}
+					{!! Form::text('codcta', null, [null, 'class'=>"form-control", $disabled, "placeholder"=>"Información del código contable", "maxlength"=>"255"]) !!}
 				</div>
 			</div>
 		</div>
