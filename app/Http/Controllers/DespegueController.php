@@ -893,16 +893,17 @@ class DespegueController extends Controller {
             $aterrizajeDespegue->fill(compact('concepto_id', 'condicionPago',  'montoDes', 'cantidadDes', 'iva', 'totalDes', 'recargoPerDes'));
             $factura->detalles->push($aterrizajeDespegue);
             
-            //Recargo Articulo 51
-            $recargoArt51 = new Facturadetalle();
-            $concepto_id = 501;
-            $montoDes = $aterrizajeDespegue->totalDes * 0.1;   
-            $cantidadDes = 1.0;
-            $iva = 0.0;
-            $totalDes = $montoDes;
-            $recargoPerDes = 0.0;
-            $recargoArt51->fill(compact('concepto_id', 'condicionPago',  'montoDes', 'cantidadDes', 'iva', 'totalDes', 'recargoPerDes'));
-            $factura->detalles->push($recargoArt51);
+            //Recargo Articulo 51 comentado hasta que se de la orden de comenzar a facturar
+
+            // $recargoArt51 = new Facturadetalle();
+            // $concepto_id = 501;
+            // $montoDes = $aterrizajeDespegue->totalDes * 0.1;   
+            // $cantidadDes = 1.0;
+            // $iva = 0.0;
+            // $totalDes = $montoDes;
+            // $recargoPerDes = 0.0;
+            // $recargoArt51->fill(compact('concepto_id', 'condicionPago',  'montoDes', 'cantidadDes', 'iva', 'totalDes', 'recargoPerDes'));
+            // $factura->detalles->push($recargoArt51);
         }
 
         //Ítem de Puentes de Abordaje.
