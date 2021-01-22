@@ -587,24 +587,20 @@ class DespegueController extends Controller {
             $tiempoAFacturar        = ($tiempo_estacionamiento - $minutosLibre)/$minutosBloque;
             $mensajeEstacionamiento = "Estacionamiento Exonerado.";
 
-
             if($tiempoAFacturar > 0){
-                $interesEstacionamientoHorasExtra = 0;
                 $mensajeEstacionamiento = 'Estacionamiento '.$tipoEstacionamiento.'. Horas: '.intval($tiempoAFacturar).', Tiempo libre: '.$minutosLibre.' min.';
                 $tiempoAFacturar =ceil($tiempoAFacturar);
-                if($tiempoAFacturar > 6){
-                    $interesEstacionamientoHorasExtra = ceil(($tiempoAFacturar -6)/6);  
-                    $tiempoAFacturar = 6;
+                if($tiempoAFacturar > 8 && $despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela"){
+                    $tiempoAFacturar = 8 + ceil(($tiempoAFacturar -8)/8);  
                 }
-
+                
                 if($minimo == 0){
-
+                    
                     //Calculo Estandar
-                    $equivalente     = $precio_estacionamiento;
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
                         $equivalente = $eq_bloque*$euro;
 
-                    $montoDes        = ($equivalente * $tiempoAFacturar * $peso_aeronave) + ($interesEstacionamientoHorasExtra * $equivalente * $peso_aeronave *2);
+                    $montoDes        = ($equivalente * $tiempoAFacturar * $peso_aeronave);
                     $cantidadDes     = '1';
                     $iva             = Concepto::find($concepto_id)->iva;
                     $montoIva        = ($iva * $montoDes)/100 ;
@@ -615,15 +611,13 @@ class DespegueController extends Controller {
                     $cantidadDes     = '1';
                     $iva             = Concepto::find($concepto_id)->iva;
 
-
                     //Calculo Estandar
                     $equivalenteEstandar = $precio_estacionamiento;
                     if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
                         $equivalenteEstandar = $eq_bloque*$euro;
-                    $montoDesEstandar    = ($equivalenteEstandar * $tiempoAFacturar * $peso_aeronave) + ($interesEstacionamientoHorasExtra * $equivalenteEstandar * $peso_aeronave *2);
+                    $montoDesEstandar    = ($equivalenteEstandar * $tiempoAFacturar * $peso_aeronave);
                     $montoIvaEstandar    = ($iva * $montoDesEstandar)/100 ;
                     $totalDesEstandar    = $montoDesEstandar + $montoIvaEstandar;
-		//	dd ( $equivalenteEstandar,$tiempoAFacturar+($interesEstacionamientoHorasExtra*2),$peso_aeronave);
 
                     //Cálculo con mínimo
                     $montoDesMinimo    = $minimo * $this->monto_minimo_est_despegue($despegue);
