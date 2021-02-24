@@ -25,6 +25,17 @@ function checkRowCondition(row, saldoAbonado, saldoPendiente,saldoAbonadoText){
 	return true;
 }
 
+$('#forma-modal-input').on('change', function () {
+	if(this.value == 'DP'){
+		$('#cuentaModal').hide();
+		$('#bancoModal').hide();
+		$('#loteModal').hide();
+	}else{
+		$('#cuentaModal').show();
+		$('#bancoModal').show();
+		$('#loteModal').show();
+	}
+})
 
 function calculateTotalRetencion(){
 
@@ -122,7 +133,7 @@ function calculateTotalDepositar(){
 			ncomprobante:$('#deposito-modal-input').val(),
 			monto:commaToNum($('#monto-modal-input').val())
 		};
-		if(o.ncomprobante=="" || o.fecha=="" || o.monto=="" || o.cuenta_id=="Seleccione"){
+		if((o.ncomprobante=="" || o.fecha=="" || o.monto=="" || o.cuenta_id=="Seleccione") && $('#forma-modal-input').val() != 'DP'){
 			alertify.error('Debe llenar todos los campos del deposito.')
 			return;
 		}

@@ -59,7 +59,8 @@ class Cobrospago extends Model {
             [
                 "D"  => "DEP",
                 "NC" => "NC",
-                "T"  => "TRAN"
+                "T"  => "TRAN",
+                "DP"  => "DAC"
             ];
         return (array_key_exists($value, $d))?$d[$value]:"";
     }

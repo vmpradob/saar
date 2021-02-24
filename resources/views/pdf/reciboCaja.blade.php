@@ -104,13 +104,25 @@
     <strong>{{$traductor->format($pago->monto)}}</strong>
 </td>
 <td colspan="3"  style="font-family: Courier, monospace; font-size: 12; display:inline-block;text-align:center;">
+@if($pago->tipo != 'DAC')
     <strong>{{$pago->ncomprobante}}</strong>
+@else
+No Aplica
+@endif
 </td>
 <td colspan="3" style="text-align:center;">
+@if($pago->tipo != 'DAC')
 {{$pago->banco->nombre}}
+@else
+No Aplica
+@endif
 </td>
 <td colspan="4" style="text-align:center;">
+@if($pago->tipo != 'DAC')
 {{$pago->cuenta->descripcion}}
+@else
+No Aplica
+@endif
 </td>
 <td colspan="2" style="text-align:center;">
 {{$pago->fecha}}

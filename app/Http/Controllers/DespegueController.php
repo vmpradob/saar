@@ -405,12 +405,12 @@ class DespegueController extends Controller {
         $mensajeEstacionamiento = ' ';
         $mensajeAterrizaje      = ' ';
         $nacionalidad = $despegue->aterrizaje->nacionalidadVuelo_id;
-                
+
         $conceptosCon = \App\Concepto::where('aeropuerto_id', session('aeropuerto')->id)->where('condicionPago','=','Contado')->lists('id');
         $conceptosCre = \App\Concepto::where('aeropuerto_id', session('aeropuerto')->id)->where('condicionPago','=','Crédito')->lists('id');
         $conceptosAmb = \App\Concepto::where('aeropuerto_id', session('aeropuerto')->id)->where('condicionPago','=','Ambas')->lists('id');
         $err = false;
-        
+
         $aplica_minimo_estacionamiento = false;
         $aplica_minimo_aterrizaje      = false;
 
@@ -486,7 +486,7 @@ class DespegueController extends Controller {
                 $concepto_id     = EstacionamientoAeronave::where('aeropuerto_id', session('aeropuerto')->id)->wherein('conceptoCredito_id',$conceptosAmb)->Orwherein('conceptoCredito_id',$conceptosCre)->firstOrFail()->conceptoCredito_id;
                 break;
             }
-            
+
 
             if($despegue->aterrizaje->aeronave->nacionalidad->nombre == "Venezuela"){
 
@@ -593,7 +593,7 @@ class DespegueController extends Controller {
                 $mensajeEstacionamiento = 'Estacionamiento '.$tipoEstacionamiento.'. Horas: '.intval($tiempoAFacturar).', Tiempo libre: '.$minutosLibre.' min.';
                 $tiempoAFacturar =ceil($tiempoAFacturar);
                 if($tiempoAFacturar > 6){
-                    $interesEstacionamientoHorasExtra = ceil(($tiempoAFacturar -6)/6);  
+                    $interesEstacionamientoHorasExtra = ceil(($tiempoAFacturar -6)/6);
                     $tiempoAFacturar = 6;
                 }
 
@@ -857,7 +857,7 @@ class DespegueController extends Controller {
 
                 //Cálculo Estándar
                 $montoDesEstandar = $precio_AterDesp * $peso_aeronave;
-		
+
                if($despegue->aterrizaje->aeronave->nacionalidad->nombre != "Venezuela")
                     $montoDesEstandar =$eq_aterDesp*$euro*$peso_aeronave;
 
@@ -892,12 +892,12 @@ class DespegueController extends Controller {
 
             $aterrizajeDespegue->fill(compact('concepto_id', 'condicionPago',  'montoDes', 'cantidadDes', 'iva', 'totalDes', 'recargoPerDes'));
             $factura->detalles->push($aterrizajeDespegue);
-            
+
             //Recargo Articulo 51 comentado hasta que se de la orden de comenzar a facturar
 
             // $recargoArt51 = new Facturadetalle();
             // $concepto_id = 501;
-            // $montoDes = $aterrizajeDespegue->totalDes * 0.1;   
+            // $montoDes = $aterrizajeDespegue->totalDes * 0.1;
             // $cantidadDes = 1.0;
             // $iva = 0.0;
             // $totalDes = $montoDes;
@@ -972,7 +972,7 @@ class DespegueController extends Controller {
             $pesoEmb      = $despegue->peso_embarcado;
             $pesoDesemb   = $despegue->peso_desembarcado;
             $pesoBloque   = PreciosCarga::where('aeropuerto_id', session('aeropuerto')->id)->first()->toneladaPorBloque;
-            $pesoCargado  = ($pesoDesemb + $pesoEmb / $pesoBloque);
+            $pesoCargado  = ($pesoDesemb + $pesoEmb) / $pesoBloque;
             $eq_Carga     = PreciosCarga::where('aeropuerto_id', session('aeropuerto')->id)->first()->equivalenteUT;
             $precio_carga = PreciosCarga::where('aeropuerto_id', session('aeropuerto')->id)->first()->precio_carga;
             $equivalente  = $precio_carga+0;
@@ -1283,7 +1283,7 @@ class DespegueController extends Controller {
 
     public function showPasajeros(Request $request){
         $despegue = Despegue::findOrFail($request->get('despegue'));
-        $pasajeros = $despegue->pasajero; 
+        $pasajeros = $despegue->pasajero;
         return view('despegues.pasajeros.index', compact('despegue', 'pasajeros'));
     }
 
@@ -1345,7 +1345,7 @@ class DespegueController extends Controller {
 
 
     protected function exportar($despegue, $pasajeros, $output = 'I', $dir = 'despegues/'){
-        
+
         //return view('pdf.factura', compact('factura'));
         // create new PDF document
         $pdf = new \TCPDF('P', PDF_UNIT, 'A4', true, 'UTF-8', false);
@@ -1381,7 +1381,7 @@ class DespegueController extends Controller {
 
         // Print text using writeHTMLCell()
         $pdf->writeHTML($html, true, false, true, false, '');
-    
+
         //$pdf->writeHTML($html);
         // ---------------------------------------------------------
         // Close and output PDF document
@@ -1424,21 +1424,21 @@ class DespegueController extends Controller {
                                     return $monto->euro_oficial;
                                 }
                                 break;
-                            
-                            
+
+
                             default:
                                 if($estacionamiento->tipo_pago_gen_matricula_nac_int_id ==  1)
                                     return $monto->unidad_tributaria;
 
                                 if($estacionamiento->tipo_pago_gen_matricula_nac_int_id ==  2)
                                     return $monto->dolar_oficial;
-                                
+
                                 if($estacionamiento->tipo_pago_gen_matricula_nac_int_id ==  3)
                                     return $monto->euro_oficial;
                             break;
                         }
                         break;
-                    
+
                     default:
                         switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
                             case 'Nacional':
@@ -1448,12 +1448,12 @@ class DespegueController extends Controller {
 
                                 if($estacionamiento->tipo_pago_gen_matricula_int_nac_id ==  2)
                                     return $monto->dolar_oficial;
-                                
+
                                 if($estacionamiento->tipo_pago_gen_matricula_int_nac_id ==  3)
                                     return $monto->euro_oficial;
-                            
+
                                     break;
-                            
+
                             default:
                                 # code...
                                 if($estacionamiento->tipo_pago_gen_matricula_int_int_id ==  1)
@@ -1461,10 +1461,10 @@ class DespegueController extends Controller {
 
                                 if($estacionamiento->tipo_pago_gen_matricula_int_int_id ==  2)
                                     return $monto->dolar_oficial;
-                            
+
                                 if($estacionamiento->tipo_pago_gen_matricula_int_int_id ==  3)
                                     return $monto->euro_oficial;
-                            
+
                                 break;
                         }
                         break;
@@ -1480,13 +1480,13 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  2)
                                 return $monto->dolar_oficial;
-                            
+
                             if($estacionamiento->tipo_pago_gen_matricula_nac_nac_id ==  3)
                                 return $monto->euro_oficial;
-                            
+
                             break;
-                        
-                        
+
+
                         default:
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  1)
                                 return $monto->unidad_tributaria;
@@ -1496,11 +1496,11 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  3)
                                 return $monto->euro_oficial;
-                        
+
                             break;
                     }
                     break;
-                
+
                 default:
                     switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
                         case 'Nacional':
@@ -1514,7 +1514,7 @@ class DespegueController extends Controller {
                             if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  3)
                                 return $monto->euro_oficial;
                             break;
-                        
+
                         default:
                             # code...
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  1)
@@ -1522,7 +1522,7 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  2)
                                 return $monto->dolar_oficial;
-                            
+
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  3)
                                 return $monto->euro_oficial;
                             break;
@@ -1544,21 +1544,21 @@ class DespegueController extends Controller {
                             if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  3)
                                 return $monto->euro_oficial;
                             break;
-                        
-                        
+
+
                         default:
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  1)
                                 return $monto->unidad_tributaria;
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  2)
                                 return $monto->dolar_oficial;
-                                
+
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  3)
                                 return $monto->euro_oficial;
                             break;
                     }
                     break;
-                
+
                 default:
                     switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
                         case 'Nacional':
@@ -1568,12 +1568,12 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  2)
                                 return $monto->dolar_oficial;
-                                
+
                             if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  3)
                                 return $monto->euro_oficial;
-                            
+
                                 break;
-                        
+
                         default:
                             # code...
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  1)
@@ -1612,8 +1612,8 @@ class DespegueController extends Controller {
                                     return $monto->euro_oficial;
 
                                 break;
-                            
-                            
+
+
                             default:
                                 if($estacionamiento->tipo_pago_gen_matricula_nac_int_id ==  1)
                                     return $monto->unidad_tributaria;
@@ -1628,7 +1628,7 @@ class DespegueController extends Controller {
                                 break;
                         }
                         break;
-                    
+
                     default:
                         switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
                             case 'Nacional':
@@ -1642,7 +1642,7 @@ class DespegueController extends Controller {
                                 if($estacionamiento->tipo_pago_gen_matricula_int_nac_id ==  3)
                                     return $monto->euro_oficial;
                                 break;
-                            
+
                             default:
                                 # code...
                                 if($estacionamiento->tipo_pago_gen_matricula_int_int_id ==  1)
@@ -1671,10 +1671,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  3)
                                 return $monto->euro_oficial;
-                            
+
                             break;
-                        
-                        
+
+
                         default:
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  1)
                                 return $monto->unidad_tributaria;
@@ -1684,11 +1684,11 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  3)
                                 return $monto->euro_oficial;
-                                
+
                             break;
                     }
                     break;
-                
+
                 default:
                     switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
                         case 'Nacional':
@@ -1701,9 +1701,9 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  3)
                                 return $monto->euro_oficial;
-                            
+
                             break;
-                        
+
                         default:
                             # code...
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  1)
@@ -1711,10 +1711,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  2)
                                 return $monto->dolar_oficial;
-                                
+
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  3)
                                 return $monto->euro_oficial;
-                            
+
                             break;
                     }
                     break;
@@ -1730,13 +1730,13 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  2)
                                 return $monto->dolar_oficial;
-                            
+
                             if($estacionamiento->tipo_pago_com_matricula_nac_nac_id ==  3)
                                 return $monto->euro_oficial;
-                            
+
                             break;
-                        
-                        
+
+
                         default:
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  1)
                                 return $monto->unidad_tributaria;
@@ -1746,11 +1746,11 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_nac_int_id ==  3)
                                 return $monto->euro_oficial;
-                            
+
                             break;
                     }
                     break;
-                
+
                 default:
                     switch ($despegue->aterrizaje->nacionalidad_vuelo->nombre) {
                         case 'Nacional':
@@ -1760,12 +1760,12 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  2)
                                 return $monto->dolar_oficial;
-                                
+
                             if($estacionamiento->tipo_pago_com_matricula_int_nac_id ==  3)
                                 return $monto->euro_oficial;
-                            
+
                             break;
-                        
+
                         default:
                             # code...
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  1)
@@ -1773,10 +1773,10 @@ class DespegueController extends Controller {
 
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  2)
                                 return $monto->dolar_oficial;
-                            
+
                             if($estacionamiento->tipo_pago_com_matricula_int_int_id ==  3)
                                 return $monto->euro_oficial;
-                            
+
                             break;
                     }
                     break;

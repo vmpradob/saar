@@ -245,12 +245,18 @@ class CobranzaController extends Controller {
         }
 
         foreach($pagos as $p){
-            $cobro->pagos()->create(["tipo"        =>$p["tipo"],
-                                    "fecha"        =>$p["fecha"],
-                                    "banco_id"     =>$p["banco_id"],
-                                    "cuenta_id"    =>$p["cuenta_id"],
-                                    "ncomprobante" =>$p["ncomprobante"],
-                                    "monto"        =>$p["monto"]+0]);
+            if($p["tipo"] != 'DP'){
+                $cobro->pagos()->create(["tipo"        =>$p["tipo"],
+                                        "fecha"        =>$p["fecha"],
+                                        "banco_id"     =>$p["banco_id"],
+                                        "cuenta_id"    =>$p["cuenta_id"],
+                                        "ncomprobante" =>$p["ncomprobante"],
+                                        "monto"        =>$p["monto"]+0]);
+            }else{
+                $cobro->pagos()->create(["tipo"        =>$p["tipo"],
+                                        "fecha"        =>$p["fecha"],
+                                        "monto"        =>$p["monto"]+0]);
+            }
         }
 
 
