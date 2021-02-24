@@ -196,10 +196,11 @@
 				    <div class="form-group">
 					    <label for="forma-modal-input" class="col-sm-2 control-label">Forma de pago</label>
 					    <div class="col-md-10">
-						    <select class="form-control" id="forma-modal-input">
+						<select class="form-control"  id="forma-modal-input">
 							    <option value="D">Deposito</option>
 							    <option value="NC">Nota de credito</option>
 								<option value="T">Transferencia</option>
+								<option value="DP">Dación de Pago</option>
 						    </select>
 					    </div>
 				    </div>
@@ -209,7 +210,7 @@
 						    <input type="text" class="form-control" id="fecha-modal-input" autocomplete='off'>
 					    </div>
 				    </div>
-				    <div class="form-group">
+				    <div class="form-group" id="bancoModal">
 					    <label for="banco-modal-input" class="col-sm-2 control-label">Banco</label>
 					    <div class="col-md-10">
 						    <select id="banco-modal-input" class="form-control">
@@ -221,7 +222,7 @@
 						    </select>
 					    </div>
 				    </div>
-				    <div class="form-group">
+				    <div class="form-group" id="cuentaModal">
 					    <label for="cuenta-modal-input" class="col-sm-2 control-label">Cuenta</label>
 					    <div class="col-md-10">
 						    <select id="cuenta-modal-input" class="form-control">
@@ -229,7 +230,7 @@
 						    </select>		
 					    </div>
 				    </div>
-				    <div class="form-group">
+				    <div class="form-group" id="loteModal">
 					    <label for="deposito-modal-input" class="col-sm-2 control-label">#Deposito/#Lote</label>
 					    <div class="col-md-10">
 						    <input type="text" class="form-control" id="deposito-modal-input" autocomplete='off'>
@@ -440,6 +441,18 @@ function calculateTotalDepositar(){
 }
 $(document).ready(function(){
 
+	$('#forma-modal-input').on('change', function () {
+	if(this.value == 'DP'){
+		$('#cuentaModal').hide();
+		$('#bancoModal').hide();
+		$('#loteModal').hide();
+	}else{
+		$('#cuentaModal').show();
+		$('#bancoModal').show();
+		$('#loteModal').show();
+	}
+	})
+
 	$('body').delegate('#ajuste-input', 'keyup paste', calculateTotalDepositar);
 
 	$('#fecha-modal-input, #fecha-retencion-input').datepicker({
@@ -476,7 +489,7 @@ $(document).ready(function(){
 			ncomprobante:$('#deposito-modal-input').val(),
 			monto:commaToNum($('#monto-modal-input').val())
 		};
-		if(o.ncomprobante=="" || o.fecha=="" || o.monto==""){
+		if((o.ncomprobante=="" || o.fecha=="" || o.monto=="" || o.cuenta_id=="Seleccione") && $('#forma-modal-input').val() != 'DP'){
 			alertify.error('Debe llenar todos los campos del deposito.')
 			return;
 		}
