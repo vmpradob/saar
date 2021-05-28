@@ -92,16 +92,16 @@
 <br>
 <tr><td colspan="10" style="border-bottom: 1px solid black;"></td></tr>
 <tr>
-<td colspan="5" >
+<td colspan="4" >
 </td>
-<td colspan="2" style="text-align: left;"><strong>Sub Total</strong></td>
+<td colspan="3" style="text-align: left;"><strong>Sub Total</strong></td>
 <td colspan="3" style="text-align: right;">
     <strong> Bs. <span style="text-align: right; font-family: Courier, monospace; font-size: 12;"> {{$traductor->format($factura->subtotal)}} </span> </strong>
 </td>
 </tr>
 <tr>
-<td colspan="5" ></td>
-<td colspan="2" >
+<td colspan="4" ></td>
+<td colspan="3" >
 <strong>IVA</strong> ({{$traductor->format(($factura->iva>0)?( ($factura->iva/$factura->subtotal)* 100 ):0)}}%)
 </td>
 <td colspan="3" style="text-align: right;">
@@ -125,10 +125,8 @@
 </td>
 </tr>
 <tr>
-<td colspan="6" >
+<td colspan="10" >
 <strong>SON: </strong> {{$traductor->numtoletras($factura->total)}}
-</td>
-<td colspan="4">
 </td>
 </tr>
 </table>
