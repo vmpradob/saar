@@ -351,7 +351,7 @@
 					<label class="control-label col-xs-2">Total</label>
 
 					<div class="col-xs-4">
-						<input class="form-control" id="total-modal-input" readonly value="0,00" autocomplete="off"/>
+						<input class="form-control" id="total-modal-input" value="0,00" autocomplete="off"/>
 					</div>
 
 				</div>
