@@ -92,28 +92,28 @@
 <br>
 <tr><td colspan="10" style="border-bottom: 1px solid black;"></td></tr>
 <tr>
-<td colspan="4" >
+<td colspan="3" >
 </td>
-<td colspan="3" style="text-align: left;"><strong>Sub Total</strong></td>
-<td colspan="3" style="text-align: right;">
+<td colspan="2" style="text-align: left;"><strong>Sub Total</strong></td>
+<td colspan="5" style="text-align: right;">
     <strong> Bs. <span style="text-align: right; font-family: Courier, monospace; font-size: 12;"> {{$traductor->format($factura->subtotal)}} </span> </strong>
 </td>
 </tr>
 <tr>
-<td colspan="4" ></td>
-<td colspan="3" >
+<td colspan="3" ></td>
+<td colspan="2" >
 <strong>IVA</strong> ({{$traductor->format(($factura->iva>0)?( ($factura->iva/$factura->subtotal)* 100 ):0)}}%)
 </td>
-<td colspan="3" style="text-align: right;">
+<td colspan="5" style="text-align: right;">
     <strong>Bs. <span style="font-family: Courier, monospace; font-size: 12; font-weight: bold;"> {{$traductor->format($factura->iva)}} </span> </strong>
 </td>
 </tr>
 <tr>
-<td colspan="5" ></td>
+<td colspan="3" ></td>
 <td colspan="2" style="border-bottom: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;">
     <strong>TOTAL GENERAL</strong>
 </td>
-<td colspan="3" style="border-bottom: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;text-align:right; font-weight: bold;" >
+<td colspan="5" style="border-bottom: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;text-align:right; font-weight: bold;" >
     <strong>Bs.  <span style="font-family: Courier, monospace; font-size: 12;"> {{$traductor->format($factura->total)}} </span> </strong>
 </td>
 </tr>
