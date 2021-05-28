@@ -84,7 +84,7 @@
 @endforeach
 
 <tr> <td colspan="10">
-@for($i=0; $i<20-$factura->detalles->count();$i++)
+@for($i=2; $i<20-$factura->detalles->count();$i++)
 <br>
 @endfor
 </td></tr>
