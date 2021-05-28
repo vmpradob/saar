@@ -11,7 +11,7 @@ function numToComma(number){
         number= Math.round(number * 100) / 100
         number=isNaN(number)?0:number;
     }
-    return number.toLocaleString('es',{minimumFractionDigits:2});
+    return number.toLocaleString('es');
 }
 function commaToNum(string){
     if( string === undefined){
