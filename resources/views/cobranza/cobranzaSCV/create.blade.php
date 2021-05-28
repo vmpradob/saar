@@ -575,7 +575,7 @@ $('#cxc-table').delegate('.retencion-btn','click',function(){
 	$('#islrper-modal-input').val(numToComma(data.islrper));
 	$('#ivaper-modal-input').val(numToComma(data.ivaper));
 	$('#iva-modal-input').val(numToComma(data.iva));
-	$('#base-modal-input').val(numToComma(data.base));
+	$('#base-modal-input').val(numToComma(data.total));
 	$(tr).addClass('retencion');
 	if(!data.isRetencionEditable){
 		$('#retencion-modal [type=text]').attr("disabled","");
