@@ -110,10 +110,10 @@
 </tr>
 <tr>
 <td colspan="5" ></td>
-<td colspan="2" style="border-bottom: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;">
+<td colspan="5" style="border-bottom: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;">
     <strong>TOTAL GENERAL</strong>
 </td>
-<td colspan="3" style="border-bottom: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;text-align:right; font-weight: bold;" >
+<td colspan="5" style="border-bottom: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;text-align:right; font-weight: bold;" >
     <strong>Bs.  <span style="font-family: Courier, monospace; font-size: 12;"> {{$traductor->format($factura->total)}} </span> </strong>
 </td>
 </tr>
@@ -125,7 +125,7 @@
 </td>
 </tr>
 <tr>
-<td colspan="6" >
+<td colspan="12" >
 <strong>SON: </strong> {{$traductor->numtoletras($factura->total)}}
 </td>
 <td colspan="4">
