@@ -8,7 +8,6 @@ function numToComma(number){
     }
     if(typeof number === "string"){
         number=parseFloat(number);
-        number= Math.round(number * 100) / 100
         number=isNaN(number)?0:number;
     }
     return number.toLocaleString('es',{minimumFractionDigits:2});
