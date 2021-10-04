@@ -1,0 +1,1 @@
+update facturametadatas set montopagado = montopagado / 1000000, basepagado = basepagado / 1000000, total = total / 1000000

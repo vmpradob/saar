@@ -1,0 +1,1 @@
+update facturadetalles set montoDes = montoDes / 1000000, totalDes = totalDes / 1000000

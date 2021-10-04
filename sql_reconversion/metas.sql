@@ -1,0 +1,1 @@
+update metas set gobernacion_meta = gobernacion_meta / 1000000, saar_meta = saar_meta / 1000000

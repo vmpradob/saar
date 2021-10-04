@@ -1,0 +1,1 @@
+update tasaopdetalles set total = total / 1000000, costo = costo / 1000000 

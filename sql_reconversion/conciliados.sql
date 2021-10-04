@@ -1,0 +1,1 @@
+update conciliados set monto_banco = monto_banco / 1000000, monto_lote = monto_lote / 1000000, comision_bancaria = comision_bancaria / 1000000
