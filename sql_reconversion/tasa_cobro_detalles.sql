@@ -1,0 +1,1 @@
+update tasa_cobro_detalles set monto = monto / 1000000

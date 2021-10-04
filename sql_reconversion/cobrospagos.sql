@@ -1,0 +1,1 @@
+update cobrospagos set monto = monto / 1000000
